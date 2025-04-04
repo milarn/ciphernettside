@@ -30,7 +30,7 @@
             --accent-blue: #0078D4;
             --accent-light-blue: #50E6FF;
             --accent-dark: #171828;
-            --accent-gradient: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            --accent-gradient: linear-gradient(135deg, #2196F3, #1565C0);
             --glow-primary: 0 0 15px rgba(245, 162, 140, 0.6);
             --glow-blue: 0 0 15px rgba(0, 120, 212, 0.6);
         }
@@ -144,15 +144,15 @@
         }
         
         .btn-primary {
-            background: var(--primary);
-            color: var(--secondary);
-            box-shadow: 0 4px 14px rgba(245, 162, 140, 0.4);
+            background: #2196F3;
+            color: var(--white);
+            box-shadow: 0 4px 14px rgba(33, 150, 243, 0.4);
         }
         
         .btn-primary:hover {
-            background: var(--primary-dark);
+            background: #1565C0;
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(245, 162, 140, 0.6);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.6);
         }
         
         .btn-secondary {
@@ -168,33 +168,33 @@
         }
         
         .btn-azure {
-            background: var(--primary);
-            color: var(--secondary);
-            box-shadow: 0 4px 14px rgba(245, 162, 140, 0.4);
+            background: linear-gradient(135deg, #2196F3, #1565C0);
+            color: var(--white);
+            box-shadow: 0 4px 14px rgba(33, 150, 243, 0.4);
         }
         
         .btn-azure:hover {
-            background: var(--primary-dark);
+            background: linear-gradient(135deg, #1E88E5, #0D47A1);
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(245, 162, 140, 0.6);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.6);
         }
         
         .btn-outline {
             background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
+            border: 2px solid #2196F3;
+            color: #2196F3;
         }
         
         .btn-outline:hover {
-            background: var(--primary);
-            color: var(--secondary);
+            background: #2196F3;
+            color: var(--white);
             transform: translateY(-3px);
         }
         
         .btn-cloud {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--secondary);
-            box-shadow: 0 4px 14px rgba(245, 162, 140, 0.4);
+            background: linear-gradient(135deg, #2196F3, #1565C0);
+            color: var(--white);
+            box-shadow: 0 4px 14px rgba(33, 150, 243, 0.4);
             border: none;
             position: relative;
             overflow: hidden;
@@ -202,7 +202,7 @@
         
         .btn-cloud:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 120, 212, 0.6);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.6);
         }
         
         .btn-cloud::after {
@@ -243,19 +243,19 @@
         
         @keyframes pulse-glow {
             0% {
-                box-shadow: 0 0 5px rgba(0, 120, 212, 0.5);
+                box-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
             }
             100% {
-                box-shadow: 0 0 20px rgba(0, 120, 212, 0.8);
+                box-shadow: 0 0 20px rgba(33, 150, 243, 0.8);
             }
         }
         
         .text-primary {
-            color: var(--primary);
+            color: #2196F3;
         }
         
         .text-azure {
-            color: var(--azure-blue);
+            color: #2196F3;
         }
         
         .text-center {
@@ -359,13 +359,13 @@
         }
         
         .menu-contact-info a i {
-            margin-right: 8px;
-            color: var(--primary);
+        margin-right: 8px;
+        color: #2196F3;
         }
         
         .menu-contact-info a:hover {
-            color: var(--primary);
-            transform: translateY(-2px);
+        color: #2196F3;
+        transform: translateY(-2px);
         }
         
         .nav-list {
@@ -386,14 +386,14 @@
         }
         
         .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary);
-            transition: width 0.3s ease;
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #2196F3;
+        transition: width 0.3s ease;
         }
         
         .nav-link:hover::after,
@@ -403,7 +403,7 @@
         
         .nav-link:hover,
         .nav-link.active {
-            color: var(--primary);
+        color: #2196F3;
         }
         
         .header-cta {
@@ -507,21 +507,21 @@
         }
         
         .dropdown-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 3px;
-            background-color: var(--primary);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 3px;
+        background-color: #2196F3;
+        transform: scaleY(0);
+        transition: transform 0.3s ease;
         }
         
         .dropdown-item:hover {
-            background-color: var(--secondary-light);
-            color: var(--primary);
-            padding-left: 25px;
+        background-color: var(--secondary-light);
+        color: #2196F3;
+        padding-left: 25px;
         }
         
         .dropdown-item:hover::before {
@@ -529,9 +529,9 @@
         }
 
         .dropdown-item.active {
-            color: var(--primary);
-            background-color: rgba(245, 162, 140, 0.1);
-            padding-left: 25px;
+        color: #2196F3;
+        background-color: rgba(33, 150, 243, 0.1);
+        padding-left: 25px;
         }
         
         .dropdown-item.active::before {
@@ -576,27 +576,27 @@
         }
         
         .page-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 80px;
-            height: 4px;
-            background-color: var(--primary);
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 80px;
+        height: 4px;
+        background-color: #2196F3;
         }
         
         .hero-badge {
-            display: inline-block;
-            padding: 8px 20px;
-            background-color: rgba(245, 162, 140, 0.2);
-            color: var(--primary);
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            animation: fadeInUp 1s ease;
+        display: inline-block;
+        padding: 8px 20px;
+        background-color: rgba(33, 150, 243, 0.2);
+        color: #2196F3;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        animation: fadeInUp 1s ease;
         }
         
         .hero-title {
@@ -643,12 +643,12 @@
         }
         
         .float-1 {
-            width: 300px;
-            height: 300px;
-            top: -100px;
-            right: -50px;
-            background: radial-gradient(circle at center, var(--primary-light), transparent 70%);
-            animation-delay: 0s;
+        width: 300px;
+        height: 300px;
+        top: -100px;
+        right: -50px;
+        background: radial-gradient(circle at center, #90CAF9, transparent 70%);
+        animation-delay: 0s;
         }
         
         .float-2 {
@@ -705,16 +705,16 @@
         }
         
         .section-tag {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: rgba(245, 162, 140, 0.1);
-            color: var(--primary);
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: rgba(33, 150, 243, 0.1);
+        color: #2196F3;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
         }
         
         .intro-content h2 {
@@ -724,20 +724,20 @@
         }
         
         .intro-content h2 .highlight {
-            position: relative;
-            color: var(--primary);
-            display: inline-block;
+        position: relative;
+        color: #2196F3;
+        display: inline-block;
         }
         
         .intro-content h2 .highlight::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 8px;
-            background-color: rgba(245, 162, 140, 0.2);
-            z-index: -1;
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 8px;
+        background-color: rgba(33, 150, 243, 0.2);
+        z-index: -1;
         }
         
         .intro-content p {
@@ -768,7 +768,7 @@
         }
         
         .value-pill i {
-            color: var(--primary);
+        color: #2196F3;
         }
         
         .value-pill:hover {
@@ -778,7 +778,7 @@
         }
         
         .value-pill:hover i {
-            color: var(--primary-light);
+        color: #90CAF9;
         }
         
         .intro-image {
@@ -796,13 +796,13 @@
         }
         
         .intro-image::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(245, 162, 140, 0.3), rgba(0, 120, 212, 0.3));
-            z-index: 1;
-            opacity: 0.7;
-            transition: opacity 0.5s ease;
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(33, 150, 243, 0.3), rgba(0, 120, 212, 0.3));
+        z-index: 1;
+        opacity: 0.7;
+        transition: opacity 0.5s ease;
         }
         
         .intro-image:hover::before {
@@ -849,12 +849,12 @@
         }
         
         .section-subtitle {
-            color: var(--primary);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            display: block;
+        color: #2196F3;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 15px;
+        display: block;
         }
         
         .section-description {
@@ -887,22 +887,22 @@
         }
         
         .cloud-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at top right, rgba(245, 162, 140, 0.2), transparent 70%);
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at top right, rgba(33, 150, 243, 0.2), transparent 70%);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
         }
         
         .cloud-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            border-color: rgba(245, 162, 140, 0.3);
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        border-color: rgba(33, 150, 243, 0.3);
         }
         
         .cloud-card:hover::before {
@@ -910,24 +910,24 @@
         }
         
         .cloud-card-icon {
-            width: 70px;
-            height: 70px;
-            background: rgba(245, 162, 140, 0.1);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            color: var(--primary);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
+        width: 70px;
+        height: 70px;
+        background: rgba(33, 150, 243, 0.1);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        color: #2196F3;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
         }
         
         .cloud-card:hover .cloud-card-icon {
-            background: var(--primary);
-            color: var(--secondary);
-            transform: rotateY(360deg);
-            box-shadow: 0 0 20px rgba(245, 162, 140, 0.3);
+        background: #2196F3;
+        color: var(--white);
+        transform: rotateY(360deg);
+        box-shadow: 0 0 20px rgba(33, 150, 243, 0.3);
         }
         
         .cloud-card-title {
@@ -968,7 +968,7 @@
         }
         
         .platform-azure {
-            color: var(--primary);
+        color: #2196F3;
         }
         
         .platform-aws {
@@ -1031,20 +1031,20 @@
         }
         
         .cloud-content h2 .highlight {
-            color: var(--primary-light);
-            position: relative;
-            display: inline-block;
+        color: #90CAF9;
+        position: relative;
+        display: inline-block;
         }
         
         .cloud-content h2 .highlight::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 8px;
-            background-color: rgba(245, 162, 140, 0.4);
-            z-index: -1;
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 8px;
+        background-color: rgba(33, 150, 243, 0.4);
+        z-index: -1;
         }
         
         .cloud-content p {
@@ -1071,14 +1071,14 @@
         }
         
         .cloud-step::after {
-            content: '';
-            position: absolute;
-            top: 40px;
-            left: 21px;
-            width: 2px;
-            height: calc(100%);
-            background: linear-gradient(to bottom, var(--primary), transparent);
-            z-index: 1;
+        content: '';
+        position: absolute;
+        top: 40px;
+        left: 21px;
+        width: 2px;
+        height: calc(100%);
+        background: linear-gradient(to bottom, #2196F3, transparent);
+        z-index: 1;
         }
         
         .cloud-step:last-child::after {
@@ -1086,20 +1086,20 @@
         }
         
         .step-number {
-            width: 42px;
-            height: 42px;
-            background: var(--accent-gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: var(--secondary);
-            font-size: 1.2rem;
-            position: relative;
-            z-index: 2;
-            flex-shrink: 0;
-            box-shadow: 0 5px 15px rgba(245, 162, 140, 0.3);
+        width: 42px;
+        height: 42px;
+        background: var(--accent-gradient);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        color: var(--white);
+        font-size: 1.2rem;
+        position: relative;
+        z-index: 2;
+        flex-shrink: 0;
+        box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
         }
         
         .step-content {
@@ -1186,17 +1186,17 @@
         }
         
         .benefit-card::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
-            box-shadow: 0 0 10px rgba(245, 162, 140, 0.5);
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #2196F3, #1565C0);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+        box-shadow: 0 0 10px rgba(33, 150, 243, 0.5);
         }
         
         .benefit-card:hover {
@@ -1211,24 +1211,24 @@
         }
         
         .benefit-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 15px;
-            background: linear-gradient(135deg, var(--secondary-light), rgba(0, 120, 212, 0.3));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 35px;
-            color: var(--primary);
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        width: 80px;
+        height: 80px;
+        border-radius: 15px;
+        background: linear-gradient(135deg, var(--secondary-light), rgba(33, 150, 243, 0.3));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 35px;
+        color: #2196F3;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
         }
         
         .benefit-card:hover .benefit-icon {
-            transform: rotateY(180deg);
-            background: linear-gradient(135deg, var(--primary), var(--azure-blue));
-            color: var(--white);
+        transform: rotateY(180deg);
+        background: linear-gradient(135deg, #2196F3, #1565C0);
+        color: var(--white);
         }
         
         .benefit-title {
@@ -1260,15 +1260,15 @@
         }
         
         .journey-timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 3px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--primary), var(--azure-blue));
-            z-index: 1;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(to bottom, #2196F3, var(--azure-blue));
+        z-index: 1;
         }
         
         .timeline-item {
@@ -1282,17 +1282,17 @@
         }
         
         .timeline-item::before {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: var(--primary);
-            z-index: 3;
-            box-shadow: 0 0 0 5px rgba(245, 162, 140, 0.2);
+        content: '';
+        position: absolute;
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #2196F3;
+        z-index: 3;
+        box-shadow: 0 0 0 5px rgba(33, 150, 243, 0.2);
         }
         
         .timeline-item:nth-child(odd) .timeline-content {
@@ -1307,14 +1307,14 @@
         }
         
         .timeline-date {
-            display: inline-block;
-            padding: 5px 15px;
-            background-color: var(--primary);
-            color: var(--white);
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 15px;
+        display: inline-block;
+        padding: 5px 15px;
+        background-color: #2196F3;
+        color: var(--white);
+        border-radius: 30px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 15px;
         }
         
         .timeline-title {
@@ -1329,23 +1329,23 @@
         }
         
         .timeline-item:nth-child(odd)::after {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: calc(50% - 20px);
-            width: 20px;
-            height: 2px;
-            background: var(--primary);
+        content: '';
+        position: absolute;
+        top: 15px;
+        left: calc(50% - 20px);
+        width: 20px;
+        height: 2px;
+        background: #2196F3;
         }
         
         .timeline-item:nth-child(even)::after {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: calc(50% + 1px);
-            width: 20px;
-            height: 2px;
-            background: var(--primary);
+        content: '';
+        position: absolute;
+        top: 15px;
+        left: calc(50% + 1px);
+        width: 20px;
+        height: 2px;
+        background: #2196F3;
         }
 
         /* Contact Section */
@@ -1393,16 +1393,16 @@
         }
         
         .contact-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            background-color: rgba(245, 162, 140, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: var(--primary);
-            box-shadow: 0 5px 15px rgba(245, 162, 140, 0.2);
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        background-color: rgba(33, 150, 243, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: #2196F3;
+        box-shadow: 0 5px 15px rgba(33, 150, 243, 0.2);
         }
         
         .contact-text {
@@ -1430,9 +1430,9 @@
         }
         
         .contact-social a:hover {
-            background-color: var(--primary);
-            color: var(--white);
-            transform: translateY(-5px);
+        background-color: #2196F3;
+        color: var(--white);
+        transform: translateY(-5px);
         }
         
         .contact-form {
@@ -1470,10 +1470,10 @@
         }
         
         .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(245, 162, 140, 0.2);
-            background-color: rgba(255, 255, 255, 0.1);
+        outline: none;
+        border-color: #2196F3;
+        box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+        background-color: rgba(255, 255, 255, 0.1);
         }
         
         textarea.form-control {
@@ -1517,13 +1517,13 @@
         }
         
         .footer-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: var(--primary);
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background-color: #2196F3;
         }
         
         .footer-links {
@@ -1541,8 +1541,8 @@
         }
         
         .footer-links a:hover {
-            color: var(--primary);
-            padding-left: 5px;
+        color: #2196F3;
+        padding-left: 5px;
         }
         
         .footer-social {
@@ -1565,8 +1565,8 @@
         }
         
         .footer-social a:hover {
-            background-color: var(--primary);
-            transform: translateY(-3px);
+        background-color: #2196F3;
+        transform: translateY(-3px);
         }
         
         .footer-bottom {
@@ -1721,7 +1721,7 @@
             
             .nav-link:hover {
                 padding-left: 10px;
-                color: var(--primary);
+                color: #2196F3;
             }
             
             .nav-link::after {
@@ -1750,7 +1750,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+                background: linear-gradient(90deg, #2196F3, #1565C0);
             }
             
             .header-cta .btn i {
@@ -1798,7 +1798,7 @@
             }
             
             .dropdown-item:hover {
-                border-left: 3px solid var(--primary);
+                border-left: 3px solid #2196F3;
                 background-color: rgba(255, 255, 255, 0.1);
                 padding-left: 25px;
             }
@@ -1887,13 +1887,11 @@
                         </a>
                         <div class="dropdown-content" id="servicesDropdown">
                             <a href="it-drift.html" class="dropdown-item">IT-drift</a>
-                            <a href="m365.html" class="dropdown-item">Microsoft Intune & M365</a>
                             <a href="sikkerhetstjenester.html" class="dropdown-item">Sikkerhetstjenester</a>
                             <a href="skytjenester.html" class="dropdown-item active">Skytjenester</a>
                             <a href="innsiktoganalyse.html" class="dropdown-item">Innsikt og analyse</a>
                             <a href="strategisk-it-radgivning.html" class="dropdown-item">Strategisk IT-rådgivning</a>
                             <a href="devops-monitorering.html" class="dropdown-item">DevOps-monitorering</a>
-                            <a href="doku.html" class="dropdown-item">Dokumentasjon as a Service</a>
                         </div>
                     </li>
                     <li class="nav-item"><a href="om.html" class="nav-link">Om oss</a></li>
@@ -1901,7 +1899,7 @@
                     <li class="nav-item"><a href="kontakt.html#karriere" class="nav-link">Karriere</a></li>
                 </ul>
                 
-                <a href="#kontakt" class="btn btn-primary header-cta">Kontakt oss</a>
+                <a href="#kontakt" class="btn btn-azure header-cta">Kontakt oss</a>
                 
                 <!-- Mobile-only footer with contact info -->
                 <div class="menu-footer">
@@ -2002,7 +2000,7 @@
                     </div>
                     
                     <div class="cloud-image">
-                        <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=1200" alt="Moderne datasenter som representerer skytjenester">
+                        <img src="bilder\dante.png" alt="Moderne datasenter som representerer skytjenester">
                     </div>
                 </div>
             </div>
@@ -2016,7 +2014,7 @@
             <div class="container">
                 <div class="section-header">
                     <span class="section-subtitle">Våre skyløsninger</span>
-                    <h2>Sikre og pålitelige <span style="color: var(--primary);">løsninger</span> for din virksomhet</h2>
+                    <h2>Sikre og pålitelige <span style="color: #2196F3;">løsninger</span> for din virksomhet</h2>
                     <p class="section-description" style="color: var(--secondary);">Vi tilbyr et bredt spekter av skytjenester som kan skreddersys etter dine behov og krav.</p>
                 </div>
                 
@@ -2110,7 +2108,7 @@
             <div class="container">
                 <div class="section-header">
                     <span class="section-subtitle">Fordeler med skytjenester</span>
-                    <h2>Hvorfor velge <span class="text-primary">skyløsninger?</span></h2>
+                    <h2>Hvorfor velge <span style="color: #2196F3;">skyløsninger?</span></h2>
                     <p class="section-description">Skytjenester gir en rekke fordeler for moderne virksomheter som ønsker å være konkurransedyktige.</p>
                 </div>
                 
@@ -2172,7 +2170,7 @@
             <div class="container">
                 <div class="contact-grid">
                     <div class="contact-content">
-                        <h2>Klar for å flytte <span style="color: var(--primary);">virksomheten din</span> til skyen?</h2>
+                        <h2>Klar for å flytte <span style="color: #2196F3;">virksomheten din</span> til skyen?</h2>
                         <p>Ta kontakt med oss for en uforpliktende samtale om hvordan vi kan hjelpe deg med å modernisere din IT-infrastruktur og få mer ut av skytjenester.</p>
                         
                         <div class="contact-info">
@@ -2219,7 +2217,7 @@
                             <div class="form-group">
                                 <textarea class="form-control" placeholder="Hva kan vi hjelpe deg med?" rows="5" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Send</button>
+                            <button type="submit" class="btn btn-azure">Send</button>
                         </form>
                     </div>
                 </div>
@@ -2246,13 +2244,11 @@
                     <h5 class="footer-title">Tjenester</h5>
                     <ul class="footer-links">
                         <li><a href="it-drift.html">IT-drift</a></li>
-                        <li><a href="m365.html">Microsoft Intune & M365</a></li>
                         <li><a href="sikkerhetstjenester.html">Sikkerhetstjenester</a></li>
                         <li><a href="skytjenester.html">Skytjenester</a></li>
                         <li><a href="innsiktoganalyse.html">Innsikt og analyse</a></li>
                         <li><a href="strategisk-it-radgivning.html">Strategisk IT-rådgivning</a></li>
                         <li><a href="devops-monitorering.html">DevOps-monitorering</a></li>
-                        <li><a href="doku.html">Dokumentasjon as a Service</a></li>
                     </ul>
                 </div>
                 

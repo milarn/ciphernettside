@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #F5A28C; /* Oransj */
-            --primary-dark: #E07E68; /* Mørkere oransj */
-            --primary-light: #FFCEBF; /* Lysere oransj */
+            --primary: #4CAF50; /* Grønn */
+            --primary-dark: #2E7D32; /* Mørkere grønn */
+            --primary-light: #A5D6A7; /* Lysere grønn */
             --secondary: #212338; /* Mørkeblå - primærfarge */
             --secondary-dark: #171828; /* Mørkere blå */
             --secondary-light: #353756; /* Lysere blå */
@@ -22,8 +22,8 @@
             --gray: #6c757d;
             --light-gray: #F2F2F2;
             --white: #FFFFFF;
+            --gradient-green: linear-gradient(135deg, var(--primary), var(--primary-dark));
             --gradient-blue: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
-            --gradient-orange: linear-gradient(135deg, var(--primary), var(--primary-dark));
             --background: #2A2C44; /* Lysere bakgrunn enn original */
         }
         
@@ -117,14 +117,14 @@
         
         .btn-primary {
             background: var(--primary);
-            color: var(--secondary);
-            box-shadow: 0 4px 14px rgba(245, 162, 140, 0.4);
+            color: var(--white);
+            box-shadow: 0 4px 14px rgba(76, 175, 80, 0.4);
         }
         
         .btn-primary:hover {
             background: var(--primary-dark);
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(245, 162, 140, 0.6);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
         }
         
         .btn-secondary {
@@ -142,13 +142,36 @@
         .btn-outline {
             background: transparent;
             border: 2px solid var(--primary);
-            color: var(--primary);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.4s ease;
+        }
+        
+        .btn-outline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
         }
         
         .btn-outline:hover {
-            background: var(--primary);
-            color: var(--secondary);
+            color: var(--white);
             transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .btn-outline:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
         }
         
         .text-primary {
@@ -314,146 +337,301 @@
             display: none; /* Hide by default on desktop */
         }
 
-        /* Animated decoration */
-        .animated-shape {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            border-radius: 50%;
-            background: radial-gradient(circle at center, rgba(245, 162, 140, 0.2), transparent 70%);
-            z-index: 0;
-            animation: float 8s ease-in-out infinite;
-        }
-
-        .shape1 {
-            top: -100px;
-            right: -100px;
-            animation-delay: 0s;
-        }
-
-        .shape2 {
-            bottom: -150px;
-            left: -100px;
-            width: 300px;
-            height: 300px;
-            animation-delay: -2s;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) scale(1);
-            }
-            50% {
-                transform: translateY(-20px) scale(1.05);
-            }
-        }
-        
-        /* Hero Section */
-        .page-hero {
-            padding: 180px 0 100px;
+        /* Hero Section - Diagonal Design */
+        .hero {
             position: relative;
-            background-color: var(--background);
+            padding: 200px 0 150px;
+            background-color: var(--secondary-dark);
             color: var(--white);
             overflow: hidden;
+            background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
         }
         
-        .page-hero::before {
+        .hero::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at top right, rgba(245, 162, 140, 0.2), transparent 60%);
+            background: linear-gradient(135deg, rgba(23, 24, 40, 0.92), rgba(33, 35, 56, 0.85));
             z-index: 1;
         }
         
-        .page-hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-        }
-        
-        .page-title {
-            font-size: 4rem;
-            margin-bottom: 30px;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .page-title::after {
+        /* Diagonal Divider */
+        .hero::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -3px;
             left: 0;
-            width: 80px;
-            height: 4px;
-            background-color: var(--primary);
+            width: 100%;
+            height: 100px;
+            background: var(--white);
+            clip-path: polygon(0 100%, 100% 100%, 100% 40%, 0 100%);
+            z-index: 2;
+        }
+        
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+            z-index: 3;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: rgba(76, 175, 80, 0.2);
+            color: var(--primary-light);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            line-height: 1.2;
+            font-weight: 700;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            color: rgba(255,255,255,0.9);
+            max-width: 90%;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
         }
 
-        /* Intro Section */
-        .intro-section {
-            padding: 100px 0;
+        .hero-image {
+            position: relative;
+        }
+        
+        .hero-image img {
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+            animation: fadeInImage 1.2s ease 0.8s forwards;
+        }
+        
+        .hero-image img:hover {
+            transform: perspective(1000px) rotateY(0) rotateX(0);
+        }
+        
+        /* Animated shapes for hero */
+        .hero-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .hero-shape {
+            position: absolute;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: floatShape 10s infinite ease-in-out;
+        }
+        
+        .shape-1 {
+            width: 200px;
+            height: 200px;
+            top: -100px;
+            right: 10%;
+            animation-delay: 0s;
+        }
+        
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 5%;
+            animation-delay: 2s;
+        }
+        
+        .shape-3 {
+            width: 100px;
+            height: 100px;
+            bottom: 15%;
+            right: 20%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes floatShape {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-30px) scale(1.1);
+            }
+        }
+        
+        @keyframes fadeInImage {
+            from {
+                opacity: 0;
+                transform: perspective(1000px) rotateY(-10deg) rotateX(10deg) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: perspective(1000px) rotateY(-5deg) rotateX(5deg) translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 120px 0;
             background-color: var(--white);
             position: relative;
         }
         
-        .intro-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: center;
-            gap: 50px;
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
         }
         
-        .intro-content h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            position: relative;
-        }
-        
-        .intro-content h2 .highlight {
-            position: relative;
-            z-index: 1;
+        .section-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background-color: rgba(76, 175, 80, 0.15);
             color: var(--primary);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
-        .intro-content p {
-            margin-bottom: 25px;
-            font-size: 1.2rem;
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
             color: var(--secondary);
         }
         
-        .intro-img-container {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
+        .section-subtitle {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            color: var(--secondary-light);
         }
         
-        .intro-img-container::before {
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 40px 30px;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .feature-card::before {
             content: '';
             position: absolute;
-            top: -20px;
-            left: -20px;
-            right: 20px;
-            bottom: 20px;
-            background: var(--gradient-orange);
-            border-radius: 20px;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-green);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.4s ease;
             z-index: -1;
-            opacity: 0.2;
         }
         
-        .intro-img {
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--light-gray);
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            transform: perspective(1000px) rotateY(-5deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 36px;
+            color: var(--primary);
+            transition: all 0.4s ease;
+        }
+        
+        .feature-card:hover .feature-icon {
+            background: var(--primary);
+            color: var(--white);
+            transform: rotateY(180deg);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
             transition: all 0.3s ease;
         }
         
-        .intro-img:hover {
-            transform: perspective(1000px) rotateY(0);
+        .feature-card p {
+            color: var(--secondary-light);
+            font-size: 1rem;
+            margin-bottom: 0;
         }
-
-        /* Services Section */
+        
+        /* Services Section - Original Design from Old File With New Colors */
         .services-section {
             padding: 100px 0;
             background-color: var(--background);
@@ -469,7 +647,7 @@
             right: -100px;
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle at center, rgba(245, 162, 140, 0.2), transparent 70%);
+            background: radial-gradient(circle at center, rgba(76, 175, 80, 0.2), transparent 70%);
             border-radius: 50%;
             z-index: 1;
         }
@@ -509,7 +687,7 @@
             left: 0;
             width: 100%;
             height: 3px;
-            background: var(--gradient-orange);
+            background: var(--gradient-green);
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.4s ease;
@@ -547,14 +725,14 @@
             width: 70px;
             height: 70px;
             border-radius: 50%;
-            background-color: rgba(245, 162, 140, 0.1);
+            background-color: rgba(76, 175, 80, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 28px;
             color: var(--primary);
-            transition: all 0.3s ease;
             margin-bottom: 25px;
+            transition: all 0.3s ease;
         }
         
         .service-item.large .service-icon {
@@ -577,271 +755,176 @@
             color: rgba(255, 255, 255, 0.8);
             font-size: 1.05rem;
         }
+        
+        /* Animation for service items */
+        .animation-float {
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        .delay-1 {
+            animation-delay: 0.5s;
+        }
+        
+        .delay-2 {
+            animation-delay: 1s;
+        }
+        
+        .delay-3 {
+            animation-delay: 1.5s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
 
-        /* Why Choose Us Section */
-        .features-section {
+        /* About Section - Without Diagonal Design */
+        .about-section {
             padding: 100px 0;
-            background-color: var(--white);
             position: relative;
-        }
-        
-        .features-heading {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .features-heading h2 {
-            position: relative;
-            display: inline-block;
-            padding-bottom: 15px;
-        }
-        
-        .features-heading h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background-color: var(--primary);
-        }
-        
-        .features-heading .section-subtitle {
-            color: var(--primary);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            display: block;
-        }
-        
-        .features-wrapper {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .feature-box {
-            background-color: var(--light-gray);
-            border-radius: 20px;
-            padding: 30px;
-            transition: all 0.3s ease;
-            position: relative;
+            background-color: var(--secondary-dark);
+            color: var(--white);
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            text-align: center;
+            background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
         }
         
-        .feature-box:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 30px rgba(0,0,0,0.1);
-        }
-        
-        .feature-box::before {
+        .about-section::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
-            background: var(--gradient-orange);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(23, 24, 40, 0.92), rgba(33, 35, 56, 0.85));
+            z-index: 1;
         }
         
-        .feature-box:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background-color: var(--secondary-light);
-            display: flex;
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto 25px;
-            font-size: 30px;
-            color: var(--primary);
-            transition: all 0.3s ease;
+            position: relative;
+            z-index: 3;
         }
         
-        .feature-box:hover .feature-icon {
-            background-color: var(--primary);
-            color: var(--white);
-            transform: rotateY(180deg);
+        .about-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
         }
         
-        .feature-content h4 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--secondary);
+        .about-content {
+            max-width: 500px;
         }
         
-        .feature-content p {
-            color: var(--secondary-light);
-            font-size: 1rem;
+        .about-tag {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: rgba(76, 175, 80, 0.2);
+            color: var(--primary-light);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        
+        .about-content h2 {
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+        
+        .about-content p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 25px;
         }
 
-        /* Team Section */
-        .team-section {
-            padding: 100px 0;
-            background-color: var(--background);
-            color: var(--white);
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 0;
+            background-color: var(--white);
             position: relative;
             overflow: hidden;
         }
         
-        .team-section::before {
-            content: '';
-            position: absolute;
-            top: -100px;
-            left: -100px;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle at center, rgba(245, 162, 140, 0.2), transparent 70%);
-            border-radius: 50%;
+        .cta-box {
+            background: var(--gradient-green);
+            border-radius: 30px;
+            padding: 80px 60px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(76, 175, 80, 0.2);
             z-index: 1;
-        }
-        
-        .team-header {
             text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-            z-index: 2;
+            color: var(--white);
         }
         
-        .team-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .team-image {
-            position: relative;
-        }
-        
-        .team-image img {
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-        
-        .team-image::after {
+        .cta-box::before {
             content: '';
             position: absolute;
-            top: 30px;
-            left: 30px;
-            right: -30px;
-            bottom: -30px;
-            border: 2px solid var(--primary);
-            border-radius: 20px;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1), transparent 30%);
             z-index: -1;
         }
         
-        .team-content h3 {
-            font-size: 2.2rem;
+        .cta-title {
+            font-size: 2.8rem;
             margin-bottom: 25px;
-            color: var(--white);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        .team-content h3 span {
-            color: var(--primary);
+        .cta-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        .team-content p {
-            margin-bottom: 25px;
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.9);
-        }
-
-        /* Contact Section */
-        .contact-section {
-            padding: 100px 0;
-            background-color: var(--white);
-            position: relative;
-        }
-        
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-        }
-        
-        .contact-content h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            color: var(--secondary);
-        }
-        
-        .contact-info {
-            margin-bottom: 30px;
-        }
-        
-        .contact-info p {
-            font-size: 1.1rem;
-            color: var(--secondary);
-            margin-bottom: 10px;
-        }
-        
-        .contact-social {
+        .cta-buttons {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .contact-social a {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--secondary-light);
-            display: flex;
-            align-items: center;
+            gap: 20px;
             justify-content: center;
-            color: var(--white);
-            transition: all 0.3s ease;
-            font-size: 1rem;
         }
         
-        .contact-social a:hover {
-            background-color: var(--primary);
+        .btn-white {
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-white:hover {
+            background: rgba(255, 255, 255, 0.9);
             transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
         
-        .contact-form {
-            background-color: var(--light-gray);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        .btn-outline-white {
+            background: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
         }
         
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid rgba(33, 35, 56, 0.1);
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(245, 162, 140, 0.2);
-        }
-        
-        textarea.form-control {
-            min-height: 120px;
-            resize: vertical;
+        .btn-outline-white:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
         }
 
         /* Footer */
@@ -943,33 +1026,112 @@
             font-size: 0.9rem;
         }
 
-        /* Animation */
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
+        /* Contact Form */
+        .contact-form-section {
+            padding: 120px 0;
+            background-color: var(--white);
+            position: relative;
         }
         
-        /* Float Animation for Service Items */
-        .animation-float {
-            animation: float 5s ease-in-out infinite;
+        .contact-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
         }
         
-        .delay-1 {
-            animation-delay: 0.5s;
+        .contact-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--secondary);
         }
         
-        .delay-2 {
-            animation-delay: 1s;
+        .contact-info p {
+            font-size: 1.1rem;
+            color: var(--secondary-light);
+            margin-bottom: 30px;
         }
         
-        .delay-3 {
-            animation-delay: 1.5s;
+        .contact-details {
+            margin-top: 40px;
         }
         
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .contact-icon-wrapper {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(76, 175, 80, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover .contact-icon-wrapper {
+            background-color: var(--primary);
+            color: var(--white);
+            transform: rotateY(180deg);
+        }
+        
+        .contact-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--secondary);
+        }
+        
+        .contact-text p {
+            font-size: 1rem;
+            color: var(--secondary-light);
+            margin-bottom: 0;
+        }
+        
+        .contact-form {
+            background-color: var(--light-gray);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
         /* Dropdown Menu */
         .dropdown {
             position: relative;
@@ -992,46 +1154,62 @@
             transform: rotate(180deg);
         }
         
-        .dropdown-content {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: var(--secondary);
-            min-width: 220px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            border-radius: 12px;
-            padding: 12px 0;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-            z-index: 5;
-            margin-top: 10px;
-            border: 1px solid rgba(255,255,255,0.05);
-            overflow: hidden;
-            max-height: 0; /* Start with zero height for better animation */
-        }
-        
-        /* Desktop dropdown behavior */
-        @media (min-width: 769px) {
-            .dropdown:hover .dropdown-content,
-            .dropdown.hovered .dropdown-content {
-                opacity: 1;
-                visibility: visible;
-                transform: translateY(0);
-                max-height: 500px;
+            .dropdown-content {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: var(--secondary);
+                min-width: 220px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                border-radius: 12px;
                 padding: 12px 0;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(10px);
+                transition: all 0.3s ease;
+                z-index: 5;
+                margin-top: 10px;
+                border: 1px solid rgba(255,255,255,0.05);
             }
-        }
-        
-        /* Mobile dropdown behavior - controlled by JS */
-        .dropdown.active .dropdown-content {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-            max-height: 500px;
-            padding: 12px 0;
-        }
+            
+            /* Desktop dropdown behavior */
+            @media (min-width: 769px) {
+                .dropdown:hover .dropdown-content,
+                .dropdown.hovered .dropdown-content {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: translateY(0);
+                    max-height: 500px;
+                    padding: 12px 0;
+                }
+            }
+            
+            /* Mobile dropdown behavior - controlled by JS */
+            @media (max-width: 768px) {
+                .dropdown-content {
+                    position: static;
+                    width: 100%;
+                    background-color: rgba(255, 255, 255, 0.05);
+                    box-shadow: none;
+                    max-height: 0;
+                    overflow: hidden;
+                    padding: 0;
+                    margin-top: 0;
+                    border-radius: 8px;
+                    opacity: 1;
+                    visibility: visible;
+                    transform: none;
+                    transition: max-height 0.4s ease, padding 0.4s ease, margin 0.4s ease;
+                    border: none;
+                }
+                
+                .dropdown.active .dropdown-content {
+                    max-height: 400px;
+                    padding: 10px 0;
+                    margin-top: 10px;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                }
+            }
         
         .dropdown-item {
             display: block;
@@ -1066,7 +1244,7 @@
 
         .dropdown-item.active {
             color: var(--primary);
-            background-color: rgba(245, 162, 140, 0.1);
+            background-color: rgba(76, 175, 80, 0.1);
         }
         
         /* Menu overlay */
@@ -1092,19 +1270,74 @@
 
         /* Responsive Styles */
         @media (max-width: 992px) {
-            .page-title {
-                font-size: 3rem;
+            .hero-title {
+                font-size: 2.8rem;
             }
             
-            h2 {
-                font-size: 2.2rem;
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 40px;
             }
             
-            .intro-grid,
-            .team-grid,
-            .contact-grid {
+            .hero-content {
+                margin: 0 auto;
+            }
+            
+            .hero-cta {
+                justify-content: center;
+            }
+            
+            .hero-image {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 40px;
+            }
+            
+            .about-content {
+                margin: 0 auto;
+                order: 1;
+            }
+            
+            .about-image {
+                order: 2;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            
+            .contact-form-grid {
                 grid-template-columns: 1fr;
                 gap: 40px;
+            }
+            
+            .contact-info {
+                text-align: center;
+            }
+            
+            .contact-item {
+                justify-content: center;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+            
+            .cta-box {
+                padding: 60px 40px;
+            }
+            
+            .cta-title {
+                font-size: 2.3rem;
             }
             
             .services-grid {
@@ -1124,11 +1357,6 @@
             .service-item.medium,
             .service-item.small {
                 grid-column: span 3;
-            }
-            
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 40px;
             }
         }
         
@@ -1303,12 +1531,16 @@
                 display: none;
             }
             
-            .page-hero {
-                padding: 120px 0 80px;
+            .hero {
+                padding: 150px 0 100px;
             }
             
-            .page-title {
+            .hero-title {
                 font-size: 2.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
             }
             
             .services-grid {
@@ -1338,8 +1570,13 @@
                 margin: 0 auto 20px;
             }
             
-            .features-wrapper {
-                grid-template-columns: 1fr;
+            .service-card {
+                max-width: 100%;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                gap: 15px;
             }
             
             .footer-grid {
@@ -1354,10 +1591,6 @@
             
             .footer-social {
                 justify-content: center;
-            }
-            
-            .team-image::after {
-                display: none;
             }
         }
     </style>
@@ -1393,13 +1626,13 @@
                         </a>
                         <div class="dropdown-content">
                             <a href="it-drift.html" class="dropdown-item active">IT-drift</a>
-                            <a href="m365.html" class="dropdown-item">Microsoft Intune & M365</a>
+
                             <a href="sikkerhetstjenester.html" class="dropdown-item">Sikkerhetstjenester</a>
                             <a href="skytjenester.html" class="dropdown-item">Skytjenester</a>
                             <a href="innsiktoganalyse.html" class="dropdown-item">Innsikt og analyse</a>
                             <a href="strategisk-it-radgivning.html" class="dropdown-item">Strategisk IT-rådgivning</a>
                             <a href="devops-monitorering.html" class="dropdown-item">DevOps-monitorering</a>
-                            <a href="doku.html" class="dropdown-item">Dokumentasjon as a Service</a>
+
                         </div>
                     </li>
                     <li class="nav-item"><a href="om.html" class="nav-link">Om oss</a></li>
@@ -1422,52 +1655,97 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section class="page-hero" id="hero">
-            <div class="container">
-                <div class="page-hero-content">
-                    <h1 class="page-title">IT-drift</h1>
+        <!-- Hero Section with Diagonal Design -->
+        <section class="hero" id="home">
+            <div class="hero-shapes">
+                <div class="hero-shape shape-1"></div>
+                <div class="hero-shape shape-2"></div>
+                <div class="hero-shape shape-3"></div>
+            </div>
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <div class="hero-badge">IT-DRIFT</div>
+                    <h1 class="hero-title">IT som fungerer - <span class="text-gradient">alltid!</span></h1>
+                    <p class="hero-subtitle">Vi leverer driftsstabile, sikre og effektive IT-løsninger, slik at du kan fokusere på kjernevirksomheten din. Med vår proaktive tilnærming og kompetente medarbeidere får du IT-systemer du kan stole på.</p>
+                    <div class="hero-cta">
+                        <a href="#tjenester" class="btn btn-primary">Se våre tjenester</a>
+                        <a href="#kontakt" class="btn btn-outline">Kontakt oss</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.squarespace-cdn.com/content/v1/65e82ccad2860c67e0bf3885/49dc74cf-a14d-4e5f-8a85-050c7936d5b0/Godprat+Dante+og+Kjell.jpg" alt="IT-drift team">
                 </div>
             </div>
         </section>
 
-        <!-- Intro Section -->
-        <section class="intro-section" id="intro">
+
+
+        <!-- Features Section -->
+        <section class="features-section" id="fordeler">
             <div class="container">
-                <div class="intro-grid">
-                    <div class="intro-content">
-                        <h2>IT som fungerer - <span class="highlight">alltid!</span></h2>
-                        <p>Cipher er opptatt av at teknologien skal jobbe for deg, ikke motsatt. Vi leverer tjenester innen drift, vedlikehold og overvåking av dine IT-løsninger.</p>
-                        <p>Med kompetente medarbeidere, moderne verktøy og langsiktig perspektiv sikrer vi at din IT-infrastruktur alltid er i toppform – så du kan fokusere på kjernevirksomheten din.</p>
+                <div class="section-header">
+                    <span class="section-tag">FORDELER</span>
+                    <h2 class="section-title">Hvorfor velge oss for IT-drift?</h2>
+                    <p class="section-subtitle">Vi skiller oss ut med fokus på langsiktig verdi, proaktiv service og kompetente ansatte</p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Hjelp når du trenger det</h3>
+                        <p>Våre erfarne IT-eksperter er alltid tilgjengelige og klare til å hjelpe når du trenger det mest. Vi sikrer minimal nedetid og maksimal produktivitet.</p>
                     </div>
-                    <div class="intro-img-container">
-                        <img src="https://images.squarespace-cdn.com/content/v1/65e82ccad2860c67e0bf3885/49dc74cf-a14d-4e5f-8a85-050c7936d5b0/Godprat+Dante+og+Kjell.jpg" alt="IT-drift team" class="intro-img">
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Økt sikkerhet</h3>
+                        <p>Vi beskytter virksomheten din med moderne sikkerhetsløsninger som reduserer risikoen for databrudd og sikrer at din sensitive informasjon er trygg.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Proaktiv drift</h3>
+                        <p>Vi fikser problemer før de oppstår og holder systemene dine i optimal stand gjennom kontinuerlig overvåking og vedlikehold.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3>Forutsigbare kostnader</h3>
+                        <p>Med faste avtaler og prisplaner slipper du uforutsette IT-utgifter og får bedre budsjettforutsigbarhet for din virksomhet.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Langvarige relasjoner</h3>
+                        <p>Vi er opptatt av å bygge langsiktige relasjoner og forstår din virksomhet stadig bedre, så vi kan levere en mer skreddersydd IT-opplevelse.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Skalerbarhet</h3>
+                        <p>Våre løsninger vokser med din bedrift, og vi tilpasser IT-driften etter dine skiftende behov og krav når virksomheten utvikler seg.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- What is IT-Management Section -->
-        <section class="team-section">
-            <div class="container">
-                <div class="team-grid">
-                    <div class="team-image">
-                        <img src="https://images.squarespace-cdn.com/content/v1/65e82ccad2860c67e0bf3885/a7261fea-23da-4749-b554-27a08160e2d5/Whiteboard+Dante.jpg" alt="IT planning">
-                    </div>
-                    <div class="team-content">
-                        <h3>Hva er <span>IT-drift?</span></h3>
-                        <p>IT-drift handler om å holde systemene dine i gang, sikre at alt er oppdatert og beskytte deg mot trusler. Det betyr at vi overvåker, fikser feil og gir support når du trenger det.</p>
-                        <p>Kort sagt, vi passer på at IT-en din alltid er i toppform, slik at du slipper nedetid, sikkerhetsrisikoer og frustrerte ansatte.</p>
-                        <p>Med vår proaktive tilnærming identifiserer vi potensielle problemer før de oppstår, og våre eksperter er alltid beredt til å hjelpe når du trenger det.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Services Section -->
+        <!-- Services Section - Original Design from Old File With New Colors -->
         <section class="services-section" id="tjenester">
             <div class="container">
                 <div class="services-header">
+                    <span class="section-tag">TJENESTER</span>
                     <h2>Noe av det vi kan levere innen IT-drift</h2>
                     <p>Vi tilbyr et bredt spekter av IT-driftstjenester for å sikre at din virksomhet fungerer optimalt.</p>
                 </div>
@@ -1538,121 +1816,108 @@
                             <i class="fab fa-microsoft"></i>
                         </div>
                         <div class="service-content">
-                            <h3>Microsoft Intune & M365</h3>
-                            <p>Vi hjelper deg med implementering og administrasjon av Microsoft Intune og Microsoft 365 for å styrke produktivitet, sikkerhet og samarbeid i din virksomhet.</p>
-                            <a href="m365.html" class="btn btn-outline">Les mer</a>
+                            <h3>Microsoft 365 & Intune</h3>
+                            <p>Vi hjelper deg med implementering og administrasjon av Microsoft 365 og Intune for å styrke produktivitet, sikkerhet og samarbeid i din virksomhet med moderne arbeidsverktøy.</p>
+                            <a href="m365.html" class="btn btn-primary" style="background-color: #0078D4; box-shadow: 0 4px 14px rgba(0, 120, 212, 0.4);">Les mer <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Features Section (Why Choose Us) -->
-        <section class="features-section" id="fordeler">
+        <!-- About Section - Without Diagonal Design -->
+        <section class="about-section" id="om">
             <div class="container">
-                <div class="features-heading">
-                    <span class="section-subtitle">Hvorfor velge oss</span>
-                    <h2>Hvorfor skal dere velge oss som <span class="text-primary">IT-partner</span>?</h2>
-                    <p>Vi skiller oss ut med fokus på langsiktig verdi og proaktiv service</p>
-                </div>
-                
-                <div class="features-wrapper">
-                    <div class="feature-box">
-                        <div class="feature-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h4>Hjelp når du trenger det</h4>
-                            <p>Våre IT-eksperter er bare en telefon eller e-post unna, og er alltid klar til å hjelpe.</p>
-                        </div>
+                <div class="about-grid">
+                    <div class="about-image">
+                        <img src="https://images.squarespace-cdn.com/content/v1/65e82ccad2860c67e0bf3885/a7261fea-23da-4749-b554-27a08160e2d5/Whiteboard+Dante.jpg" alt="IT-planlegging hos Cipher">
                     </div>
-                    
-                    <div class="feature-box">
-                        <div class="feature-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h4>Ting bare fungerer</h4>
-                            <p>Vi fikser problemer før du merker dem og holder systemene dine i optimal stand.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-box">
-                        <div class="feature-icon">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h4>Økt sikkerhet</h4>
-                            <p>Vi beskytter dine data med de nyeste sikkerhetsløsningene mot dagens trusler.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-box">
-                        <div class="feature-icon">
-                            <i class="fas fa-calculator"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h4>Forutsigbare kostnader</h4>
-                            <p>Med faste avtaler slipper du uforutsette IT-utgifter og får bedre budsjettforutsigbarhet.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-box">
-                        <div class="feature-icon">
-                            <i class="fas fa-handshake"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h4>Langvarige relasjoner</h4>
-                            <p>Vi er her for å bygge langvarige relasjoner og virkelig skape verdi for kundene våre.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-box">
-                        <div class="feature-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h4>Vekst og skalering</h4>
-                            <p>Våre løsninger vokser med din bedrift og tilpasses dine skiftende behov.</p>
-                        </div>
+                    <div class="about-content">
+                        <div class="about-tag">HVA ER IT-DRIFT?</div>
+                        <h2>IT som fungerer i bakgrunnen - <span class="text-gradient">så du kan fokusere på forretningen</span></h2>
+                        <p>IT-drift handler om å holde systemene dine i gang, sikre at alt er oppdatert og beskytte deg mot trusler. Det betyr at vi overvåker, fikser feil og gir support når du trenger det.</p>
+                        <p>Kort sagt, vi passer på at IT-en din alltid er i toppform, slik at du slipper nedetid, sikkerhetsrisikoer og frustrerte ansatte. Med vår proaktive tilnærming identifiserer vi potensielle problemer før de oppstår.</p>
+                        <p>Når du overlater IT-driften til oss, får du mer enn bare teknisk support – du får en strategisk partner som forstår både teknologien og din virksomhet.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section class="contact-section" id="kontakt">
+        <!-- CTA Section -->
+        <section class="cta-section" id="kontakt">
             <div class="container">
-                <div class="contact-grid">
-                    <div class="contact-content">
-                        <h2>Ønsker du hjelp med drift av dine IT-løsninger?</h2>
-                        <div class="contact-info">
-                            <p>hi@cipher.no</p>
-                            <p>+47 56 1234 65</p>
-                            <p>Nøstegaten 58, 5011 Bergen</p>
-                        </div>
-                        <div class="contact-social">
-                            <a href="https://www.instagram.com/ciphernorge/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
-                            <a href="https://www.linkedin.com/company/cipher-norge-as/" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+                <div class="cta-box">
+                    <h2 class="cta-title">La oss ta ansvar for IT-driften din</h2>
+                    <p class="cta-subtitle">Ta kontakt med oss for en uforpliktende samtale om hvordan vi kan hjelpe din virksomhet med stabil og sikker IT-drift.</p>
+                    <div class="cta-buttons">
+                        <a href="#kontaktskjema" class="btn btn-white">Kontakt oss nå</a>
+                        <a href="tel:+4756123465" class="btn btn-outline-white">Ring oss: +47 56 12 34 65</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form Section -->
+        <section class="contact-form-section" id="kontaktskjema">
+            <div class="container">
+                <div class="contact-form-grid">
+                    <div class="contact-info">
+                        <h2>Vi er her for å hjelpe</h2>
+                        <p>Fyll ut skjemaet, så tar vi kontakt med deg for en uforpliktende samtale om hvordan vi kan hjelpe din virksomhet med IT-drift.</p>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <div class="contact-icon-wrapper">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>E-post</h4>
+                                    <p>hi@cipher.no</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon-wrapper">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Telefon</h4>
+                                    <p>+47 56 12 34 65</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon-wrapper">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Adresse</h4>
+                                    <p>Nøstegaten 58, 5011 Bergen</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
                     <div class="contact-form">
-                        <h3>Send oss en melding</h3>
                         <form id="contactForm">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Fornavn" required>
+                                <label for="name" class="form-label">Navn</label>
+                                <input type="text" id="name" class="form-control" placeholder="Ditt navn" required>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Etternavn" required>
+                                <label for="company" class="form-label">Bedrift</label>
+                                <input type="text" id="company" class="form-control" placeholder="Din bedrift">
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control" placeholder="E-post" required>
+                                <label for="email" class="form-label">E-post</label>
+                                <input type="email" id="email" class="form-control" placeholder="din.epost@bedrift.no" required>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" placeholder="Hva kan vi hjelpe deg med?" rows="5" required></textarea>
+                                <label for="phone" class="form-label">Telefon</label>
+                                <input type="tel" id="phone" class="form-control" placeholder="+47 XXX XX XXX" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Send</button>
+                            <div class="form-group">
+                                <label for="message" class="form-label">Melding</label>
+                                <textarea id="message" class="form-control" placeholder="Fortell oss hvordan vi kan hjelpe deg..." rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send forespørsel</button>
                         </form>
                     </div>
                 </div>
@@ -1679,13 +1944,13 @@
                     <h5 class="footer-title">Tjenester</h5>
                     <ul class="footer-links">
                         <li><a href="it-drift.html">IT-drift</a></li>
-                        <li><a href="m365.html">Microsoft Intune & M365</a></li>
+
                         <li><a href="sikkerhetstjenester.html">Sikkerhetstjenester</a></li>
                         <li><a href="skytjenester.html">Skytjenester</a></li>
                         <li><a href="innsiktoganalyse.html">Innsikt og analyse</a></li>
                         <li><a href="strategisk-it-radgivning.html">Strategisk IT-rådgivning</a></li>
                         <li><a href="devops-monitorering.html">DevOps-monitorering</a></li>
-                        <li><a href="doku.html">Dokumentasjon as a Service</a></li>
+
                     </ul>
                 </div>
                 
@@ -1868,6 +2133,50 @@
                     alert('Takk for din henvendelse! Vi vil kontakte deg snart.');
                 });
             }
+            
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    if (this.getAttribute('href') !== '#') {
+                        e.preventDefault();
+                        
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        
+                        if (targetElement) {
+                            const headerHeight = document.querySelector('.header').offsetHeight;
+                            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                            
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                            
+                            // Close mobile menu if open
+                            if (navMenu.classList.contains('active')) {
+                                toggleMenu();
+                            }
+                        }
+                    }
+                });
+            });
+            
+            // Animate elements on scroll
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.feature-card, .service-card, .about-image, .about-content, .cta-box');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementPosition < windowHeight * 0.8) {
+                        element.classList.add('animated');
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Run once on load
         });
     </script>
 </body>

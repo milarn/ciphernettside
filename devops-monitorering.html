@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #F5A28C; /* Oransj */
-            --primary-dark: #E07E68; /* Mørkere oransj */
-            --primary-light: #FFCEBF; /* Lysere oransj */
+            --primary: #00BCD4; /* DevOps Blå fra index.html */
+            --primary-dark: #00838F; /* Mørkere DevOps Blå */
+            --primary-light: #80DEEA; /* Lysere DevOps Blå */
             --secondary: #212338; /* Mørkeblå - primærfarge */
             --secondary-dark: #171828; /* Mørkere blå */
             --secondary-light: #353756; /* Lysere blå */
@@ -23,7 +23,7 @@
             --light-gray: #F2F2F2;
             --white: #FFFFFF;
             --gradient-blue: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
-            --gradient-orange: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            --gradient-orange: linear-gradient(135deg, var(--primary), var(--primary-dark)); /* DevOps gradient */
             --background: #2A2C44; /* Lysere bakgrunn enn original */
         }
         
@@ -100,9 +100,12 @@
             font-size: 1.1rem;
         }
         
-        .big-paragraph {
+        .page-hero-content .big-paragraph {
             font-size: 1.3rem;
             line-height: 1.6;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.3s;
         }
         
         a {
@@ -306,48 +309,72 @@
             background-color: rgba(245, 162, 140, 0.1);
         }
         
-        /* Mobile Menu */
-        .mobile-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--white);
-            cursor: pointer;
-            padding: 5px;
-        }
-        
-        .hamburger-icon {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        
-        .hamburger-icon .line {
-            width: 24px;
-            height: 2px;
-            background-color: var(--white);
-            transition: all 0.3s ease;
-        }
-        
+        /* Menu overlay for mobile */
         .menu-overlay {
-            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.6);
-            -webkit-backdrop-filter: blur(6px);
             backdrop-filter: blur(6px);
-            z-index: 99;
+            -webkit-backdrop-filter: blur(6px);
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
+            z-index: 98;
+        }
+        
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Mobile-only footer */
+        .menu-footer {
+            display: none;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+        
+        .menu-contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .menu-contact-info a {
+            color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-contact-info a i {
+            margin-right: 8px;
+            color: var(--primary);
+        }
+        
+        .menu-contact-info a:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
         }
         
         @media (max-width: 768px) {
+            .header {
+                padding: 15px 0;
+            }
+            
             .mobile-toggle {
-                display: block;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
             
             .nav-menu {
@@ -356,27 +383,31 @@
                 right: -100%;
                 width: 85%;
                 height: 100vh;
-                background: var(--secondary);
+                background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
                 flex-direction: column;
+                transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
                 padding: 80px 30px 40px;
-                transition: all 0.4s ease;
-                z-index: 1000;
+                z-index: 100;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.15);
                 overflow-y: auto;
+                border-left: 1px solid rgba(255, 255, 255, 0.1);
             }
             
             .nav-menu.active {
                 right: 0;
+                max-width: 85%;
             }
             
-            .menu-overlay.active {
-                opacity: 1;
-                visibility: visible;
+            /* Show mobile footer when menu is active */
+            .menu-footer {
                 display: block;
             }
             
             .nav-list {
                 flex-direction: column;
                 width: 100%;
+                margin-bottom: 30px;
+                gap: 0;
             }
             
             .nav-item {
@@ -386,58 +417,102 @@
             }
             
             .nav-link {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
                 padding: 15px 0;
-                font-size: 1.1rem;
+                font-size: 1.2rem;
+                font-weight: 600;
+                transition: all 0.3s ease;
             }
             
-            .dropdown-content {
-                position: static;
-                background-color: rgba(255, 255, 255, 0.05);
-                transform: none;
-                box-shadow: none;
-                padding: 0;
-                margin: 0;
+            .nav-link:hover {
+                padding-left: 10px;
+                color: var(--primary);
+            }
+            
+            .nav-link::after {
                 display: none;
+            }
+            
+            .dropdown-toggle {
+                justify-content: space-between;
                 width: 100%;
             }
             
-            .dropdown.active .dropdown-content {
-                display: block;
+            .dropdown-icon {
+                font-size: 1rem;
+            }
+            
+            .header-cta {
+                margin: 20px 0 0;
+                width: 100%;
+            }
+            
+            .header-cta .btn {
+                width: 100%;
+                padding: 15px;
+                font-size: 1.1rem;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            }
+            
+            .header-cta .btn i {
+                margin-left: 10px;
+            }
+            
+            /* Mobile-Specific Dropdown Styles */
+            .dropdown-content {
+                position: static;
+                background-color: rgba(255, 255, 255, 0.05);
+                box-shadow: none;
+                max-height: 0;
+                overflow: hidden;
+                padding: 0;
+                margin-top: 0;
+                border-radius: 8px;
                 opacity: 1;
                 visibility: visible;
+                transform: none !important;
+                transition: max-height 0.4s ease, padding 0.4s ease, margin 0.4s ease;
+                border: none;
+                pointer-events: auto; /* Ensure clicks work on mobile */
+                width: 100%;
+                left: 0;
+            }
+            
+            .dropdown-content::before {
+                display: none;
+            }
+            
+            .dropdown.active .dropdown-content {
+                max-height: 400px;
+                padding: 10px 0;
+                margin-top: 10px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
             }
             
             .dropdown-item {
                 padding: 12px 20px;
-            }
-            
-            .header-cta {
-                margin-top: 20px;
+                margin-left: 0;
+                font-size: 1rem;
+                border-left: 3px solid transparent;
+                text-align: left;
+                display: block;
                 width: 100%;
             }
             
-            .menu-footer {
-                margin-top: 40px;
-                padding-top: 20px;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            .dropdown-item:hover {
+                border-left: 3px solid var(--primary);
+                background-color: rgba(255, 255, 255, 0.1);
+                padding-left: 25px;
             }
             
-            .menu-contact-info {
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-                margin-bottom: 20px;
-            }
-            
-            .menu-contact-info a {
-                color: var(--white);
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-            
-            .menu-contact-info i {
-                color: var(--primary);
+            .dropdown-item::before {
+                display: none;
             }
         }
         
@@ -597,9 +672,6 @@
         .big-paragraph {
             font-size: 1.3rem;
             line-height: 1.6;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
-            animation-delay: 0.3s;
         }
         
         .hero-buttons {
@@ -2007,7 +2079,7 @@
             <!-- Dark overlay when menu is open -->
             <div class="menu-overlay" id="menuOverlay"></div>
             
-            <nav class="nav-menu" id="navMenu">
+            <nav class="nav-menu" id="navMenu" aria-label="Hovedmeny">
                 <ul class="nav-list">
                     <li class="nav-item"><a href="index.html" class="nav-link">Hjem</a></li>
                     <li class="nav-item dropdown">
@@ -2015,7 +2087,7 @@
                             Våre tjenester
                             <i class="dropdown-icon fas fa-chevron-down"></i>
                         </a>
-                        <div class="dropdown-content">
+                        <div class="dropdown-content" id="servicesDropdown">
                             <a href="it-drift.html" class="dropdown-item">IT-drift</a>
                             <a href="m365.html" class="dropdown-item">Microsoft Intune & M365</a>
                             <a href="sikkerhetstjenester.html" class="dropdown-item">Sikkerhetstjenester</a>
@@ -2531,57 +2603,149 @@
     <!-- JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Check device size
+            const isMobile = () => window.innerWidth <= 768;
             const menuToggle = document.getElementById('menuToggle');
             const navMenu = document.getElementById('navMenu');
             const menuOverlay = document.getElementById('menuOverlay');
-            const dropdowns = document.querySelectorAll('.dropdown');
             
-            // Toggle mobile menu
+            // Toggle menu function
             const toggleMenu = () => {
                 navMenu.classList.toggle('active');
                 menuOverlay.classList.toggle('active');
-                document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+                menuToggle.classList.toggle('active');
+                
+                const isExpanded = navMenu.classList.contains('active');
+                menuToggle.setAttribute('aria-expanded', isExpanded);
+                
+                // Prevent body scrolling when menu is open
+                document.body.style.overflow = isExpanded ? 'hidden' : '';
             };
             
+            // Open/close menu when clicking hamburger icon
             menuToggle.addEventListener('click', toggleMenu);
+            
+            // Close menu when clicking on overlay
             menuOverlay.addEventListener('click', toggleMenu);
             
-            // Handle dropdowns on mobile
+            // Sticky Header
+            window.addEventListener('scroll', () => {
+                const header = document.getElementById('header');
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+            
+            // Dropdown Functionality
+            const dropdowns = document.querySelectorAll('.dropdown');
+            
+            // Function to handle clicks on dropdown toggles
+            const handleDropdownToggle = (dropdown, link, e) => {
+                e.preventDefault();
+                e.stopPropagation(); // Prevent event from bubbling up
+                dropdown.classList.toggle('active');
+                
+                // Toggle aria-expanded for accessibility
+                const isExpanded = dropdown.classList.contains('active');
+                link.setAttribute('aria-expanded', isExpanded);
+                
+                // Fix dropdown content position for mobile view
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+                if (dropdownContent && isMobile()) {
+                    dropdownContent.style.position = 'static';
+                    dropdownContent.style.transform = 'none';
+                }
+                
+                // Close other dropdowns
+                dropdowns.forEach(otherDropdown => {
+                    if (otherDropdown !== dropdown) {
+                        otherDropdown.classList.remove('active');
+                        const otherToggle = otherDropdown.querySelector('.dropdown-toggle');
+                        if (otherToggle) {
+                            otherToggle.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                });
+            };
+            
+            // Handle click and hover events for dropdowns
             dropdowns.forEach(dropdown => {
                 const link = dropdown.querySelector('.dropdown-toggle');
                 
-                if (window.innerWidth <= 768) {
-                    link.addEventListener('click', (e) => {
+                if (!link) return;
+                
+                // On mobile: handle click events
+                link.addEventListener('click', (e) => {
+                    if (isMobile()) {
+                        handleDropdownToggle(dropdown, link, e);
+                    } else {
+                        // On desktop: prevent default action if clicking main navigation items with dropdowns
                         e.preventDefault();
-                        dropdown.classList.toggle('active');
-                        
-                        // Close other dropdowns
-                        dropdowns.forEach(other => {
-                            if (other !== dropdown) {
-                                other.classList.remove('active');
-                            }
-                        });
+                    }
+                });
+                
+                // Mouse enter/leave events for desktop
+                if (!isMobile()) {
+                    dropdown.addEventListener('mouseenter', () => {
+                        dropdown.classList.add('hovered');
+                        link.setAttribute('aria-expanded', 'true');
+                    });
+                    
+                    dropdown.addEventListener('mouseleave', () => {
+                        dropdown.classList.remove('hovered');
+                        link.setAttribute('aria-expanded', 'false');
                     });
                 }
+                
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                if (isMobile()) {
+                // Reset any desktop-specific states when switching to mobile
+                dropdown.classList.remove('hovered');
+                    
+                        // Fix mobile dropdown positioning
+                    const dropdownContent = dropdown.querySelector('.dropdown-content');
+                    if (dropdownContent) {
+                        dropdownContent.style.position = 'static';
+                        dropdownContent.style.transform = 'none';
+                    }
+                } else {
+                    // Reset to desktop positioning
+                    const dropdownContent = dropdown.querySelector('.dropdown-content');
+                    if (dropdownContent) {
+                        dropdownContent.style.position = '';
+                        dropdownContent.style.transform = '';
+                    }
+                }
+            });
             });
             
-            // Close menu when clicking outside
+            // Close mobile menu when clicking outside
             document.addEventListener('click', (e) => {
                 if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
                     navMenu.classList.remove('active');
-                    menuOverlay.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    dropdowns.forEach(dropdown => {
+                        dropdown.classList.remove('active');
+                        const dropdownToggle = dropdown.querySelector('.dropdown-toggle');
+                        if (dropdownToggle) {
+                            dropdownToggle.setAttribute('aria-expanded', 'false');
+                        }
+                    });
                     document.body.style.overflow = '';
+                    menuOverlay.classList.remove('active');
                 }
             });
             
-            // Handle window resize
-            window.addEventListener('resize', () => {
-                if (window.innerWidth > 768) {
-                    navMenu.classList.remove('active');
-                    menuOverlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                    dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
-                }
+            // Prevent dropdown menu clicks from closing the mobile menu
+            const dropdownItems = document.querySelectorAll('.dropdown-item');
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
             });
         });
     </script>
