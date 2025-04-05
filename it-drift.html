@@ -1026,109 +1026,136 @@
             font-size: 0.9rem;
         }
 
-        /* Contact Form */
-        .contact-form-section {
-            padding: 120px 0;
+        /* Contact Section */
+        .contact-section {
+            padding: 100px 0;
             background-color: var(--white);
             position: relative;
-        }
-        
-        .contact-form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-        
-        .contact-info h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
+            overflow: hidden;
             color: var(--secondary);
         }
         
-        .contact-info p {
-            font-size: 1.1rem;
-            color: var(--secondary-light);
-            margin-bottom: 30px;
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            position: relative;
+            z-index: 2;
         }
         
-        .contact-details {
+        .contact-content {
+            position: relative;
+        }
+        
+        .contact-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: var(--secondary);
+        }
+        
+        .contact-content p {
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+            color: var(--secondary);
+        }
+        
+        .contact-info {
             margin-top: 40px;
         }
         
         .contact-item {
             display: flex;
             align-items: center;
+            gap: 15px;
             margin-bottom: 20px;
         }
         
-        .contact-icon-wrapper {
+        .contact-icon {
             width: 50px;
             height: 50px;
-            background-color: rgba(76, 175, 80, 0.1);
             border-radius: 12px;
+            background-color: rgba(76, 175, 80, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
             font-size: 20px;
             color: var(--primary);
-            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
         }
         
-        .contact-item:hover .contact-icon-wrapper {
+        .contact-text {
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+        
+        .contact-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .contact-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(33, 35, 56, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .contact-social a:hover {
             background-color: var(--primary);
             color: var(--white);
-            transform: rotateY(180deg);
-        }
-        
-        .contact-text h4 {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-            color: var(--secondary);
-        }
-        
-        .contact-text p {
-            font-size: 1rem;
-            color: var(--secondary-light);
-            margin-bottom: 0;
+            transform: translateY(-5px);
         }
         
         .contact-form {
             background-color: var(--light-gray);
-            padding: 50px;
+            padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(33, 35, 56, 0.05);
+        }
+        
+        .contact-form h3 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--secondary);
         }
         
         .form-group {
-            margin-bottom: 25px;
-        }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--secondary);
+            margin-bottom: 20px;
         }
         
         .form-control {
             width: 100%;
             padding: 15px;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            background-color: var(--white);
+            border: 1px solid rgba(33, 35, 56, 0.1);
+            border-radius: 12px;
             font-size: 1rem;
             transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            color: var(--secondary);
+        }
+        
+        .form-control::placeholder {
+            color: rgba(33, 35, 56, 0.5);
         }
         
         .form-control:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+            background-color: rgba(255, 255, 255, 0.1);
         }
         
         textarea.form-control {
-            min-height: 150px;
+            min-height: 120px;
             resize: vertical;
         }
 
@@ -1751,67 +1778,77 @@
                 </div>
                 
                 <div class="services-grid">
-                    <div class="service-item large animation-float">
+                    <div class="service-item large">
                         <div class="service-icon">
                             <i class="fas fa-desktop"></i>
                         </div>
                         <div class="service-content">
                             <h3>Overvåking og vedlikehold</h3>
-                            <p>Vi følger med på systemene dine døgnet rundt og sørger for at alt går som det skal. Hvis noe er i ferd med å gå galt, fikser vi det før det blir et problem. Våre avanserte overvåkingsverktøy oppdager potensielle problemer tidlig, slik at vi kan løse dem proaktivt og minimere risikoen for nedetid.</p>
+                            <p>Vi følger med på systemene dine og sørger for at alt går som det skal. Hvis noe er i ferd med å gå galt, fikser vi det før det blir et problem. Våre avanserte overvåkingsverktøy oppdager potensielle problemer tidlig, slik at vi kan løse dem proaktivt og minimere risikoen for nedetid.</p>
                         </div>
                     </div>
                     
-                    <div class="service-item medium animation-float delay-1">
+                    <div class="service-item medium">
                         <div class="service-icon">
-                            <i class="fas fa-headset"></i>
+                            <i class="fas fa-tablet-alt"></i>
                         </div>
                         <div class="service-content">
-                            <h3>Support</h3>
-                            <p>Våre dyktige IT-konsulenter står alltid klar for å hjelpe dere om teknologien mot formodning skulle streike. Vi tilbyr support via telefon, e-post og fjerntilgang for rask problemløsning.</p>
+                            <h3>Device Management</h3>
+                            <p>Vi leverer en solid tjeneste for enhetshåndtering og passer på både de små og store dingsene deres. Våre løsninger sikrer at disse alltid er oppdatert og sikre, og sørger for at onboarding av nye ansatte går som en lek.</p>
                         </div>
                     </div>
                     
-                    <div class="service-item medium animation-float delay-2">
+                    <div class="service-item medium">
                         <div class="service-icon">
                             <i class="fas fa-shield-alt"></i>
                         </div>
                         <div class="service-content">
-                            <h3>Sikkerhet og back-up</h3>
-                            <p>Vi beskytter virksomheten din med brannmurer, antivirus og sikkerhetskopiering – så du slipper å miste viktige data. Våre sikkerhetsløsninger oppdateres kontinuerlig for å beskytte mot de nyeste truslene.</p>
+                            <h3>Sikkerhet</h3>
+                            <p>Vi leverer moderne løsninger for sikkerhet både i sky og lokalt og beskytter dere mot angrep og uvelkomne gjester, så dere kan senke skuldrene og sove godt om natten.</p>
                         </div>
                     </div>
                     
-                    <div class="service-item small animation-float">
+                    <div class="service-item small">
+                        <div class="service-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Backup</h3>
+                            <p>Ingenting er så viktig som dataene deres. Vi har løsninger for sikkerhetskopiering av alle dataene deres, uansett om det er i sky eller lokalt.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="service-item small">
                         <div class="service-icon">
                             <i class="fas fa-server"></i>
                         </div>
                         <div class="service-content">
-                            <h3>On-prem og cloud serverdrift</h3>
-                            <p>Vi leverer stabile og skalerbare IT-løsninger, enten lokalt, i skyen eller som en hybrid løsning med høy ytelse og fleksibilitet.</p>
+                            <h3>Serverdrift</h3>
+                            <p>Vi leverer stabile og skalerbare IT-løsninger både lokalt og i sky, eller som hybride løsninger med høy ytelse og fleksibilitet.</p>
                         </div>
                     </div>
                     
-                    <div class="service-item small animation-float delay-1">
+                    <div class="service-item small">
                         <div class="service-icon">
                             <i class="fas fa-network-wired"></i>
                         </div>
                         <div class="service-content">
                             <h3>Nettverk</h3>
-                            <p>Vi kan levere løsninger for nettverk og tar oss av driften av nettverksutstyret. Vi monitorerer utstyret og agerer på eventuelle problemer.</p>
+                            <p>Vi leverer løsninger for nettverk og tar oss av driften av nettverksutstyret, enten deres kjøper det selv eller leier av oss. Vi monitorerer utstyret og fikser biffen om noe skulle stoppe opp.</p>
                         </div>
                     </div>
                     
-                    <div class="service-item small animation-float delay-2">
+                    <div class="service-item small">
                         <div class="service-icon">
-                            <i class="fas fa-sync-alt"></i>
+                            <i class="fas fa-coins"></i>
                         </div>
                         <div class="service-content">
-                            <h3>Utrulling og oppdatering</h3>
-                            <p>Vi håndterer installasjoner, oppgraderinger og oppdateringer av programvare og maskinvare for å holde systemene dine oppdaterte og sikre.</p>
+                            <h3>Kostnadshåndtering</h3>
+                            <p>Kostnader for servere og lisenser kan fort balle på seg. Vi hjelper dere med å holde styr på disse og sørger for en kosteffektiv drift. Vi sørger for at dere ikke betaler mer enn dere trenger for skyressurser, slik at det er mer å bruke på prosjekter.</p>
                         </div>
                     </div>
                     
-                    <div class="service-item medium animation-float">
+                    <div class="service-item medium">
                         <div class="service-icon" style="background-color: rgba(0, 120, 212, 0.1); color: #0078D4;">
                             <i class="fab fa-microsoft"></i>
                         </div>
@@ -1830,7 +1867,7 @@
             <div class="container">
                 <div class="about-grid">
                     <div class="about-image">
-                        <img src="https://images.squarespace-cdn.com/content/v1/65e82ccad2860c67e0bf3885/a7261fea-23da-4749-b554-27a08160e2d5/Whiteboard+Dante.jpg" alt="IT-planlegging hos Cipher">
+                        <img src="bilder\1660289717183.png" alt="IT-planlegging hos Cipher">
                     </div>
                     <div class="about-content">
                         <div class="about-tag">HVA ER IT-DRIFT?</div>
@@ -1850,74 +1887,66 @@
                     <h2 class="cta-title">La oss ta ansvar for IT-driften din</h2>
                     <p class="cta-subtitle">Ta kontakt med oss for en uforpliktende samtale om hvordan vi kan hjelpe din virksomhet med stabil og sikker IT-drift.</p>
                     <div class="cta-buttons">
-                        <a href="#kontaktskjema" class="btn btn-white">Kontakt oss nå</a>
+                        <a href="#kontakt" class="btn btn-white">Kontakt oss nå</a>
                         <a href="tel:+4756123465" class="btn btn-outline-white">Ring oss: +47 56 12 34 65</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Form Section -->
-        <section class="contact-form-section" id="kontaktskjema">
+        <!-- Contact Section -->
+        <section class="contact-section" id="kontakt">
             <div class="container">
-                <div class="contact-form-grid">
-                    <div class="contact-info">
-                        <h2>Vi er her for å hjelpe</h2>
-                        <p>Fyll ut skjemaet, så tar vi kontakt med deg for en uforpliktende samtale om hvordan vi kan hjelpe din virksomhet med IT-drift.</p>
-                        <div class="contact-details">
+                <div class="contact-grid">
+                    <div class="contact-content">
+                        <h2>Klar for stabil og <span style="color: #4CAF50;">sikker IT-drift?</span></h2>
+                        <p>Ta kontakt med oss for en uforpliktende samtale om hvordan vi kan hjelpe din virksomhet med driftsstabile og sikre IT-løsninger.</p>
+                        
+                        <div class="contact-info">
                             <div class="contact-item">
-                                <div class="contact-icon-wrapper">
+                                <div class="contact-icon">
                                     <i class="fas fa-envelope"></i>
                                 </div>
-                                <div class="contact-text">
-                                    <h4>E-post</h4>
-                                    <p>hi@cipher.no</p>
-                                </div>
+                                <div class="contact-text">hi@cipher.no</div>
                             </div>
+                            
                             <div class="contact-item">
-                                <div class="contact-icon-wrapper">
-                                    <i class="fas fa-phone-alt"></i>
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
                                 </div>
-                                <div class="contact-text">
-                                    <h4>Telefon</h4>
-                                    <p>+47 56 12 34 65</p>
-                                </div>
+                                <div class="contact-text">+47 56 12 34 65</div>
                             </div>
+                            
                             <div class="contact-item">
-                                <div class="contact-icon-wrapper">
+                                <div class="contact-icon">
                                     <i class="fas fa-map-marker-alt"></i>
                                 </div>
-                                <div class="contact-text">
-                                    <h4>Adresse</h4>
-                                    <p>Nøstegaten 58, 5011 Bergen</p>
-                                </div>
+                                <div class="contact-text">Nøstegaten 58, 5011 Bergen</div>
                             </div>
+                        </div>
+                        
+                        <div class="contact-social">
+                            <a href="https://www.instagram.com/ciphernorge/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.linkedin.com/company/cipher-norge-as/" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     
                     <div class="contact-form">
+                        <h3>Send oss en melding</h3>
                         <form id="contactForm">
                             <div class="form-group">
-                                <label for="name" class="form-label">Navn</label>
-                                <input type="text" id="name" class="form-control" placeholder="Ditt navn" required>
+                                <input type="text" class="form-control" placeholder="Fornavn" required>
                             </div>
                             <div class="form-group">
-                                <label for="company" class="form-label">Bedrift</label>
-                                <input type="text" id="company" class="form-control" placeholder="Din bedrift">
+                                <input type="text" class="form-control" placeholder="Etternavn" required>
                             </div>
                             <div class="form-group">
-                                <label for="email" class="form-label">E-post</label>
-                                <input type="email" id="email" class="form-control" placeholder="din.epost@bedrift.no" required>
+                                <input type="email" class="form-control" placeholder="E-post" required>
                             </div>
                             <div class="form-group">
-                                <label for="phone" class="form-label">Telefon</label>
-                                <input type="tel" id="phone" class="form-control" placeholder="+47 XXX XX XXX" required>
+                                <textarea class="form-control" placeholder="Hva kan vi hjelpe deg med?" rows="5" required></textarea>
                             </div>
-                            <div class="form-group">
-                                <label for="message" class="form-label">Melding</label>
-                                <textarea id="message" class="form-control" placeholder="Fortell oss hvordan vi kan hjelpe deg..." rows="5" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Send forespørsel</button>
+                            <button type="submit" class="btn btn-primary">Send</button>
                         </form>
                     </div>
                 </div>

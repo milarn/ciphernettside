@@ -457,6 +457,8 @@
       color: var(--white);
       position: relative;
       display: inline-block;
+      animation: fadeInUp 1s ease 0.2s;
+      animation-fill-mode: both;
     }
 
     .hero-title::after {
@@ -477,6 +479,19 @@
       color: rgba(255,255,255,0.9);
       max-width: 800px;
       line-height: 1.8;
+      animation: fadeInUp 1s ease 0.4s;
+      animation-fill-mode: both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .competence-strip {
@@ -486,6 +501,8 @@
       margin-top: 60px;
       position: relative;
       width: 100%;
+      animation: fadeInUp 1s ease 0.6s;
+      animation-fill-mode: both;
     }
 
     .competence-item {
@@ -994,6 +1011,27 @@
       font-size: 0.9rem;
     }
 
+    /* Menu overlay for mobile */
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 98;
+    }
+    
+    .menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
     /* Responsive Styles */
     /* Tablet-optimalisering */
     @media (max-width: 992px) {
@@ -1065,26 +1103,6 @@
         justify-content: center;
       }
       
-      .menu-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-        z-index: 98;
-      }
-      
-      .menu-overlay.active {
-        opacity: 1;
-        visibility: visible;
-      }
-      
       .nav-menu {
         position: fixed;
         top: 0;
@@ -1105,10 +1123,47 @@
         right: 0;
       }
       
+      /* Show mobile footer when menu is active */
+      .menu-footer {
+        display: block;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.9rem;
+      }
+      
+      .menu-contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+      
+      .menu-contact-info a {
+        color: rgba(255, 255, 255, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+      
+      .menu-contact-info a i {
+        margin-right: 8px;
+        color: var(--primary);
+      }
+      
+      .menu-contact-info a:hover {
+        color: var(--primary);
+        transform: translateY(-2px);
+      }
+      
       .nav-list {
         flex-direction: column;
         width: 100%;
         margin-bottom: 30px;
+        gap: 0;
       }
       
       .nav-item {
@@ -1125,6 +1180,7 @@
         font-size: 1.2rem;
         font-weight: 600;
         transition: all 0.3s ease;
+        width: 100%;
       }
       
       .nav-link:hover {
@@ -1165,61 +1221,25 @@
         margin-left: 10px;
       }
       
-      /* Menu Footer (Mobile only) */
-      .menu-footer {
-        display: block;
-        margin-top: 30px;
-        padding-top: 20px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        text-align: center;
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 0.9rem;
-      }
-      
-      .menu-contact-info {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-bottom: 15px;
-      }
-      
-      .menu-contact-info a {
-        color: rgba(255, 255, 255, 0.7);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-      }
-      
-      .menu-contact-info a i {
-        margin-right: 8px;
-        color: var(--primary);
-      }
-      
-      .menu-contact-info a:hover {
-        color: var(--primary);
-        transform: translateY(-2px);
-      }
-      
       /* Mobile-Specific Dropdown Styles */
       .dropdown-content {
-      position: static;
-      background-color: rgba(255, 255, 255, 0.05);
-      box-shadow: none;
-      max-height: 0;
-      overflow: hidden;
-      padding: 0;
-      margin-top: 0;
-      border-radius: 8px;
-      opacity: 1;
-      visibility: visible;
-      transform: none;
-      transition: max-height 0.4s ease, padding 0.4s ease, margin 0.4s ease;
-      border: none;
-      pointer-events: auto; /* Ensure clicks work on mobile */
-          width: 100%;
-                left: 0;
-                transform: translateX(0);
+        position: static;
+        background-color: rgba(255, 255, 255, 0.05);
+        box-shadow: none;
+        max-height: 0;
+        overflow: hidden;
+        padding: 0;
+        margin-top: 0;
+        border-radius: 8px;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        transition: max-height 0.4s ease, padding 0.4s ease, margin 0.4s ease;
+        border: none;
+        pointer-events: auto;
+        width: 100%;
+        left: 0;
+      }
       
       .dropdown.active .dropdown-content {
         max-height: 400px;
@@ -1342,13 +1362,11 @@
                         </a>
                         <div class="dropdown-content">
                             <a href="it-drift.html" class="dropdown-item">IT-drift</a>
-                            <a href="m365.html" class="dropdown-item">Microsoft Intune & M365</a>
                             <a href="sikkerhetstjenester.html" class="dropdown-item">Sikkerhetstjenester</a>
                             <a href="skytjenester.html" class="dropdown-item">Skytjenester</a>
                             <a href="innsiktoganalyse.html" class="dropdown-item">Innsikt og analyse</a>
                             <a href="strategisk-it-radgivning.html" class="dropdown-item">Strategisk IT-rådgivning</a>
                             <a href="devops-monitorering.html" class="dropdown-item">DevOps-monitorering</a>
-                            <a href="doku.html" class="dropdown-item">Dokumentasjon as a Service</a>
                         </div>
                     </li>
                     <li class="nav-item"><a href="om.html" class="nav-link active">Om oss</a></li>
@@ -1569,7 +1587,7 @@
             </div>
             <div class="team-member-info">
               <h3 class="team-member-name">Espen Bibow Olsen</h3>
-              <span class="team-member-position">Seniorkonsulent</span>
+              <span class="team-member-position">Manager</span>
               <div class="team-member-contact">
                 <a href="tel:+4799357029">
                   <i class="fas fa-phone-alt"></i>
@@ -1629,7 +1647,7 @@
             </div>
             <div class="team-member-info">
               <h3 class="team-member-name">Thorbjørn Henriksen</h3>
-              <span class="team-member-position">Seniorkonsulent</span>
+              <span class="team-member-position">Manager</span>
               <div class="team-member-contact">
                 <a href="tel:+4791999988">
                   <i class="fas fa-phone-alt"></i>
@@ -1749,7 +1767,7 @@
             </div>
             <div class="team-member-info">
               <h3 class="team-member-name">Anders Bjånesøy</h3>
-              <span class="team-member-position">Seniorkonsulent</span>
+              <span class="team-member-position">Manager</span>
               <div class="team-member-contact">
                 <a href="tel:+4798008786">
                   <i class="fas fa-phone-alt"></i>
@@ -1762,26 +1780,7 @@
               </div>
             </div>
           </div>
-          <!-- Team Member 15 (Added) -->
-          <div class="team-member">
-            <div class="team-member-image">
-              <img src="bilder/Tord.jpg" alt="Tord Hansen">
-            </div>
-            <div class="team-member-info">
-              <h3 class="team-member-name">Tord Hansen</h3>
-              <span class="team-member-position">Seniorkonsulent</span>
-              <div class="team-member-contact">
-                <a href="tel:+4795004059">
-                  <i class="fas fa-phone-alt"></i>
-                  <span>+47 950 04 059</span>
-                </a>
-                <a href="mailto:tord.hansen@cipher.no">
-                  <i class="fas fa-envelope"></i>
-                  <span>tord.hansen@cipher.no</span>
-                </a>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
     </section>
@@ -1801,7 +1800,7 @@
             <div class="value-block-icon">
               <i class="fas fa-user-tie"></i>
             </div>
-            <h3 class="value-block-title">Et utypisk konsulentfirma</h3>
+            <h3 class="value-block-title">Vi er jordnære</h3>
             <p class="value-block-text">
               Vi er ikke dresskledd med stresskoffert og fancy PowerPoints. Vi er autentiske, jordnære og opptatt av å levere verdi, ikke bare fine presentasjoner.
             </p>
@@ -2018,31 +2017,6 @@
                     e.stopPropagation();
                 });
             });
-            
-            // Code animation on scroll
-            const codeContainer = document.querySelector('.code-container');
-            
-            if (codeContainer) {
-                // Create intersection observer to detect when code container is in view
-                const codeObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            // Start animation for each line with appropriate delay
-                            const codeLines = entry.target.querySelectorAll('.code-line');
-                            codeLines.forEach(line => {
-                                const delay = line.getAttribute('data-delay');
-                                line.style.animationDelay = delay + 's';
-                                line.style.animationPlayState = 'running';
-                            });
-                            // Stop observing after animation starts
-                            codeObserver.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.2 }); // Start when 20% of the element is visible
-                
-                // Start observing code container
-                codeObserver.observe(codeContainer);
-            }
             
             // Active Navigation Link
             const sections = document.querySelectorAll('section');
