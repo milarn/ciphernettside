@@ -1171,43 +1171,44 @@
 
         /* Dropdown Menu */
         .dropdown {
-            position: relative;
+        position: relative;
         }
         
         .dropdown-toggle {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
         }
         
         .dropdown-icon {
-            font-size: 0.8rem;
-            transition: transform 0.3s ease;
-            margin-left: 3px;
+        font-size: 0.8rem;
+        transition: transform 0.3s ease;
+        margin-left: 3px;
         }
         
         .dropdown.active .dropdown-icon {
-            transform: rotate(180deg);
+        transform: rotate(180deg);
         }
         
-            .dropdown-content {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                background-color: var(--secondary);
-                min-width: 220px;
-                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-                border-radius: 12px;
-                padding: 12px 0;
-                opacity: 0;
-                visibility: hidden;
-                transform: translateY(10px);
-                transition: all 0.3s ease;
-                z-index: 5;
-                margin-top: 10px;
-                border: 1px solid rgba(255,255,255,0.05);
-            }
+        .dropdown-content {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 220px;
+        background-color: var(--secondary);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        border-radius: 12px;
+        padding: 0;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 5;
+        margin-top: 10px;
+        border: 1px solid rgba(255,255,255,0.05);
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease, padding 0.3s ease;
+        }
             
             /* Desktop dropdown behavior */
             @media (min-width: 769px) {
@@ -1215,7 +1216,6 @@
                 .dropdown.hovered .dropdown-content {
                     opacity: 1;
                     visibility: visible;
-                    transform: translateY(0);
                     max-height: 500px;
                     padding: 12px 0;
                 }
@@ -1228,15 +1228,14 @@
                     width: 100%;
                     background-color: rgba(255, 255, 255, 0.05);
                     box-shadow: none;
-                    max-height: 0;
-                    overflow: hidden;
-                    padding: 0;
                     margin-top: 0;
+                    margin-left: 0;
                     border-radius: 8px;
                     opacity: 1;
                     visibility: visible;
-                    transform: none;
-                    transition: max-height 0.4s ease, padding 0.4s ease, margin 0.4s ease;
+                    max-height: 0;
+                    padding: 0;
+                    overflow: hidden;
                     border: none;
                 }
                 
@@ -1526,23 +1525,23 @@
             }
             
             .dropdown-content {
-                position: static;
-                background-color: rgba(255, 255, 255, 0.05);
-                box-shadow: none;
-                max-height: 0;
-                overflow: hidden;
-                padding: 0;
-                margin-top: 0;
-                border-radius: 8px;
-                opacity: 1;
-                visibility: visible;
-                transform: none;
-                transition: max-height 0.4s ease, padding 0.4s ease, margin 0.4s ease;
-                border: none;
-                pointer-events: auto; /* Ensure clicks work on mobile */
-                width: 100%;
-                left: 0;
-                transform: translateX(0);
+            position: static;
+            background-color: rgba(255, 255, 255, 0.05);
+            box-shadow: none;
+            max-height: 0;
+            overflow: hidden;
+            padding: 0;
+            margin-top: 0;
+            border-radius: 8px;
+            opacity: 1;
+            visibility: visible;
+            transform: none !important;
+            transition: max-height 0.4s ease, padding 0.4s ease, margin 0.4s ease;
+            border: none;
+            pointer-events: auto; /* Ensure clicks work on mobile */
+            width: 100%;
+            left: 0;
+            right: auto;
             }
             
             .dropdown.active .dropdown-content {
@@ -1673,7 +1672,6 @@
                         </div>
                     </li>
                     <li class="nav-item"><a href="om.html" class="nav-link">Om oss</a></li>
-                    <li class="nav-item"><a href="#kontakt" class="nav-link">Kontakt</a></li>
                     <li class="nav-item"><a href="kontakt.html#karriere" class="nav-link">Karriere</a></li>
                 </ul>
                 
@@ -2092,13 +2090,9 @@
                 // On mobile: handle click events
                 link.addEventListener('click', (e) => {
                     if (isMobile()) {
-                        handleDropdownToggle(dropdown, link, e);
-                        // Ensure dropdown is within the mobile menu bounds
-                        const dropdownContent = dropdown.querySelector('.dropdown-content');
-                        if (dropdownContent) {
-                            dropdownContent.style.width = '100%';
-                            dropdownContent.style.left = '0';
-                        }
+                        e.preventDefault();
+                        e.stopPropagation();
+                        dropdown.classList.toggle('active');
                     } else {
                         // On desktop: prevent default action if clicking main navigation items with dropdowns
                         e.preventDefault();
@@ -2128,6 +2122,9 @@
                     if (isMobile()) {
                         // Reset any desktop-specific states when switching to mobile
                         dropdown.classList.remove('hovered');
+                    } else {
+                        // Reset active state when switching to desktop
+                        dropdown.classList.remove('active');
                     }
                 });
             });

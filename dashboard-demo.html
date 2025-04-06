@@ -2,710 +2,1286 @@
 <html lang="no-NO">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Demo | Cipher</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cipher Analytics | Enterprise Dashboard</title>
     <link rel="icon" type="image/png" href="bilder/logoside192.png">
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TX4GRPD3L6"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-TX4GRPD3L6');
-    </script>
-    <!-- End Google Analytics -->
+    
+    <!-- Preload resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome & Material Symbols -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Chart.js bibliotek -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,0..200" />
+    
+    <!-- ApexCharts for better visualizations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.42.0/apexcharts.min.js"></script>
+    
     <style>
         :root {
-            --primary: #F5A28C; /* Oransj */
-            --primary-dark: #E07E68; /* Mørkere oransj */
-            --primary-light: #FFCEBF; /* Lysere oransj */
-            --secondary: #212338; /* Mørkeblå - primærfarge */
-            --secondary-dark: #171828; /* Mørkere blå */
-            --secondary-light: #353756; /* Lysere blå */
-            --secondary-lighter: #404466; /* Enda lysere blå */
-            --bg-light: #F8F9FA;
+            /* Brand Colors */
+            --primary: #FF9800;
+            --primary-dark: #E65100;
+            --primary-light: #FFB74D;
+            --primary-gradient: linear-gradient(135deg, #FF9800, #FB8C00);
+            
+            /* Dark Theme Colors */
+            --bg-darkest: #0F1117;
+            --bg-dark: #131620;
+            --bg-card: #1C1F2E;
+            --bg-card-hover: #252A3C;
+            --bg-tooltip: rgba(20, 22, 34, 0.95);
+            
+            /* UI Colors */
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-tertiary: rgba(255, 255, 255, 0.5);
+            --border-light: rgba(255, 255, 255, 0.08);
+            --success: #00C853;
+            --warning: #FFD600;
+            --danger: #FF5252;
+            --info: #2196F3;
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 20px rgba(255, 152, 0, 0.2);
+            
+            /* Animation */
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--bg-dark);
+        }
+        
+        *::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        
+        *::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        
+        *::-webkit-scrollbar-thumb {
+            background-color: var(--primary);
+            border-radius: 20px;
         }
         
         body {
             font-family: 'Inter', sans-serif;
+            background-color: var(--bg-darkest);
+            color: var(--text-primary);
             line-height: 1.6;
-            background-color: white;
+            overflow-x: hidden;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .text-xs { font-size: 0.75rem; }
+        .text-sm { font-size: 0.875rem; }
+        .text-md { font-size: 1rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.75rem; }
+        
+        .font-light { font-weight: 300; }
+        .font-normal { font-weight: 400; }
+        .font-medium { font-weight: 500; }
+        .font-semibold { font-weight: 600; }
+        .font-bold { font-weight: 700; }
+        
+        .text-primary { color: var(--text-primary); }
+        .text-secondary { color: var(--text-secondary); }
+        .text-tertiary { color: var(--text-tertiary); }
+        .text-brand { color: var(--primary); }
+        .text-success { color: var(--success); }
+        .text-warning { color: var(--warning); }
+        .text-danger { color: var(--danger); }
+        .text-info { color: var(--info); }
+        
+        /* Layout */
         .dashboard-container {
-            padding: 25px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 1.5rem;
         }
         
         .dashboard-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 2rem;
+            position: relative;
         }
         
-        .dashboard-title {
-            color: var(--secondary-dark);
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin: 0;
-        }
-        
-        .dashboard-header-actions {
+        .dashboard-logo {
             display: flex;
             align-items: center;
+            gap: 0.75rem;
         }
         
-        .update-info {
-            margin-right: 15px;
-            color: #6c757d;
+        .dashboard-logo img {
+            height: 36px;
+            width: auto;
         }
         
-        .btn {
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: 500;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            border: none;
+        .dashboard-logo-text {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
         }
         
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: var(--primary-dark);
-        }
-        
-        /* KPI Cards */
-        .kpi-cards {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-        
-        @media (max-width: 1024px) {
-            .kpi-cards {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .kpi-cards {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .kpi-card {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            border: 1px solid #eee;
-        }
-        
-        .kpi-header {
+        .dashboard-controls {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 10px;
+            align-items: center;
+            gap: 1.25rem;
         }
         
-        .kpi-title {
-            color: #6c757d;
-            font-size: 0.875rem;
-            font-weight: 500;
+        .date-selector {
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition-normal);
         }
         
-        .kpi-icon {
+        .date-selector:hover {
+            background-color: var(--bg-card-hover);
+        }
+        
+        .date-selector i {
+            color: var(--primary);
+        }
+        
+        .profile-menu {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.375rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition-normal);
+        }
+        
+        .profile-menu:hover {
+            background-color: var(--bg-card);
+        }
+        
+        .profile-avatar {
             width: 36px;
             height: 36px;
             border-radius: 50%;
+            background: var(--primary-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
         }
         
-        .kpi-icon.positive {
-            background-color: rgba(39, 174, 96, 0.1);
-            color: #27AE60;
+        /* Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
         }
         
-        .kpi-icon.negative {
-            background-color: rgba(235, 87, 87, 0.1);
-            color: #EB5757;
+        .grid-col-span-1 { grid-column: span 1; }
+        .grid-col-span-2 { grid-column: span 2; }
+        .grid-col-span-3 { grid-column: span 3; }
+        .grid-col-span-4 { grid-column: span 4; }
+        
+        .grid-row-span-1 { grid-row: span 1; }
+        .grid-row-span-2 { grid-row: span 2; }
+        
+        /* Cards */
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 1rem;
+            padding: 1.25rem;
+            box-shadow: var(--shadow-sm);
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+            height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-light);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .card-icon {
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            background: rgba(255, 152, 0, 0.1);
+            color: var(--primary);
+        }
+        
+        .card-menu {
+            color: var(--text-tertiary);
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: var(--transition-fast);
+        }
+        
+        .card-menu:hover {
+            background-color: var(--bg-card-hover);
+            color: var(--text-primary);
+        }
+        
+        .card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* KPI Cards */
+        .kpi-card {
+            background-color: var(--bg-card);
+            border-radius: 1rem;
+            padding: 1.25rem;
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+        }
+        
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+        
+        .kpi-card:hover::before {
+            opacity: 1;
+        }
+        
+        .kpi-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(255, 152, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            transition: var(--transition-normal);
+        }
+        
+        .kpi-card:hover .kpi-icon {
+            background: var(--primary-gradient);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        .kpi-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
         }
         
         .kpi-value {
-            font-size: 1.5rem;
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.875rem;
             font-weight: 700;
-            color: var(--secondary-dark);
-            margin: 5px 0;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
         }
         
-        .kpi-change {
-            font-size: 0.75rem;
+        .kpi-trend {
             display: flex;
             align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
         }
         
-        .kpi-change.positive {
-            color: #27AE60;
+        .trend-positive {
+            color: var(--success);
         }
         
-        .kpi-change.negative {
-            color: #EB5757;
+        .trend-negative {
+            color: var(--danger);
         }
         
-        .kpi-change i {
-            margin-right: 4px;
+        /* Chart containers */
+        .chart-container {
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .chart-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .chart-title i {
+            color: var(--primary);
+        }
+        
+        .chart-filters {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .chart-filter {
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border: none;
+        }
+        
+        .chart-filter:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+        
+        .chart-filter.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .chart-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 240px;
+        }
+        
+        /* Table styling */
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        
+        .data-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.8125rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .data-table td {
+            padding: 0.875rem 1rem;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .data-table tr:hover td {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+        
+        .table-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.25rem 0.625rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .status-completed {
+            background-color: rgba(0, 200, 83, 0.1);
+            color: var(--success);
+        }
+        
+        .status-pending {
+            background-color: rgba(255, 214, 0, 0.1);
+            color: var(--warning);
+        }
+        
+        .status-failed {
+            background-color: rgba(255, 82, 82, 0.1);
+            color: var(--danger);
         }
         
         /* Tabs */
         .dashboard-tabs {
             display: flex;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            scrollbar-width: none; /* Firefox */
+        }
+        
+        .dashboard-tabs::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
         }
         
         .dashboard-tab {
-            padding: 10px 20px;
-            cursor: pointer;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.9375rem;
             font-weight: 500;
-            position: relative;
-            color: #6c757d;
-            transition: color 0.3s ease;
-        }
-        
-        .dashboard-tab i {
-            margin-right: 8px;
+            background-color: var(--bg-card);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid transparent;
         }
         
         .dashboard-tab:hover {
-            color: var(--secondary);
+            background-color: var(--bg-card-hover);
+            color: var(--text-primary);
         }
         
         .dashboard-tab.active {
+            background-color: var(--bg-card);
             color: var(--primary);
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            box-shadow: 0 0 0 1px rgba(255, 152, 0, 0.1);
         }
         
-        .dashboard-tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: var(--primary);
+        .dashboard-tab i {
+            font-size: 1rem;
         }
         
-        /* Chart Container */
-        .chart-container {
-            height: 380px;
-            margin-bottom: 25px;
-        }
-        
-        .chart-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--secondary-dark);
-        }
-        
-        /* Dashboard Panels */
+        /* Panels */
         .dashboard-panel {
             display: none;
+            animation: fadeIn 0.3s ease;
         }
         
         .dashboard-panel.active {
             display: block;
         }
         
-        /* Detail Cards */
-        .detail-cards {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
-        @media (max-width: 768px) {
-            .detail-cards {
-                grid-template-columns: 1fr;
-            }
+        /* Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.25rem 0.625rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            gap: 0.25rem;
         }
         
-        .detail-card {
-            background-color: var(--bg-light);
-            padding: 20px;
+        .badge-success {
+            background-color: rgba(0, 200, 83, 0.1);
+            color: var(--success);
+        }
+        
+        .badge-warning {
+            background-color: rgba(255, 214, 0, 0.1);
+            color: var(--warning);
+        }
+        
+        .badge-danger {
+            background-color: rgba(255, 82, 82, 0.1);
+            color: var(--danger);
+        }
+        
+        .badge-info {
+            background-color: rgba(33, 150, 243, 0.1);
+            color: var(--info);
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.625rem 1.25rem;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            gap: 0.5rem;
+            border: none;
+            outline: none;
         }
         
-        .detail-chart {
-            height: 250px;
-            margin-top: 15px;
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 2px 10px rgba(255, 152, 0, 0.2);
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
         
         /* Progress bar */
         .progress-container {
-            margin-top: 15px;
-        }
-        
-        .progress-item {
-            margin-bottom: 15px;
-        }
-        
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-        
-        .progress-title {
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-        
-        .progress-value {
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-        
-        .progress-bar {
-            height: 6px;
-            background-color: #E0E0E0;
-            border-radius: 3px;
+            width: 100%;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-top: 0.5rem;
             overflow: hidden;
         }
         
-        .progress-fill {
+        .progress-bar {
             height: 100%;
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+            background: var(--primary-gradient);
+        }
+        
+        /* Activity feed */
+        .activity-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .activity-item {
+            display: flex;
+            gap: 1rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .activity-item:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            top: 32px;
+            left: 15px;
+            width: 1px;
+            height: calc(100% - 15px);
+            background-color: var(--border-light);
+        }
+        
+        .activity-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba(255, 152, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-title {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .activity-time {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+        
+        /* Map */
+        .map-container {
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .map-overlay {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background-color: var(--bg-tooltip);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-light);
+        }
+        
+        .map-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8125rem;
+        }
+        
+        .legend-color {
+            width: 12px;
+            height: 12px;
             border-radius: 3px;
         }
         
-        .progress-fill.blue {
-            background-color: #2D9CDB;
-        }
-        
-        .progress-fill.orange {
-            background-color: var(--primary);
-        }
-        
-        .progress-fill.green {
-            background-color: #27AE60;
-        }
-        
-        .progress-fill.amber {
-            background-color: #F2C94C;
-        }
-        
-        .progress-fill.red {
-            background-color: #EB5757;
-        }
-        
-        /* Product Launch */
-        .launch-item {
-            border-left: 4px solid;
-            padding-left: 15px;
-            margin-bottom: 15px;
-        }
-        
-        .launch-item.green {
-            border-color: #27AE60;
-        }
-        
-        .launch-item.blue {
-            border-color: #2D9CDB;
-        }
-        
-        .launch-item.amber {
-            border-color: #F2C94C;
-        }
-        
-        .launch-item.red {
-            border-color: #EB5757;
-        }
-        
-        .launch-title {
+        /* Notification */
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 18px;
+            height: 18px;
+            background-color: var(--danger);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.6875rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: 600;
-            margin-bottom: 2px;
         }
         
-        .launch-date {
-            font-size: 0.8rem;
-            color: #6c757d;
-            margin-bottom: 5px;
+        /* Tooltips */
+        [data-tooltip] {
+            position: relative;
+            cursor: help;
         }
         
-        .launch-progress {
-            font-size: 0.8rem;
-            margin-bottom: 5px;
+        [data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--bg-tooltip);
+            color: var(--text-primary);
+            padding: 0.5rem 0.875rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            box-shadow: var(--shadow-md);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-fast);
+            z-index: 20;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid var(--border-light);
         }
         
-        /* Chart dual-layout */
-        .chart-split {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+        [data-tooltip]:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Animated background effect */
+        .animated-bg {
+            position: absolute;
+            width: 100%;
             height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.05;
         }
         
-        @media (max-width: 768px) {
-            .chart-split {
-                grid-template-columns: 1fr;
-                gap: 30px;
+        .animated-blob {
+            position: absolute;
+            background: var(--primary);
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+            animation: blob-move 20s ease infinite alternate;
+        }
+        
+        .blob-1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+        
+        .blob-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -200px;
+            right: -100px;
+            animation-delay: -5s;
+            background: #2196F3;
+        }
+        
+        .blob-3 {
+            width: 250px;
+            height: 250px;
+            top: 40%;
+            left: 30%;
+            animation-delay: -10s;
+            background: #9C27B0;
+        }
+        
+        @keyframes blob-move {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(50px, 50px) scale(1.05);
+            }
+            66% {
+                transform: translate(-20px, 30px) scale(0.95);
+            }
+            100% {
+                transform: translate(10px, -50px) scale(1);
             }
         }
         
-        .chart-panel {
-            height: 100%;
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .grid-col-span-4 {
+                grid-column: span 3;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .grid-col-span-3, .grid-col-span-4 {
+                grid-column: span 2;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .dashboard-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .grid-col-span-2, .grid-col-span-3, .grid-col-span-4 {
+                grid-column: span 1;
+            }
+            
+            .dashboard-tab {
+                padding: 0.5rem 0.875rem;
+                font-size: 0.875rem;
+            }
+        }
+        
+        /* Dark mode material symbols */
+        .material-symbols-rounded {
+            font-variation-settings:
+            'FILL' 1,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24;
+            vertical-align: middle;
         }
     </style>
 </head>
 <body>
+    <div class="animated-bg">
+        <div class="animated-blob blob-1"></div>
+        <div class="animated-blob blob-2"></div>
+        <div class="animated-blob blob-3"></div>
+    </div>
+    
     <div class="dashboard-container">
-        <!-- Dashboard Header -->
         <div class="dashboard-header">
-            <h2 class="dashboard-title"><i class="fas fa-chart-line"></i> Cipher Business Intelligence Dashboard</h2>
-            <div class="dashboard-header-actions">
-                <span class="update-info">Sist oppdatert: 22.03.2025</span>
-                <button class="btn btn-primary">Eksporter</button>
-            </div>
-        </div>
-        
-        <!-- KPI Cards -->
-        <div class="kpi-cards">
-            <div class="kpi-card">
-                <div class="kpi-header">
-                    <div class="kpi-title">Total omsetning</div>
-                    <div class="kpi-icon positive">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                </div>
-                <div class="kpi-value">11.79M kr</div>
-                <div class="kpi-change positive">
-                    <i class="fas fa-arrow-up"></i> +16.8%
-                </div>
+            <div class="dashboard-logo">
+                <img src="bilder/Cipher-logo-negativ+(3).png" alt="Cipher Logo">
+                <span class="dashboard-logo-text">Analytics</span>
             </div>
             
-            <div class="kpi-card">
-                <div class="kpi-header">
-                    <div class="kpi-title" id="kpi-title-2">Gjennomsnittlig ordre</div>
-                    <div class="kpi-icon positive">
-                        <i class="fas fa-shopping-cart"></i>
+            <div class="dashboard-controls">
+                <div class="date-selector">
+                    <i class="fas fa-calendar"></i>
+                    <span class="text-md">Apr 1 - Apr 30, 2025</span>
+                    <i class="fas fa-chevron-down text-xs text-secondary"></i>
+                </div>
+                
+                <div class="profile-menu">
+                    <div class="profile-avatar">CN</div>
+                    <div class="profile-info">
+                        <div class="text-sm font-medium">Cipher Norge</div>
+                        <div class="text-xs text-secondary">Enterprise</div>
                     </div>
-                </div>
-                <div class="kpi-value" id="kpi-value-2">14,850 kr</div>
-                <div class="kpi-change positive">
-                    <i class="fas fa-arrow-up"></i> <span id="kpi-change-2">+5.2%</span>
-                </div>
-            </div>
-            
-            <div class="kpi-card">
-                <div class="kpi-header">
-                    <div class="kpi-title" id="kpi-title-3">Konverteringsrate</div>
-                    <div class="kpi-icon positive">
-                        <i class="fas fa-percentage" id="kpi-icon-3"></i>
-                    </div>
-                </div>
-                <div class="kpi-value" id="kpi-value-3">3.7%</div>
-                <div class="kpi-change positive">
-                    <i class="fas fa-arrow-up"></i> <span id="kpi-change-3">+0.8%</span>
-                </div>
-            </div>
-            
-            <div class="kpi-card">
-                <div class="kpi-header">
-                    <div class="kpi-title" id="kpi-title-4">Aktive kunder</div>
-                    <div class="kpi-icon positive">
-                        <i class="fas fa-users" id="kpi-icon-4"></i>
-                    </div>
-                </div>
-                <div class="kpi-value" id="kpi-value-4">1,248</div>
-                <div class="kpi-change positive">
-                    <i class="fas fa-arrow-up"></i> <span id="kpi-change-4">+82</span>
                 </div>
             </div>
         </div>
         
         <!-- Dashboard Tabs -->
         <div class="dashboard-tabs">
-            <div class="dashboard-tab active" data-tab="sales">
-                <i class="fas fa-chart-line"></i>Salgsstatistikk
+            <div class="dashboard-tab active" data-tab="overview">
+                <i class="fas fa-chart-line"></i>
+                <span>Oversikt</span>
+            </div>
+            <div class="dashboard-tab" data-tab="sales">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Salg</span>
             </div>
             <div class="dashboard-tab" data-tab="customers">
-                <i class="fas fa-users"></i>Kundetilfredshet
+                <i class="fas fa-users"></i>
+                <span>Kunder</span>
             </div>
             <div class="dashboard-tab" data-tab="products">
-                <i class="fas fa-box"></i>Produktanalyse
+                <i class="fas fa-cube"></i>
+                <span>Produkter</span>
+            </div>
+            <div class="dashboard-tab" data-tab="geography">
+                <i class="fas fa-globe-europe"></i>
+                <span>Geografi</span>
             </div>
             <div class="dashboard-tab" data-tab="support">
-                <i class="fas fa-headset"></i>Support
+                <i class="fas fa-headset"></i>
+                <span>Support</span>
             </div>
         </div>
         
-        <!-- Dashboard Panels -->
-        <div class="dashboard-panel active" id="sales-panel">
-            <div class="chart-container">
-                <canvas id="salesChart"></canvas>
-            </div>
-            
-            <div class="detail-cards">
-                <div class="detail-card">
-                    <h3 class="chart-title">Toppselgere denne måneden</h3>
-                    <div class="progress-container">
-                        <div class="progress-item">
-                            <div class="progress-header">
-                                <div class="progress-title">Anders Johansen</div>
-                                <div class="progress-value">1,458,000 kr</div>
+        <!-- Overview Panel -->
+        <div class="dashboard-panel active" id="overview-panel">
+            <!-- KPI Cards -->
+            <div class="dashboard-grid">
+                <!-- Total Revenue KPI Card -->
+                <div class="grid-col-span-1">
+                    <div class="kpi-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="kpi-label">Total omsetning</div>
+                        <div class="kpi-value">11.79M kr</div>
+                        <div class="kpi-trend trend-positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>16.8% fra forrige periode</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Average Order Value KPI Card -->
+                <div class="grid-col-span-1">
+                    <div class="kpi-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="kpi-label">Gjennomsnittlig ordre</div>
+                        <div class="kpi-value">14,850 kr</div>
+                        <div class="kpi-trend trend-positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>5.2% fra forrige periode</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Conversion Rate KPI Card -->
+                <div class="grid-col-span-1">
+                    <div class="kpi-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <div class="kpi-label">Konverteringsrate</div>
+                        <div class="kpi-value">3.7%</div>
+                        <div class="kpi-trend trend-positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>0.8% fra forrige periode</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Active Customers KPI Card -->
+                <div class="grid-col-span-1">
+                    <div class="kpi-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="kpi-label">Aktive kunder</div>
+                        <div class="kpi-value">1,248</div>
+                        <div class="kpi-trend trend-positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>82 nye kunder</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Revenue Chart -->
+                <div class="grid-col-span-3">
+                    <div class="card">
+                        <div class="chart-header">
+                            <div class="chart-title">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Månedlig omsetning</span>
                             </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill orange" style="width: 92%"></div>
+                            <div class="chart-filters">
+                                <button class="chart-filter">Dag</button>
+                                <button class="chart-filter">Uke</button>
+                                <button class="chart-filter active">Måned</button>
+                                <button class="chart-filter">Kvartal</button>
+                                <button class="chart-filter">År</button>
                             </div>
                         </div>
-                        
-                        <div class="progress-item">
-                            <div class="progress-header">
-                                <div class="progress-title">Silje Pedersen</div>
-                                <div class="progress-value">1,235,000 kr</div>
+                        <div class="chart-area">
+                            <div id="revenueChart" style="width: 100%; height: 300px;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Customer Satisfaction Card -->
+                <div class="grid-col-span-1">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <div class="card-icon">
+                                    <i class="fas fa-smile"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold">Kundetilfredshet</h3>
                             </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill orange" style="width: 78%"></div>
+                            <div class="card-menu">
+                                <i class="fas fa-ellipsis-v"></i>
                             </div>
                         </div>
-                        
-                        <div class="progress-item">
-                            <div class="progress-header">
-                                <div class="progress-title">Erik Olsen</div>
-                                <div class="progress-value">1,105,000 kr</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill orange" style="width: 70%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="progress-item">
-                            <div class="progress-header">
-                                <div class="progress-title">Marie Hansen</div>
-                                <div class="progress-value">985,000 kr</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill orange" style="width: 62%"></div>
+                        <div class="card-content">
+                            <div id="satisfactionChart" style="width: 100%; height: 200px;"></div>
+                            <div class="text-center mt-3">
+                                <div class="text-3xl font-bold">4.7<span class="text-sm font-normal text-secondary">/5.0</span></div>
+                                <div class="text-sm text-secondary">Basert på 420 tilbakemeldinger</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="detail-card">
-                    <h3 class="chart-title">Salg per region</h3>
-                    <div class="detail-chart">
-                        <canvas id="regionChart"></canvas>
+                <!-- Product Mix Chart -->
+                <div class="grid-col-span-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <div class="card-icon">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold">Produktmiks</h3>
+                            </div>
+                            <div class="card-menu">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div id="productMixChart" style="width: 100%; height: 280px;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Support Chart -->
+                <div class="grid-col-span-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <div class="card-icon">
+                                    <i class="fas fa-headset"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold">Supporthenvendelser</h3>
+                            </div>
+                            <div class="card-menu">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div id="supportChart" style="width: 100%; height: 280px;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Transactions Table -->
+                <div class="grid-col-span-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <div class="card-icon">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold">Siste transaksjoner</h3>
+                            </div>
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-download"></i>
+                                <span>Eksporter</span>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Kunde</th>
+                                        <th>Produkt</th>
+                                        <th>Dato</th>
+                                        <th>Beløp</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#ORD-7452</td>
+                                        <td>Statoil ASA</td>
+                                        <td>IT-drift Enterprise</td>
+                                        <td>4. april 2025</td>
+                                        <td>126,500 kr</td>
+                                        <td><span class="table-status status-completed">Fullført</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#ORD-7451</td>
+                                        <td>DNB Bank</td>
+                                        <td>Sikkerhetstjenester</td>
+                                        <td>3. april 2025</td>
+                                        <td>89,200 kr</td>
+                                        <td><span class="table-status status-completed">Fullført</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#ORD-7450</td>
+                                        <td>Telenor Norge</td>
+                                        <td>Skytjenester</td>
+                                        <td>2. april 2025</td>
+                                        <td>75,800 kr</td>
+                                        <td><span class="table-status status-pending">Venter</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#ORD-7449</td>
+                                        <td>Sparebanken Vest</td>
+                                        <td>Analyse</td>
+                                        <td>1. april 2025</td>
+                                        <td>62,400 kr</td>
+                                        <td><span class="table-status status-completed">Fullført</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#ORD-7448</td>
+                                        <td>Norsk Hydro</td>
+                                        <td>IT-drift Standard</td>
+                                        <td>31. mars 2025</td>
+                                        <td>48,900 kr</td>
+                                        <td><span class="table-status status-failed">Mislykket</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         
+        <!-- Sales Panel -->
+        <div class="dashboard-panel" id="sales-panel">
+            <!-- Placeholder content for Sales panel -->
+            <div class="dashboard-grid">
+                <div class="grid-col-span-4">
+                    <div class="card" style="min-height: 300px;">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <div class="card-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold">Salgsanalyse</h3>
+                            </div>
+                        </div>
+                        <div class="card-content" style="display: flex; justify-content: center; align-items: center;">
+                            <p class="text-secondary">Detaljert salgsinformasjon vil vises her.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Other panels with placeholder content -->
         <div class="dashboard-panel" id="customers-panel">
-            <div class="chart-container">
-                <div class="chart-split">
-                    <div class="chart-panel">
-                        <canvas id="satisfactionChart"></canvas>
-                    </div>
-                    <div class="chart-panel">
-                        <canvas id="radarChart"></canvas>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="detail-cards">
-                <div class="detail-card">
-                    <h3 class="chart-title">Kundeanmeldelser</h3>
-                    <div class="progress-container">
-                        <div class="progress-item">
-                            <div class="progress-header">
-                                <div class="progress-title">5 stjerner</div>
-                                <div class="progress-value">68%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill orange" style="width: 68%"></div>
+            <div class="dashboard-grid">
+                <div class="grid-col-span-4">
+                    <div class="card" style="min-height: 300px;">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <div class="card-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold">Kundeanalyse</h3>
                             </div>
                         </div>
-                        
-                        <div class="progress-item">
-                            <div class="progress-header">
-                                <div class="progress-title">4 stjerner</div>
-                                <div class="progress-value">22%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill orange" style="width: 22%"></div>
-                            </div>
+                        <div class="card-content" style="display: flex; justify-content: center; align-items: center;">
+                            <p class="text-secondary">Detaljert kundeinformasjon vil vises her.</p>
                         </div>
-                        
-                        <div class="progress-item">
-                            <div class="progress-header">
-                                <div class="progress-title">3 stjerner</div>
-                                <div class="progress-value">7%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill orange" style="width: 7%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="progress-item">
-                            <div class="progress-header">
-                                <div class="progress-title">2 stjerner</div>
-                                <div class="progress-value">2%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill orange" style="width: 2%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="progress-item">
-                            <div class="progress-header">
-                                <div class="progress-title">1 stjerne</div>
-                                <div class="progress-value">1%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill orange" style="width: 1%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0; display: flex; justify-content: space-between;">
-                        <div>
-                            <div style="font-size: 1.5rem; font-weight: 700;">4.5</div>
-                            <div style="font-size: 0.8rem; color: #6c757d;">av 5</div>
-                        </div>
-                        <div style="font-size: 0.9rem; color: #6c757d; align-self: center;">
-                            Basert på 724 anmeldelser
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="detail-card">
-                    <h3 class="chart-title">Kundelojalitet</h3>
-                    <div class="detail-chart">
-                        <canvas id="loyaltyChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
         
         <div class="dashboard-panel" id="products-panel">
-            <div class="chart-container">
-                <div class="chart-split">
-                    <div class="chart-panel">
-                        <canvas id="productPieChart"></canvas>
-                    </div>
-                    <div class="chart-panel">
-                        <canvas id="productBarChart"></canvas>
+            <div class="dashboard-grid">
+                <div class="grid-col-span-4">
+                    <div class="card" style="min-height: 300px;">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <div class="card-icon">
+                                    <i class="fas fa-cube"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold">Produktanalyse</h3>
+                            </div>
+                        </div>
+                        <div class="card-content" style="display: flex; justify-content: center; align-items: center;">
+                            <p class="text-secondary">Detaljert produktinformasjon vil vises her.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="detail-cards">
-                <div class="detail-card">
-                    <h3 class="chart-title">Produkt vekstrate</h3>
-                    <div class="progress-container">
-                        <div class="progress-item">
-                            <div class="progress-header">
-                                <div class="progress-title">IT-drift Premium</div>
-                                <div class="progress-value">+24%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill orange" style="width: 86%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="progress-item">
-                            <div class="progress-header">
-                                <div class="progress-title">Sikkerhetspakken</div>
-                                <div class="progress-value">+18%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill orange" style="width: 72%"></div>
+        </div>
+        
+        <div class="dashboard-panel" id="geography-panel">
+            <div class="dashboard-grid">
+                <div class="grid-col-span-4">
+                    <div class="card" style="min-height: 300px;">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <div class="card-icon">
+                                    <i class="fas fa-globe-europe"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold">Geografisk analyse</h3>
                             </div>
                         </div>
-                        
-                        <div class="progress-item">
-                            <div class="progress-header">
-                                <div class="progress-title">Cloud Backup</div>
-                                <div class="progress-value">+12%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill orange" style="width: 56%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="progress-item">
-                            <div class="progress-header">
-                                <div class="progress-title">Analysepakken</div>
-                                <div class="progress-value">+8%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill orange" style="width: 36%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="detail-card">
-                    <h3 class="chart-title">Produktlanseringer</h3>
-                    
-                    <div class="launch-item green">
-                        <div class="launch-title">Cipher Analytics Pro</div>
-                        <div class="launch-date">Lanseres 15. april 2025</div>
-                        <div class="launch-progress">Ferdigstilt: 85%</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill green" style="width: 85%"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="launch-item blue">
-                        <div class="launch-title">Security Operation Center</div>
-                        <div class="launch-date">Lanseres 10. mai 2025</div>
-                        <div class="launch-progress">Ferdigstilt: 62%</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill blue" style="width: 62%"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="launch-item amber">
-                        <div class="launch-title">Cipher Hybrid Cloud</div>
-                        <div class="launch-date">Lanseres 1. juni 2025</div>
-                        <div class="launch-progress">Ferdigstilt: 38%</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill amber" style="width: 38%"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="launch-item red">
-                        <div class="launch-title">Smart Office Control</div>
-                        <div class="launch-date">Lanseres 12. juli 2025</div>
-                        <div class="launch-progress">Ferdigstilt: 12%</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill red" style="width: 12%"></div>
+                        <div class="card-content" style="display: flex; justify-content: center; align-items: center;">
+                            <p class="text-secondary">Geografisk distribusjon vil vises her.</p>
                         </div>
                     </div>
                 </div>
@@ -713,29 +1289,20 @@
         </div>
         
         <div class="dashboard-panel" id="support-panel">
-            <div class="chart-container">
-                <div class="chart-split">
-                    <div class="chart-panel">
-                        <canvas id="supportBarChart"></canvas>
-                    </div>
-                    <div class="chart-panel">
-                        <canvas id="supportLineChart"></canvas>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="detail-cards">
-                <div class="detail-card">
-                    <h3 class="chart-title">Åpne saker per prioritet</h3>
-                    <div class="detail-chart">
-                        <canvas id="priorityChart"></canvas>
-                    </div>
-                </div>
-                
-                <div class="detail-card">
-                    <h3 class="chart-title">Sikkerhetshendelser</h3>
-                    <div class="detail-chart">
-                        <canvas id="securityChart"></canvas>
+            <div class="dashboard-grid">
+                <div class="grid-col-span-4">
+                    <div class="card" style="min-height: 300px;">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <div class="card-icon">
+                                    <i class="fas fa-headset"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold">Supportanalyse</h3>
+                            </div>
+                        </div>
+                        <div class="card-content" style="display: flex; justify-content: center; align-items: center;">
+                            <p class="text-secondary">Detaljert supportinformasjon vil vises her.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -744,214 +1311,358 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Check device size
-            const isMobile = () => window.innerWidth <= 768;
-            const menuToggle = document.getElementById('menuToggle');
-            const navMenu = document.getElementById('navMenu');
-            const menuOverlay = document.getElementById('menuOverlay');
+            // Tab Functionality
+            const tabs = document.querySelectorAll('.dashboard-tab');
+            const panels = document.querySelectorAll('.dashboard-panel');
             
-            // Toggle menu function
-            const toggleMenu = () => {
-                navMenu.classList.toggle('active');
-                menuOverlay.classList.toggle('active');
-                menuToggle.classList.toggle('active');
-                
-                const isExpanded = navMenu.classList.contains('active');
-                menuToggle.setAttribute('aria-expanded', isExpanded);
-                
-                // Prevent body scrolling when menu is open
-                document.body.style.overflow = isExpanded ? 'hidden' : '';
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-tab');
+                    
+                    // Deactivate all tabs and panels
+                    tabs.forEach(t => t.classList.remove('active'));
+                    panels.forEach(p => p.classList.remove('active'));
+                    
+                    // Activate clicked tab and panel
+                    tab.classList.add('active');
+                    document.getElementById(`${target}-panel`).classList.add('active');
+                });
+            });
+            
+            // Revenue Chart
+            const revenueChartOptions = {
+                series: [{
+                    name: 'Omsetning 2025',
+                    data: [980000, 1100000, 1250000, 1320000, 1450000, 1380000, 1290000, 1400000, 1540000, 1620000, 1780000, 1890000]
+                }, {
+                    name: 'Omsetning 2024',
+                    data: [820000, 950000, 1050000, 1180000, 1250000, 1190000, 1100000, 1230000, 1340000, 1420000, 1510000, 1620000]
+                }],
+                chart: {
+                    height: 300,
+                    type: 'area',
+                    fontFamily: 'Inter, sans-serif',
+                    toolbar: {
+                        show: false
+                    },
+                    background: 'transparent'
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 3
+                },
+                colors: ['#FF9800', '#29B6F6'],
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.7,
+                        opacityTo: 0.2,
+                        stops: [0, 90, 100]
+                    }
+                },
+                grid: {
+                    borderColor: 'rgba(255, 255, 255, 0.1)',
+                    row: {
+                        colors: ['transparent'],
+                        opacity: 0.2
+                    },
+                    xaxis: {
+                        lines: {
+                            show: false
+                        }
+                    }
+                },
+                xaxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des'],
+                    labels: {
+                        style: {
+                            colors: 'rgba(255, 255, 255, 0.7)'
+                        }
+                    },
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: 'rgba(255, 255, 255, 0.7)'
+                        },
+                        formatter: function (value) {
+                            return (value / 1000000).toFixed(1) + 'M';
+                        }
+                    }
+                },
+                tooltip: {
+                    theme: 'dark',
+                    y: {
+                        formatter: function (value) {
+                            return value.toLocaleString('no-NO') + ' kr';
+                        }
+                    }
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'right',
+                    labels: {
+                        colors: 'rgba(255, 255, 255, 0.7)'
+                    }
+                },
+                markers: {
+                    size: 5,
+                    hover: {
+                        size: 7
+                    }
+                }
             };
             
-            // Open/close menu when clicking hamburger icon
-            menuToggle.addEventListener('click', toggleMenu);
+            const revenueChart = new ApexCharts(document.getElementById("revenueChart"), revenueChartOptions);
+            revenueChart.render();
             
-            // Close menu when clicking on overlay
-            menuOverlay.addEventListener('click', toggleMenu);
-            
-            // Sticky Header
-            window.addEventListener('scroll', () => {
-                const header = document.getElementById('header');
-                if (window.scrollY > 100) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-            
-            // Dropdown Functionality
-            const dropdowns = document.querySelectorAll('.dropdown');
-            
-            // Function to handle clicks on dropdown toggles
-            const handleDropdownToggle = (dropdown, link, e) => {
-                e.preventDefault();
-                e.stopPropagation(); // Prevent event from bubbling up
-                dropdown.classList.toggle('active');
-                
-                // Toggle aria-expanded for accessibility
-                const isExpanded = dropdown.classList.contains('active');
-                link.setAttribute('aria-expanded', isExpanded);
-                
-                // Close other dropdowns
-                dropdowns.forEach(otherDropdown => {
-                    if (otherDropdown !== dropdown) {
-                        otherDropdown.classList.remove('active');
-                        const otherToggle = otherDropdown.querySelector('.dropdown-toggle');
-                        if (otherToggle) {
-                            otherToggle.setAttribute('aria-expanded', 'false');
+            // Customer Satisfaction Chart
+            const satisfactionChartOptions = {
+                series: [4.7],
+                chart: {
+                    height: 200,
+                    type: 'radialBar',
+                    fontFamily: 'Inter, sans-serif',
+                    toolbar: {
+                        show: false
+                    }
+                },
+                plotOptions: {
+                    radialBar: {
+                        startAngle: -135,
+                        endAngle: 135,
+                        hollow: {
+                            size: '70%'
+                        },
+                        track: {
+                            background: 'rgba(255, 255, 255, 0.1)',
+                            strokeWidth: '67%',
+                            margin: 0
+                        },
+                        dataLabels: {
+                            name: {
+                                show: false
+                            },
+                            value: {
+                                offsetY: 10,
+                                color: 'rgba(255, 255, 255, 0.9)',
+                                fontSize: '24px',
+                                fontWeight: 600,
+                                formatter: function (val) {
+                                    return val + '/5';
+                                }
+                            }
                         }
                     }
-                });
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'dark',
+                        type: 'horizontal',
+                        shadeIntensity: 0.5,
+                        gradientToColors: ['#FF9800'],
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [0, 100]
+                    }
+                },
+                stroke: {
+                    dashArray: 3
+                },
+                labels: ['Kundetilfredshet'],
+                colors: ['#00C853']
             };
+
+            const satisfactionChart = new ApexCharts(document.getElementById("satisfactionChart"), satisfactionChartOptions);
+            satisfactionChart.render();
             
-            // Handle click and hover events for dropdowns
-            dropdowns.forEach(dropdown => {
-                const link = dropdown.querySelector('.dropdown-toggle');
-                
-                if (!link) return;
-                
-                // On mobile: handle click events
-                link.addEventListener('click', (e) => {
-                    if (isMobile()) {
-                        handleDropdownToggle(dropdown, link, e);
-                        // Ensure dropdown is within the mobile menu bounds
-                        const dropdownContent = dropdown.querySelector('.dropdown-content');
-                        if (dropdownContent) {
-                            dropdownContent.style.width = '100%';
-                            dropdownContent.style.left = '0';
+            // Product Mix Chart
+            const productMixChartOptions = {
+                series: [35, 25, 20, 20],
+                chart: {
+                    type: 'donut',
+                    fontFamily: 'Inter, sans-serif',
+                    toolbar: {
+                        show: false
+                    }
+                },
+                labels: ['IT-drift', 'Sikkerhet', 'Skytjenester', 'Analyse'],
+                colors: ['#FF9800', '#29B6F6', '#66BB6A', '#EC407A'],
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '55%',
+                            labels: {
+                                show: true,
+                                total: {
+                                    show: true,
+                                    label: 'Totalt',
+                                    color: 'rgba(255, 255, 255, 0.7)',
+                                    formatter: function (w) {
+                                        return w.globals.seriesTotals.reduce((a, b) => a + b, 0) + '%';
+                                    }
+                                }
+                            }
                         }
-                    } else {
-                        // On desktop: prevent default action if clicking main navigation items with dropdowns
-                        e.preventDefault();
                     }
-                });
-                
-                // Mouse enter/leave events for desktop
-                const setupHoverEvents = () => {
-                    if (!isMobile()) {
-                        dropdown.addEventListener('mouseenter', () => {
-                            dropdown.classList.add('hovered');
-                            link.setAttribute('aria-expanded', 'true');
-                        });
-                        
-                        dropdown.addEventListener('mouseleave', () => {
-                            dropdown.classList.remove('hovered');
-                            link.setAttribute('aria-expanded', 'false');
-                        });
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                legend: {
+                    position: 'bottom',
+                    horizontalAlign: 'center',
+                    labels: {
+                        colors: 'rgba(255, 255, 255, 0.7)'
                     }
-                };
-                
-                // Initialize hover events
-                setupHoverEvents();
-                
-                // Handle window resize
-                window.addEventListener('resize', () => {
-                    if (isMobile()) {
-                        // Reset any desktop-specific states when switching to mobile
-                        dropdown.classList.remove('hovered');
-                    }
-                });
-            });
-            
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-                    navMenu.classList.remove('active');
-                    menuToggle.classList.remove('active');
-                    menuToggle.setAttribute('aria-expanded', 'false');
-                    dropdowns.forEach(dropdown => {
-                        dropdown.classList.remove('active');
-                        const dropdownToggle = dropdown.querySelector('.dropdown-toggle');
-                        if (dropdownToggle) {
-                            dropdownToggle.setAttribute('aria-expanded', 'false');
+                },
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 300
+                        },
+                        legend: {
+                            position: 'bottom'
                         }
-                    });
-                    document.body.style.overflow = '';
-                    menuOverlay.classList.remove('active');
+                    }
+                }],
+                stroke: {
+                    width: 3,
+                    colors: ['var(--bg-card)']
+                },
+                tooltip: {
+                    theme: 'dark',
+                    y: {
+                        formatter: function (value) {
+                            return value + '%';
+                        }
+                    }
                 }
-            });
+            };
+
+            const productMixChart = new ApexCharts(document.getElementById("productMixChart"), productMixChartOptions);
+            productMixChart.render();
             
-            // Prevent dropdown menu clicks from closing the mobile menu
-            const dropdownItems = document.querySelectorAll('.dropdown-item');
-            dropdownItems.forEach(item => {
-                item.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                });
-            });
-            
-            // Code animation on scroll
-            const codeContainer = document.querySelector('.code-container');
-            
-            if (codeContainer) {
-                // Create intersection observer to detect when code container is in view
-                const codeObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            // Start animation for each line with appropriate delay
-                            const codeLines = entry.target.querySelectorAll('.code-line');
-                            codeLines.forEach(line => {
-                                const delay = line.getAttribute('data-delay');
-                                line.style.animationDelay = delay + 's';
-                                line.style.animationPlayState = 'running';
-                            });
-                            // Stop observing after animation starts
-                            codeObserver.unobserve(entry.target);
+            // Support Chart
+            const supportChartOptions = {
+                series: [{
+                    name: 'Løste saker',
+                    data: [220, 240, 260, 280, 300, 320]
+                }, {
+                    name: 'Nye henvendelser',
+                    data: [200, 230, 250, 260, 290, 310]
+                }],
+                chart: {
+                    height: 280,
+                    type: 'line',
+                    fontFamily: 'Inter, sans-serif',
+                    toolbar: {
+                        show: false
+                    },
+                    background: 'transparent'
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'straight',
+                    width: 3
+                },
+                colors: ['#29B6F6', '#FF9800'],
+                grid: {
+                    borderColor: 'rgba(255, 255, 255, 0.1)',
+                    row: {
+                        colors: ['transparent'],
+                        opacity: 0.2
+                    },
+                    xaxis: {
+                        lines: {
+                            show: false
                         }
-                    });
-                }, { threshold: 0.2 }); // Start when 20% of the element is visible
-                
-                // Start observing code container
-                codeObserver.observe(codeContainer);
-            }
-            
-            // Active Navigation Link
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-link');
-            
-            window.addEventListener('scroll', () => {
-                let current = '';
-                const headerHeight = document.getElementById('header').offsetHeight;
-                
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - headerHeight - 100;
-                    const sectionHeight = section.offsetHeight;
-                    
-                    if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
-                        current = section.getAttribute('id');
                     }
+                },
+                xaxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun'],
+                    labels: {
+                        style: {
+                            colors: 'rgba(255, 255, 255, 0.7)'
+                        }
+                    },
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: 'rgba(255, 255, 255, 0.7)'
+                        }
+                    }
+                },
+                tooltip: {
+                    theme: 'dark'
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'right',
+                    labels: {
+                        colors: 'rgba(255, 255, 255, 0.7)'
+                    }
+                },
+                markers: {
+                    size: 5,
+                    hover: {
+                        size: 7
+                    }
+                }
+            };
+
+            const supportChart = new ApexCharts(document.getElementById("supportChart"), supportChartOptions);
+            supportChart.render();
+            
+            // Add hover effects for cards
+            const cards = document.querySelectorAll('.card, .kpi-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseover', () => {
+                    card.style.transform = 'translateY(-5px)';
+                    card.style.boxShadow = 'var(--shadow-md)';
                 });
                 
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${current}`) {
-                        link.classList.add('active');
-                    }
+                card.addEventListener('mouseout', () => {
+                    card.style.transform = 'translateY(0)';
+                    card.style.boxShadow = 'var(--shadow-sm)';
                 });
             });
             
-            // Form Submission
-            const contactForm = document.getElementById('contactForm');
+            // Chart filter buttons
+            const chartFilters = document.querySelectorAll('.chart-filter');
             
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // Get form values
-                    const name = document.getElementById('name').value;
-                    const email = document.getElementById('email').value;
-                    const subject = document.getElementById('subject').value;
-                    const message = document.getElementById('message').value;
-                    
-                    // Here you would typically send the form data to a server
-                    // For now, we'll just simulate a success message
-                    
-                    // Reset form
-                    contactForm.reset();
-                    
-                    // Show success message
-                    alert('Takk for din henvendelse! Vi vil kontakte deg snart.');
+            chartFilters.forEach(filter => {
+                filter.addEventListener('click', () => {
+                    const parent = filter.parentElement;
+                    parent.querySelectorAll('.chart-filter').forEach(f => {
+                        f.classList.remove('active');
+                    });
+                    filter.classList.add('active');
                 });
-            }
+            });
         });
     </script>
 </body>

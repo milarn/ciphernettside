@@ -1060,6 +1060,9 @@
             font-size: 2.5rem;
             color: var(--white);
             margin-bottom: 20px;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            hyphens: auto;
         }
         
         .cta-description {
@@ -1528,6 +1531,15 @@
                 display: none;
             }
             
+            .cta-container {
+                padding: 40px 25px;
+            }
+            
+            .cta-title {
+                font-size: 2rem;
+                hyphens: manual;
+            }
+            
             /* Mobile-Specific Dropdown Styles */
             .dropdown-content {
                 position: static;
@@ -1736,7 +1748,6 @@
                         </a>
                         <div class="dropdown-content">
                             <a href="it-drift.html" class="dropdown-item">IT-drift</a>
-                            <a href="m365.html" class="dropdown-item">Microsoft Intune & M365</a>
                             <a href="sikkerhetstjenester.html" class="dropdown-item">Sikkerhetstjenester</a>
                             <a href="skytjenester.html" class="dropdown-item">Skytjenester</a>
                             <a href="innsiktoganalyse.html" class="dropdown-item">Innsikt og analyse</a>
@@ -1745,8 +1756,7 @@
                         </div>
                     </li>
                     <li class="nav-item"><a href="om.html" class="nav-link">Om oss</a></li>
-                    <li class="nav-item"><a href="#kontakt" class="nav-link">Kontakt</a></li>
-                    <li class="nav-item"><a href="kontakt.html#karriere" class="nav-link">Karriere</a></li>
+                    <li class="nav-item"><a href="karriere.html" class="nav-link">Karriere</a></li>
                 </ul>
                 
                 <a href="#kontakt" class="btn btn-primary header-cta">Kontakt oss</a>
