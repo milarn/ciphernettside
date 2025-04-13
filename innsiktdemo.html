@@ -183,10 +183,10 @@
             --primary: #FF9800; /* Orange */
             --primary-dark: #E65100; /* Darker orange */
             --primary-light: #FFE0B2; /* Lighter orange */
-            --secondary: #212338; /* Dark blue - primary color */
-            --secondary-dark: #171828; /* Darker blue */
-            --secondary-light: #353756; /* Lighter blue */
-            --secondary-lighter: #404466; /* Even lighter blue */
+            --secondary: #2A3052; /* Dark blue - primary color - lightened */
+            --secondary-dark: #1E2440; /* Darker blue - lightened */
+            --secondary-light: #3F4674; /* Lighter blue - lightened */
+            --secondary-lighter: #505782; /* Even lighter blue - lightened */
             --dark: #171721;
             --light: #F8F9FA;
             --gray: #6c757d;
@@ -194,7 +194,7 @@
             --white: #FFFFFF;
             --gradient-blue: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
             --gradient-orange: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            --background: #2A2C44; /* Lighter background than original */
+            --background: #3A3E66; /* Lighter background than original */
         }
         
         * {
@@ -400,7 +400,7 @@
         
         /* Header & Navigation */
         .header {
-            background-color: rgba(42, 44, 68, 0.95);
+            background-color: rgba(42, 48, 82, 0.95);
             padding: 15px 0;
             position: fixed;
             top: 0;
@@ -415,7 +415,7 @@
         
         .header.scrolled {
             padding: 10px 0;
-            background-color: rgba(42, 44, 68, 0.98);
+            background-color: rgba(42, 48, 82, 0.98);
         }
         
         .header-container {
@@ -662,7 +662,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(33, 35, 56, 0.95), rgba(23, 24, 40, 0.85));
+            background: linear-gradient(135deg, rgba(42, 48, 82, 0.92), rgba(30, 36, 64, 0.85));
             z-index: 1;
         }
         
@@ -767,7 +767,7 @@
         /* Dashboard Section - Updated */
         .dashboard-section {
             padding: 40px 0 60px;
-            background-color: var(--secondary-dark);
+            background-color: #f5f7fa; /* Lighter background */
             position: relative;
             min-height: 100vh;
         }
@@ -775,22 +775,28 @@
         .dashboard-container {
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            background-color: var(--secondary-light);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            background-color: #ffffff; /* White background */
         }
         
         .features-header {
             width: 100%;
             max-width: 800px;
-            margin: 0 auto 50px;
+            margin: 0 auto 40px;
             text-align: center;
+            color: #333; /* Darker text for better readability */
         }
         
         .features-header h2 {
             margin-bottom: 15px;
             font-size: 2.2rem;
+            color: #2A3052; /* Darker color for better contrast */
+        }
+        
+        .features-header p {
+            color: #555; /* Darker text for better readability */
         }
         
         /* Feature Grid - Modernized */
@@ -804,19 +810,17 @@
         }
         
         .feature-item {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+            background: #ffffff;
             border-radius: 16px;
             padding: 28px;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.08);
             flex: 1 1 320px;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
         }
         
         .feature-item::before {
@@ -833,7 +837,7 @@
         
         .feature-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             border-color: rgba(255, 152, 0, 0.3);
         }
         
@@ -877,12 +881,12 @@
         .feature-content h3 {
             font-size: 1.4rem;
             margin-bottom: 12px;
-            color: var(--white);
+            color: #2A3052; /* Darker color for better contrast */
             font-weight: 600;
         }
         
         .feature-content p {
-            color: rgba(255, 255, 255, 0.8);
+            color: #555; /* Darker text for better readability */
             font-size: 1rem;
             line-height: 1.6;
         }
@@ -913,7 +917,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(33, 35, 56, 0.92), rgba(23, 24, 40, 0.9));
+            background: linear-gradient(135deg, rgba(42, 48, 82, 0.92), rgba(30, 36, 64, 0.9));
             z-index: 1;
         }
         
@@ -1393,13 +1397,14 @@
             <div class="container">
                 <div class="features-header">
                     <h2>Interaktiv dashboard demonstrasjon</h2>
-                    <p class="text-center" style="color: rgba(255, 255, 255, 0.8); max-width: 800px; margin: 0 auto 40px;">Opplev styrken i datadrevet beslutningstaking med våre interaktive dashboards som gir deg innsikt i sanntid. Klikk på forskjellige deler av dashboardet for å utforske dataene.</p>
+                    <p class="text-center" style="max-width: 800px; margin: 0 auto 40px;">Opplev styrken i datadrevet beslutningstaking med våre interaktive dashboards som gir deg innsikt i sanntid. Klikk på forskjellige deler av dashboardet for å utforske dataene.</p>
                 </div>    
-                <div class="dashboard-container" style="border-radius: 16px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.25); margin-bottom: 3rem;">
+                <div class="dashboard-container" style="border-radius: 16px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.1); margin-bottom: 3rem;">
                     <div class="dashboard-content">
+                        <!-- Embedded dashboard with reduced height to minimize scrolling -->
                         <iframe 
                             src="dashboard-demo.html" 
-                            style="width: 100%; height: 700px; border: none; display: block;" 
+                            style="width: 100%; height: 600px; border: none; display: block;" 
                             title="Cipher Dashboard Demo">
                         </iframe>
                     </div>
@@ -1827,11 +1832,11 @@
                 const iframe = document.querySelector('iframe');
                 if (iframe) {
                     if (window.innerWidth <= 768) {
-                        iframe.style.height = '550px';
+                        iframe.style.height = '450px';
                     } else if (window.innerWidth <= 992) {
-                        iframe.style.height = '650px';
+                        iframe.style.height = '500px';
                     } else {
-                        iframe.style.height = '700px';
+                        iframe.style.height = '600px';
                     }
                 }
             };
