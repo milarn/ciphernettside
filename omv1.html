@@ -334,133 +334,101 @@
       transform: translateY(-8px) rotate(-45deg);
     }
 
-    /* Nav Styles - Fra DevOps-siden */
-    .nav-item {
-    margin-left: 30px;
-        position: relative;
-    }
-    
-    .nav-link {
-    color: var(--white);
-    font-weight: 500;
-    padding: 5px 0;
-        display: flex;
-        align-items: center;
-        gap: 5px;
+    /* Dropdown Menu */
+    .dropdown {
+      position: relative;
     }
     
     .dropdown-toggle {
-        padding-right: 15px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
     }
     
     .dropdown-icon {
-        font-size: 12px;
-        transition: transform 0.3s ease;
+      font-size: 0.8rem;
+      transition: transform 0.3s ease;
+      margin-left: 3px;
     }
     
-    .dropdown:hover .dropdown-icon {
-    transform: rotate(180deg);
-    }
-    
-    /* Dropdown Menu */
-    .dropdown {
-    position: relative;
+    .dropdown.active .dropdown-icon {
+      transform: rotate(180deg);
     }
     
     .dropdown-content {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--secondary);
-    min-width: 220px;
-        padding: 12px 0;
-        border-radius: 8px;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-        opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    margin-top: 10px;
-    z-index: 1000;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: var(--secondary);
+      min-width: 220px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      border-radius: 12px;
+      padding: 12px 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      z-index: 5;
+      margin-top: 10px;
+      border: 1px solid rgba(255,255,255,0.05);
+      overflow: hidden;
+      max-height: 0; /* Start with zero height for better animation */
     }
     
-    .dropdown:hover .dropdown-content {
-    opacity: 1;
+    /* Desktop dropdown behavior */
+    @media (min-width: 769px) {
+      .dropdown:hover .dropdown-content,
+      .dropdown.hovered .dropdown-content {
+        opacity: 1;
         visibility: visible;
-        transform: translateX(-50%) translateY(0);
+        transform: translateY(0);
+        max-height: 500px;
+        padding: 12px 0;
+      }
+    }
+    
+    /* Mobile dropdown behavior - controlled by JS */
+    .dropdown.active .dropdown-content {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
     }
     
     .dropdown-item {
-    display: block;
-    padding: 10px 20px;
-    color: var(--white);
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-    text-align: left;
-        white-space: nowrap;
+      display: block;
+      padding: 12px 20px;
+      color: var(--white);
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .dropdown-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      transition: width 0.3s ease;
+      opacity: 0.8;
     }
     
     .dropdown-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--primary);
+      background-color: var(--secondary-light);
+      color: var(--white);
+      padding-left: 25px;
     }
     
+    .dropdown-item:hover::before {
+      width: 3px;
+    }
+
     .dropdown-item.active {
-        color: var(--primary);
-        background-color: rgba(245, 162, 140, 0.1);
-    }
-    
-    /* Mobile-Specific Dropdown Styles */
-    @media (max-width: 768px) {
-        .dropdown-content {
-            position: static;
-            background-color: rgba(255, 255, 255, 0.05);
-            box-shadow: none;
-            max-height: 0;
-            overflow: hidden;
-            padding: 0;
-            margin-top: 0;
-            border-radius: 8px;
-            opacity: 1;
-            visibility: visible;
-            transform: none !important;
-            transition: max-height 0.4s ease, padding 0.4s ease, margin 0.4s ease;
-            border: none;
-            pointer-events: auto; /* Ensure clicks work on mobile */
-            width: 100%;
-            left: 0;
-        }
-        
-        .dropdown-content::before {
-            display: none;
-        }
-        
-        .dropdown.active .dropdown-content {
-            max-height: 400px;
-            padding: 10px 0;
-            margin-top: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .dropdown-item {
-            padding: 12px 20px;
-            margin-left: 0;
-            font-size: 1rem;
-            border-left: 3px solid transparent;
-            text-align: left;
-            display: block;
-            width: 100%;
-        }
-        
-        .dropdown-item:hover {
-            border-left: 3px solid var(--primary);
-            background-color: rgba(255, 255, 255, 0.1);
-            padding-left: 25px;
-        }
-        
-        .dropdown-item::before {
-            display: none;
-        }
+      color: var(--primary);
+      background-color: rgba(245, 162, 140, 0.1);
     }
 
     /* Hero Section */
@@ -786,7 +754,6 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 30px;
-      row-gap: 50px; /* Øker mellomrom mellom radene for å gi plass til ekspanderte kort */
     }
 
     .team-member {
@@ -796,7 +763,6 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       transition: all 0.3s ease;
       border: 2px solid var(--white);
-      position: relative;
     }
 
     .team-member:hover {
@@ -872,104 +838,6 @@
       color: var(--primary);
       width: 20px;
       text-align: center;
-    }
-
-    /* Nytt - Team Member Bio */
-    .team-member-bio {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000), 
-                  opacity 0.5s ease,
-                  padding 0.4s ease;
-      background-color: rgba(59, 61, 94, 0.95);
-      color: var(--white);
-      opacity: 0;
-      padding: 0 25px;
-      border-radius: 0 0 16px 16px;
-      position: relative;
-      z-index: 1;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-      border-top: 1px solid rgba(255, 255, 255, 0);
-    }
-
-    .team-member.active .team-member-bio {
-      max-height: 550px; /* Økt fra 400px for mer plass */
-      opacity: 1;
-      padding: 30px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .team-member-bio p {
-      font-size: 0.95rem; /* Litt mindre tekst for å passe bedre */
-      line-height: 1.8;
-      margin-bottom: 0;
-      letter-spacing: 0.01em; /* Bedre lesbarhet */
-    }
-
-    .bio-toggle {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      width: 32px;
-      height: 32px;
-      background-color: var(--primary);
-      color: var(--white);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      z-index: 5;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      font-size: 0.9rem;
-    }
-
-    .bio-toggle:hover {
-      background-color: var(--primary-dark);
-      transform: scale(1.1);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    }
-
-    .team-member.active .bio-toggle {
-      transform: rotate(45deg);
-    }
-
-    .team-member.active .bio-toggle:hover {
-      background-color: var(--primary-dark);
-    }
-    
-    /* Sikre at ekspanderingen ikke påvirker grid-layout */
-    .team-member {
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-      position: relative;
-      grid-column-end: span 1;
-      z-index: 1;
-    }
-    
-    .team-member.active {
-      z-index: 2; /* Litt høyere z-index når aktiv for å sikre at ekspansjonen vises foran andre elementer */
-    }
-    
-    /* Responsive justeringer */
-    @media (max-width: 992px) {
-      .team-member.active .team-member-bio {
-        padding: 25px 20px;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      .team-member.active .team-member-bio {
-        padding: 20px 15px;
-        max-height: 650px; /* Ekstra høyde på mobil siden bredden er mindre */
-      }
-      
-      .bio-toggle {
-        width: 28px;
-        height: 28px;
-      }
     }
 
     /* Values & Culture Section */
@@ -1265,19 +1133,6 @@
         right: 0;
       }
       
-      @media (max-width: 768px) {
-        .nav-menu {
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start; /* Start øverst */
-        }
-        
-        .header-cta {
-          margin-top: auto; /* Skyver knappen til bunnen */
-          padding-bottom: 20px;
-        }
-      }
-      
       /* Show mobile footer when menu is active */
       .menu-footer {
         display: block;
@@ -1369,8 +1224,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: var(--red); /* Bruker vår definerte røde farge */
-        color: white;
+        background: linear-gradient(90deg, var(--primary), var(--primary-dark));
       }
       
       .header-cta .btn i {
@@ -1394,36 +1248,26 @@
         border: none;
         pointer-events: auto;
         width: 100%;
-        left: auto;
+        left: 0;
       }
       
       .dropdown.active .dropdown-content {
         max-height: 400px;
-        padding: 0;
+        padding: 10px 0;
         margin-top: 10px;
-        border: none;
+        border: 1px solid rgba(255, 255, 255, 0.1);
       }
       
       .dropdown-item {
-        padding: 15px 20px;
+        padding: 12px 20px;
         margin-left: 0;
         font-size: 1rem;
-        border-left: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      }
-      
-      .dropdown-item:last-child {
-        border-bottom: none;
+        border-left: 3px solid transparent;
       }
       
       .dropdown-item:hover {
-        background-color: rgba(245, 162, 140, 0.2);
-        padding-left: 25px;
-      }
-      
-      .dropdown-item.active {
-        background-color: var(--red);
-        color: var(--white);
+        border-left: 3px solid var(--primary);
+        background-color: rgba(255, 255, 255, 0.1);
       }
       
       .dropdown-item::before {
@@ -1498,7 +1342,8 @@
   </style>
 </head>
 <body>
-    <header class="header" id="header">
+  <!-- Header -->
+  <header class="header" id="header">
         <div class="container header-container">
             <div class="logo">
                 <a href="index.html">
@@ -1517,7 +1362,7 @@
             <!-- Dark overlay when menu is open -->
             <div class="menu-overlay" id="menuOverlay"></div>
             
-            <nav class="nav-menu" id="navMenu" aria-label="Hovedmeny">
+            <nav class="nav-menu" id="navMenu">
                 <ul class="nav-list">
                     <li class="nav-item"><a href="index.html" class="nav-link">Hjem</a></li>
                     <li class="nav-item dropdown">
@@ -1525,7 +1370,7 @@
                             Våre tjenester
                             <i class="dropdown-icon fas fa-chevron-down"></i>
                         </a>
-                        <div class="dropdown-content" id="servicesDropdown">
+                        <div class="dropdown-content">
                             <a href="it-drift.html" class="dropdown-item">IT-drift</a>
                             <a href="sikkerhetstjenester.html" class="dropdown-item">Sikkerhetstjenester</a>
                             <a href="skytjenester.html" class="dropdown-item">Skytjenester</a>
@@ -1535,10 +1380,11 @@
                         </div>
                     </li>
                     <li class="nav-item"><a href="om.html" class="nav-link active">Om oss</a></li>
+                    <li class="nav-item"><a href="#kontakt" class="nav-link">Kontakt</a></li>
                     <li class="nav-item"><a href="kontakt.html#karriere" class="nav-link">Karriere</a></li>
                 </ul>
                 
-                <a href="kontakt.html" class="btn btn-primary header-cta">Kontakt oss</a>
+                <a href="#kontakt" class="btn btn-primary header-cta">Kontakt oss</a>
                 
                 <!-- Mobile-only footer with contact info -->
                 <div class="menu-footer">
@@ -1683,14 +1529,7 @@
                 </a>
               </div>
             </div>
-            <div class="bio-toggle" title="Vis mer informasjon">
-              <i class="fas fa-plus"></i>
-            </div>
-            <div class="team-member-bio">
-              <p>Denne kjernekaren er seniorkonsulent i Cipher og leder vårt Power Platform forretningsområde. Her balanserer han kundens innsikts- og forretningsbehov med teknisk kompetanse, alltid på brukernes premisser. Truls har mange års erfaring innen virksomhetsstyring og business intelligence, og elsker å utfordre kundene våre med å forbedre prosesser og gjøre gull ut av data slik at de kan oppnå best mulig resultater. Han er over snittet opptatt av analyse, og i Cipher har han allerede fått sin egen trebokstavforkortelse: "STL - Slipp Truls Løs". Denne karen har alltid en artig kommentar på lur, og du finner han som oftest på squashbanen eller i alpinbakken på Geilo.</p>
-            </div>
           </div>
-          
           <!-- Team Member 2 -->
           <div class="team-member">
             <div class="team-member-image">
@@ -1710,14 +1549,7 @@
                 </a>
               </div>
             </div>
-            <div class="bio-toggle" title="Vis mer informasjon">
-              <i class="fas fa-plus"></i>
-            </div>
-            <div class="team-member-bio">
-              <p>Martin er en energisk og løsningsorientert IT-konsulent med en sterk passion for teknologi. Med sin tekniske kompetanse og evne til å forstå kundenes behov, leverer han skreddersydde løsninger som skaper verdi. Martin jobber metodisk og strukturert, og er alltid opptatt av å finne den mest effektive veien til målet. Hans positive innstilling og evne til å forklare kompliserte tekniske konsepter på en forståelig måte gjør ham til en verdsatt ressurs for både teamet og kundene våre.</p>
-            </div>
           </div>
-          
           <!-- Team Member 3 -->
           <div class="team-member">
             <div class="team-member-image">
@@ -1737,14 +1569,7 @@
                 </a>
               </div>
             </div>
-            <div class="bio-toggle" title="Vis mer informasjon">
-              <i class="fas fa-plus"></i>
-            </div>
-            <div class="team-member-bio">
-              <p>Silje har nesten 10 års erfaring innen IT og support fordelt på privat og offentlig sektor. Denne sprudlende og utadvendte jenta elsker å snakke med mennesker, finne gode og enkle løsninger, og har et sterkt ønske om at det skal være hyggelig å kontakte IT-supporten. Har du noen IT-relaterte spørsmål er Silje kun et tastetrykk unna, ellers tar hun gjerne en fysisk tur ut til våre kjære kunder.</p>
-            </div>
           </div>
-          
           <!-- Team Member 4 -->
           <div class="team-member">
             <div class="team-member-image">
@@ -1764,14 +1589,7 @@
                 </a>
               </div>
             </div>
-            <div class="bio-toggle" title="Vis mer informasjon">
-              <i class="fas fa-plus"></i>
-            </div>
-            <div class="team-member-bio">
-              <p>Dante har over fem års erfaring i serviceyrket og har jobbet mesteparten av tiden med IT-drift og sikkerhet, både med on-prem og cloud løsninger. Han er veldig opptatt av å levere god og profesjonell service til alle kunder slik at de føler seg trygg og ivaretatt, og tar stolthet i arbeidet sitt. Han kan også plassere nesten alle land og hovedsteder på et kart. #IT #Security #Cloud #Azure #Intune #Service #Engasjert</p>
-            </div>
           </div>
-          
           <!-- Team Member 5 -->
           <div class="team-member">
             <div class="team-member-image">
@@ -1791,14 +1609,7 @@
                 </a>
               </div>
             </div>
-            <div class="bio-toggle" title="Vis mer informasjon">
-              <i class="fas fa-plus"></i>
-            </div>
-            <div class="team-member-bio">
-              <p>Espen har over 10 års erfaring ifra IT-bransjen og har jobbet med alt fra tradisjonell serverdrift i datasentre og fungert som teknisk kundeansvarlig, til mer moderne løsninger i Microsoft 365 og Microsoft Azure. Han er en pragmatisk fyr som er opptatt av å levere smidige og kostnadseffektive løsninger til deg som kunde - selvsagt med sikkerheten i førersetet. Espen er rolig og tålmodig - alltid med et smil og en god historie på lur.</p>
-            </div>
           </div>
-          
           <!-- Team Member 6 -->
           <div class="team-member">
             <div class="team-member-image">
@@ -1818,14 +1629,7 @@
                 </a>
               </div>
             </div>
-            <div class="bio-toggle" title="Vis mer informasjon">
-              <i class="fas fa-plus"></i>
-            </div>
-            <div class="team-member-bio">
-              <p>Martinius er IT konsulent i Cipher og har erfaring med blant annet Windows og macOS, AD, håndtering av AV-utstyr og kundestøtte. Han er svært opptatt av å finne gode løsninger, og han gjør alt han kan for at våre kjære kunder skal få den beste kundeopplevelsen. Denne artige karen har alltid en gøyal kommentar på lur, og gir deg gjerne et tips eller to dersom du er av den ølinteresserte typen - med anbefaling om Lom ølbryggeri (Lomb) vel å merke.</p>
-            </div>
           </div>
-          
           <!-- Team Member 7 -->
           <div class="team-member">
             <div class="team-member-image">
@@ -1845,14 +1649,7 @@
                 </a>
               </div>
             </div>
-            <div class="bio-toggle" title="Vis mer informasjon">
-              <i class="fas fa-plus"></i>
-            </div>
-            <div class="team-member-bio">
-              <p>Thomas er en av partnerne i Cipher. En skikkelig kjernekar som alltid er blid, overraskende god til å snakke svensk og stort sett å finne med hodet i en eller annen sky (teknisk sådann). Thomas har nemlig tilbragt store deler av sin yrkeskarriere innenfor tradisjonelle driftsleveranser, men har de siste årene utelukkende levert store, driftskritiske prosjekter knyttet til cloud, arkitektur og sikkerhet. Hvis du trenger en dønn ærlig, tydelig og kanonflink kar, så er Thomas rette mann for jobben!</p>
-            </div>
           </div>
-          
           <!-- Team Member 8 -->
           <div class="team-member">
             <div class="team-member-image">
@@ -1872,14 +1669,7 @@
                 </a>
               </div>
             </div>
-            <div class="bio-toggle" title="Vis mer informasjon">
-              <i class="fas fa-plus"></i>
-            </div>
-            <div class="team-member-bio">
-              <p>Thorbjørn har over 11 års erfaring innen IT og har sin kjernekompetanse innen digitalisering, sikkerhet og infrastruktur. Han bekler flere ulike roller og har blant annet jobbet som teknolog, faglig leder og prosessansvarlig. Denne hyggelige og dedikerte karen elsker å dypdykke ned i ting, og har omfattende sikkerhets- og personvernkunnskaper med sertifiseringer som CISSP, CCSP, CISM og ISO27001. Lurer du på hvordan din bedrift kan bedre sikkerheten, eller at du lever etter sitatet "Don't learn safety by accident" - så er Thorbjørn your guy!</p>
-            </div>
           </div>
-          
           <!-- Team Member 9 -->
           <div class="team-member">
             <div class="team-member-image">
@@ -1899,14 +1689,7 @@
                 </a>
               </div>
             </div>
-            <div class="bio-toggle" title="Vis mer informasjon">
-              <i class="fas fa-plus"></i>
-            </div>
-            <div class="team-member-bio">
-              <p>Denne gladjenta fra Hardanger møter deg med et smil om munnen. Med den idylliske dialekten og sitt hyggelig og omgjengelig vesen, er hun også en beintøff og treffsikker dame - bokstavelig talt - som du finner som oftest på skytebanen. Kristi har en master i Innovasjon og ledelse fra Høgskulen på Vestlandet og er opptatt av innovasjon, strategi, digitalisering og bærekraft.</p>
-            </div>
           </div>
-          
           <!-- Team Member 10 -->
           <div class="team-member">
             <div class="team-member-image">
@@ -1926,14 +1709,7 @@
                 </a>
               </div>
             </div>
-            <div class="bio-toggle" title="Vis mer informasjon">
-              <i class="fas fa-plus"></i>
-            </div>
-            <div class="team-member-bio">
-              <p>Alle skulle hatt en Kjell på arbeidsplassen, for en mer sosial, hyggelig, nysgjerrig og trivelig kar skal du lete lenge etter! Han startet faktisk sitt yrkesaktive liv som Controller, men innså (heldigvis) ganske raskt at det var teknologi som var hans kall i arbeidslivet og der har han vært siden. Først i et lite kompetansehus, senere i verdens største kompetansehus og nå i Cipher hvor alle drømmene om å få være med å skape den ultimate arbeidsplassen med de mest fornøyde kundene skal realiseres!</p>
-            </div>
           </div>
-          
           <!-- Team Member 11 -->
           <div class="team-member">
             <div class="team-member-image">
@@ -1953,14 +1729,7 @@
                 </a>
               </div>
             </div>
-            <div class="bio-toggle" title="Vis mer informasjon">
-              <i class="fas fa-plus"></i>
-            </div>
-            <div class="team-member-bio">
-              <p>Lena har en ekte lidenskap for å skape den beste tenkbare kundeopplevelsen og brenner for å gjøre kunder fornøyd! Hun har flere års erfaring fra å lede team innen kundeservice og er veldig interessert i hvordan interne prosesser kan optimeres slik at man kan gjøre det ytterste for å overgå kundenes forventninger. Du finner også gjerne Lena på et av Bergens fjell, så ofte som det går.</p>
-            </div>
           </div>
-          
           <!-- Team Member 12 -->
           <div class="team-member">
             <div class="team-member-image">
@@ -1980,15 +1749,8 @@
                 </a>
               </div>
             </div>
-            <div class="bio-toggle" title="Vis mer informasjon">
-              <i class="fas fa-plus"></i>
-            </div>
-            <div class="team-member-bio">
-              <p>Erlend er gutten med det store hjertet som du garantert blir glad i! Han har bakgrunn som tidligere yrkesdykker og det er kanskje derfor han elsker å "dykke ned i nye problemstillinger". Men spøk til side, Erlend er ekstremt dyktig og grundig - han setter sin ære i å levere #aboveandbeyond og med Erlend på laget er du i verdens beste hender! Bortsett fra dykking, så kan det nevnes at han er utdannet automasjonsingeniør med en MBA i strategi samt mange års erfaring både fra industri og rådgivningsbransjen. Han er en sann teknologirådgivningspotet, og på godt og vondt har han en mening om det meste!</p>
-            </div>
           </div>
-          
-          <!-- Team Member 13 -->
+          <!-- Team Member 13 (Added) -->
           <div class="team-member">
             <div class="team-member-image">
               <img src="bilder/phillip.jpg" alt="Phillip Daae">
@@ -2007,15 +1769,8 @@
                 </a>
               </div>
             </div>
-            <div class="bio-toggle" title="Vis mer informasjon">
-              <i class="fas fa-plus"></i>
-            </div>
-            <div class="team-member-bio">
-              <p>Phillip er vår energiske IT-lærling som alltid er nysgjerrig og lærevillig. Med sin entusiasme og tekniske interesse, er han alltid klar for å ta fatt på nye utfordringer og lære mer om IT-drift og support. Hans positive innstilling og evne til å samarbeide gjør ham til et godt tilskudd til teamet. Phillip har allerede vist stor fremgang i sitt arbeid med Windows, nettverk og kundesupport, og vi ser frem til å følge hans videre utvikling i Cipher.</p>
-            </div>
           </div>
-          
-          <!-- Team Member 14 -->
+          <!-- Team Member 14 (Added) -->
           <div class="team-member">
             <div class="team-member-image">
               <img src="bilder/Anders.jpg" alt="Anders Bjånesøy">
@@ -2033,12 +1788,6 @@
                   <span>ab@cipher.no</span>
                 </a>
               </div>
-            </div>
-            <div class="bio-toggle" title="Vis mer informasjon">
-              <i class="fas fa-plus"></i>
-            </div>
-            <div class="team-member-bio">
-              <p>En blidere kar skal du lete lenge etter! Humørsprederen Anders er senior IT-konsulent i Cipher og har over 11 års erfaring innen IT bransjen, og har vært borti det aller meste i både lokale og skybaserte miljøer. Han har lang erfaring med Microsoft 365-plattformen, har en lidenskap for automatisering, og har jobbet som både key account manager og prosjektleder mesteparten av karrieren. Denne hyggelige karen danser seg gjennom uken, og er du heldig får du kanskje et lynkurs eller to i å swinge deg på parketten (Boogie Woogie).</p>
             </div>
           </div>
 
@@ -2182,17 +1931,7 @@
             // Dropdown Functionality
             const dropdowns = document.querySelectorAll('.dropdown');
             
-            // Mobile menu handling
-            // Ensure dropdown toggle gets correct styling and behavior
-            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-            dropdownToggles.forEach(toggle => {
-                // Make sure the toggle is correctly styled
-                if (isMobile()) {
-                    toggle.style.color = 'var(--primary)';
-                }
-            });
-            
-        // Function to handle clicks on dropdown toggles
+            // Function to handle clicks on dropdown toggles
             const handleDropdownToggle = (dropdown, link, e) => {
                 e.preventDefault();
                 e.stopPropagation(); // Prevent event from bubbling up
@@ -2201,13 +1940,6 @@
                 // Toggle aria-expanded for accessibility
                 const isExpanded = dropdown.classList.contains('active');
                 link.setAttribute('aria-expanded', isExpanded);
-                
-                // Fix dropdown content position for mobile view
-                const dropdownContent = dropdown.querySelector('.dropdown-content');
-                if (dropdownContent && isMobile()) {
-                    dropdownContent.style.position = 'static';
-                    dropdownContent.style.transform = 'none';
-                }
                 
                 // Close other dropdowns
                 dropdowns.forEach(otherDropdown => {
@@ -2231,6 +1963,12 @@
                 link.addEventListener('click', (e) => {
                     if (isMobile()) {
                         handleDropdownToggle(dropdown, link, e);
+                        // Ensure dropdown is within the mobile menu bounds
+                        const dropdownContent = dropdown.querySelector('.dropdown-content');
+                        if (dropdownContent) {
+                            dropdownContent.style.width = '100%';
+                            dropdownContent.style.left = '0';
+                        }
                     } else {
                         // On desktop: prevent default action if clicking main navigation items with dropdowns
                         e.preventDefault();
@@ -2238,37 +1976,28 @@
                 });
                 
                 // Mouse enter/leave events for desktop
-                if (!isMobile()) {
-                    dropdown.addEventListener('mouseenter', () => {
-                        dropdown.classList.add('hovered');
-                        link.setAttribute('aria-expanded', 'true');
-                    });
-                    
-                    dropdown.addEventListener('mouseleave', () => {
-                        dropdown.classList.remove('hovered');
-                        link.setAttribute('aria-expanded', 'false');
-                    });
-                }
+                const setupHoverEvents = () => {
+                    if (!isMobile()) {
+                        dropdown.addEventListener('mouseenter', () => {
+                            dropdown.classList.add('hovered');
+                            link.setAttribute('aria-expanded', 'true');
+                        });
+                        
+                        dropdown.addEventListener('mouseleave', () => {
+                            dropdown.classList.remove('hovered');
+                            link.setAttribute('aria-expanded', 'false');
+                        });
+                    }
+                };
+                
+                // Initialize hover events
+                setupHoverEvents();
                 
                 // Handle window resize
                 window.addEventListener('resize', () => {
                     if (isMobile()) {
                         // Reset any desktop-specific states when switching to mobile
                         dropdown.classList.remove('hovered');
-                        
-                        // Fix mobile dropdown positioning
-                        const dropdownContent = dropdown.querySelector('.dropdown-content');
-                        if (dropdownContent) {
-                            dropdownContent.style.position = 'static';
-                            dropdownContent.style.transform = 'none';
-                        }
-                    } else {
-                        // Reset to desktop positioning
-                        const dropdownContent = dropdown.querySelector('.dropdown-content');
-                        if (dropdownContent) {
-                            dropdownContent.style.position = '';
-                            dropdownContent.style.transform = '';
-                        }
                     }
                 });
             });
@@ -2324,52 +2053,6 @@
                 });
             });
             
-            // Bio Toggle Functionality - Forbedret versjon
-            const bioToggles = document.querySelectorAll('.bio-toggle');
-            
-            if (bioToggles.length > 0) {
-                bioToggles.forEach(toggle => {
-                    toggle.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        const teamMember = toggle.closest('.team-member');
-                        
-                        // Toggle active class på team member
-                        teamMember.classList.toggle('active');
-                        
-                        // Endre ikonet
-                        const icon = toggle.querySelector('i');
-                        if (icon) {
-                            if (teamMember.classList.contains('active')) {
-                                icon.classList.remove('fa-plus');
-                                icon.classList.add('fa-times');
-                            } else {
-                                icon.classList.remove('fa-times');
-                                icon.classList.add('fa-plus');
-                            }
-                        }
-                        
-                        // Scroll til det ekspanderte elementet hvis det ikke er fullstendig synlig
-                        if (teamMember.classList.contains('active')) {
-                            const rect = teamMember.getBoundingClientRect();
-                            const isFullyVisible = (
-                                rect.top >= 100 && // Offset for header
-                                rect.bottom <= window.innerHeight - 100 // Margin i bunnen
-                            );
-                            
-                            if (!isFullyVisible) {
-                                setTimeout(() => {
-                                    window.scrollTo({
-                                        top: window.pageYOffset + rect.top - 150,
-                                        behavior: 'smooth'
-                                    });
-                                }, 300);
-                            }
-                        }
-                    });
-                });
-            }
-            
             // Form Submission
             const contactForm = document.getElementById('contactForm');
             
@@ -2383,6 +2066,9 @@
                     const subject = document.getElementById('subject').value;
                     const message = document.getElementById('message').value;
                     
+                    // Here you would typically send the form data to a server
+                    // For now, we'll just simulate a success message
+                    
                     // Reset form
                     contactForm.reset();
                     
@@ -2390,19 +2076,6 @@
                     alert('Takk for din henvendelse! Vi vil kontakte deg snart.');
                 });
             }
-            
-            // Resize handler to fix dropdown issues
-            window.addEventListener('resize', () => {
-                // Fix mobile dropdown colors
-                if (isMobile()) {
-                    dropdownToggles.forEach(toggle => {
-                        const parentDropdown = toggle.closest('.dropdown');
-                        if (parentDropdown && parentDropdown.classList.contains('active')) {
-                            toggle.style.color = 'var(--primary)';
-                        }
-                    });
-                }
-            });
         });
     </script>
 </body>
