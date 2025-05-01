@@ -21,6 +21,47 @@
     
     <style>
         :root {
+            /* Modern X close button */
+        .modern-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 32px;
+            height: 32px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            outline: none;
+            z-index: 100;
+        }
+        
+        .modern-close-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .modern-close-btn:before, 
+        .modern-close-btn:after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 2px;
+            background-color: #fff;
+            border-radius: 1px;
+        }
+        
+        .modern-close-btn:before {
+            transform: rotate(45deg);
+        }
+        
+        .modern-close-btn:after {
+            transform: rotate(-45deg);
+        }
             /* Brand Colors */
             --primary: #FF9800;
             --primary-dark: #E65100;
@@ -928,6 +969,7 @@
     </div>
     
     <div class="dashboard-container">
+        <button class="modern-close-btn" aria-label="Lukk dashboard" onclick="closeDashboard()"></button>
         <div class="dashboard-header">
             <div class="dashboard-logo">
                 <img src="bilder/Cipher-logo-negativ+(3).png" alt="Cipher Logo">
@@ -1310,6 +1352,12 @@
     </div>
 
     <script>
+        // Function to handle closing the dashboard
+        function closeDashboard() {
+            // You can add specific closing logic here
+            window.location.href = 'innsiktoganalyse.html#demo';
+        }
+        
         document.addEventListener('DOMContentLoaded', () => {
             // Tab Functionality
             const tabs = document.querySelectorAll('.dashboard-tab');

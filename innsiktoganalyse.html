@@ -1134,6 +1134,48 @@
         .demo-feature i {
             margin-right: 10px;
         }
+        
+        /* Modern X close button */
+        .modern-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 32px;
+            height: 32px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            outline: none;
+            z-index: 100;
+        }
+        
+        .modern-close-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .modern-close-btn:before, 
+        .modern-close-btn:after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 2px;
+            background-color: #fff;
+            border-radius: 1px;
+        }
+        
+        .modern-close-btn:before {
+            transform: rotate(45deg);
+        }
+        
+        .modern-close-btn:after {
+            transform: rotate(-45deg);
+        }
 
         /* Contact Section */
         .contact-section {
@@ -1768,8 +1810,8 @@
                         <i class="fas fa-database"></i>
                     </div>
                     <div class="feature-content">
-                        <h3>Dataintegrasjon</h3>
-                        <p>Vi integrerer data fra forskjellige kilder for å skape en helhetlig oversikt over din virksomhet og fjerne informasjonssiloer som hindrer effektiv datautnyttelse.</p>
+                        <h3>Datainnsamling</h3>
+                        <p>Vi henter data fra forskjellige kilder for å skape en helhetlig oversikt over din virksomhet og fjerne informasjonssiloer som hindrer effektiv datainnsamling og analyse.</p>
                     </div>
                 </div>
                 
@@ -1855,7 +1897,7 @@
                 
                 <div class="process-image">
                     <div class="process-img-container">
-                        <img src="bilder\DSCF6689+(1).jpg" alt="Prosessforbedring med data" class="process-img">
+                        <img src="bilder\IMG_3669.png" alt="Prosessforbedring med data" class="process-img">
                     </div>
                 </div>
             </div>
@@ -2330,6 +2372,16 @@
             
             // Kjør bakgrunnsbildeendring
             setBackgroundImage();
+            
+            // Close dashboard function
+            window.closeDashboard = function() {
+                // You can add specific closing logic here
+                console.log('Dashboard closed');
+                // Example implementation - redirect back to main page
+                if (window.location.href.includes('innsiktdemo.html')) {
+                    window.location.href = 'innsiktoganalyse.html#demo';
+                }
+            };
         });
     </script>
 </body>

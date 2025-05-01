@@ -2088,7 +2088,256 @@
                         <li><a href="m365.html">Microsoft Intune & M365</a></li>
                         <li><a href="sikkerhetstjenester.html">Sikkerhetstjenester</a></li>
                         <li><a href="skytjenester.html">Skytjenester</a></li>
-                        <li><a href="innsiktoganalyse.html">Innsikt og analyse</a></li>
+                        <li><a href="strategisk-it-radgivning.html">Strategisk IT-rådgivning</a></li>
+                        <li><a href="devops-monitorering.html">DevOps-monitorering</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links-column">
+                    <h5 class="footer-title">Snarveier</h5>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Hjem</a></li>
+                        <li><a href="index.html#tjenester">Tjenester</a></li>
+                        <li><a href="om.html">Om oss</a></li>
+                        <li><a href="#kontakt">Kontakt</a></li>
+                        <li><a href="kontakt.html#karriere">Karriere</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links-column">
+                    <h5 class="footer-title">Kontakt</h5>
+                    <ul class="footer-links">
+                        <li><a href="https://goo.gl/maps/bZVMgfbGGvZKUNc47" target="_blank" rel="noopener">Nøstegaten 58, 5011 Bergen</a></li>
+                        <li><a href="tel:+4756123465">+47 56 12 34 65</a></li>
+                        <li><a href="mailto:hi@cipher.no">hi@cipher.no</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 Cipher Norge AS. Alle rettigheter reservert.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Funksjon for å endre bakgrunnsbilde basert på siden
+            function setBackgroundImage() {
+                // Få gjeldende side-URL
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                
+                // Bakgrunnsbilder for forskjellige sider (legg til flere etter behov)
+                const backgroundImages = {
+                    'index.html': 'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?q=80&w=1920&auto=format&fit=crop',
+                    'skytjenester.html': 'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?q=80&w=1920&auto=format&fit=crop',
+                    'it-drift.html': 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1920&auto=format&fit=crop',
+                    'sikkerhetstjenester.html': 'https://images.unsplash.com/photo-1510511459019-5dda7724fd87?q=80&w=1920&auto=format&fit=crop',
+                    'innsiktoganalyse.html': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1920&auto=format&fit=crop',
+                    'm365.html': 'https://images.unsplash.com/photo-1516321165247-4aa89a48be28?q=80&w=1920&auto=format&fit=crop',
+                    'doku.html': 'https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=1920&auto=format&fit=crop'
+                };
+                
+                // Sett bakgrunnsbilde basert på gjeldende side
+                if (backgroundImages[currentPage]) {
+                    const pageHero = document.querySelector('.page-hero');
+                    if (pageHero) {
+                        pageHero.style.backgroundImage = `url('${backgroundImages[currentPage]}')`;  
+                    }
+                    
+                    // Oppdater også andre seksjoner med bakgrunnsbilder om nødvendig
+                    const otherSections = document.querySelectorAll('.features-section, .contact-section');
+                    otherSections.forEach(section => {
+                        if (section) {
+                            section.style.backgroundImage = `url('${backgroundImages[currentPage]}')`;  
+                        }
+                    });
+                }
+            }
+            
+            // Kjør bakgrunnsbildeendring
+            setBackgroundImage();
+
+            // Check device size
+            const isMobile = () => window.innerWidth <= 768;
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+            
+            // Toggle menu function
+            const toggleMenu = () => {
+                navMenu.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+                menuToggle.classList.toggle('active');
+                
+                const isExpanded = navMenu.classList.contains('active');
+                menuToggle.setAttribute('aria-expanded', isExpanded);
+                
+                // Prevent body scrolling when menu is open
+                document.body.style.overflow = isExpanded ? 'hidden' : '';
+            };
+            
+            // Open/close menu when clicking hamburger icon
+            menuToggle.addEventListener('click', toggleMenu);
+            
+            // Close menu when clicking on overlay
+            menuOverlay.addEventListener('click', toggleMenu);
+            
+            // Sticky Header
+            window.addEventListener('scroll', () => {
+                const header = document.getElementById('header');
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+            
+            // Dropdown Functionality
+            const dropdowns = document.querySelectorAll('.dropdown');
+            
+            // Function to handle clicks on dropdown toggles
+            const handleDropdownToggle = (dropdown, link, e) => {
+                e.preventDefault();
+                e.stopPropagation(); // Prevent event from bubbling up
+                dropdown.classList.toggle('active');
+                
+                // Toggle aria-expanded for accessibility
+                const isExpanded = dropdown.classList.contains('active');
+                link.setAttribute('aria-expanded', isExpanded);
+                
+                // Fix dropdown content position for mobile view
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+                if (dropdownContent && isMobile()) {
+                    dropdownContent.style.position = 'static';
+                    dropdownContent.style.transform = 'none';
+                }
+                
+                // Close other dropdowns
+                dropdowns.forEach(otherDropdown => {
+                    if (otherDropdown !== dropdown) {
+                        otherDropdown.classList.remove('active');
+                        const otherToggle = otherDropdown.querySelector('.dropdown-toggle');
+                        if (otherToggle) {
+                            otherToggle.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                });
+            };
+            
+            // Handle click and hover events for dropdowns
+            dropdowns.forEach(dropdown => {
+                const link = dropdown.querySelector('.dropdown-toggle');
+                
+                if (!link) return;
+                
+                // On mobile: handle click events
+                link.addEventListener('click', (e) => {
+                    if (isMobile()) {
+                        handleDropdownToggle(dropdown, link, e);
+                    } else {
+                        // On desktop: prevent default action if clicking main navigation items with dropdowns
+                        e.preventDefault();
+                    }
+                });
+                
+                // Mouse enter/leave events for desktop
+                if (!isMobile()) {
+                    dropdown.addEventListener('mouseenter', () => {
+                        dropdown.classList.add('hovered');
+                        link.setAttribute('aria-expanded', 'true');
+                    });
+                    
+                    dropdown.addEventListener('mouseleave', () => {
+                        dropdown.classList.remove('hovered');
+                        link.setAttribute('aria-expanded', 'false');
+                    });
+                }
+                
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    if (isMobile()) {
+                        // Reset any desktop-specific states when switching to mobile
+                        dropdown.classList.remove('hovered');
+                            
+                        // Fix mobile dropdown positioning
+                        const dropdownContent = dropdown.querySelector('.dropdown-content');
+                        if (dropdownContent) {
+                            dropdownContent.style.position = 'static';
+                            dropdownContent.style.transform = 'none';
+                        }
+                    } else {
+                        // Reset to desktop positioning
+                        const dropdownContent = dropdown.querySelector('.dropdown-content');
+                        if (dropdownContent) {
+                            dropdownContent.style.position = '';
+                            dropdownContent.style.transform = '';
+                        }
+                    }
+                });
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    dropdowns.forEach(dropdown => {
+                        dropdown.classList.remove('active');
+                        const dropdownToggle = dropdown.querySelector('.dropdown-toggle');
+                        if (dropdownToggle) {
+                            dropdownToggle.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+                    document.body.style.overflow = '';
+                    menuOverlay.classList.remove('active');
+                }
+            });
+            
+            // Prevent dropdown menu clicks from closing the mobile menu
+            const dropdownItems = document.querySelectorAll('.dropdown-item');
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            });
+            
+            // Form Submission
+            const contactForm = document.getElementById('contactForm');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Reset form
+                    contactForm.reset();
+                    
+                    // Show success message
+                    alert('Takk for din henvendelse! Vi vil kontakte deg snart.');
+                });
+            }
+            
+            // Scroll animation for elements
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observe elements that should animate on scroll
+            document.querySelectorAll('.product-card, .feature-card, .benefit-card, .intune-step').forEach(el => {
+                observer.observe(el);
+                // Add initial class for animation setup
+                el.classList.add('animate-ready');
+            });
+        });
+    </script>
+</body>
+</html>
                         <li><a href="strategisk-it-radgivning.html">Strategisk IT-rådgivning</a></li>
                         <li><a href="devops-monitorering.html">DevOps-monitorering</a></li>
                         <li><a href="doku.html">Dokumentasjon as a Service</a></li>

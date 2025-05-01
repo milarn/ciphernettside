@@ -419,7 +419,7 @@
         
         /* Hero Section / Careers Header */
         .careers-hero {
-            padding: 180px 0 100px;
+            padding: 150px 0 80px; /* Reduced padding from 180px 0 100px */
             position: relative;
             overflow: hidden;
             background-color: var(--background);
@@ -447,7 +447,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             align-items: center;
-            gap: 50px;
+            gap: 30px; /* Reduced from 50px */
         }
         
         .careers-hero-content {
@@ -475,6 +475,7 @@
             overflow: hidden;
             transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
             transition: all 0.3s ease;
+            max-height: 350px; /* Further reduced from 400px */
         }
         
         .careers-hero-image:hover {
@@ -483,8 +484,10 @@
         
         .careers-hero-image img {
             width: 100%;
-            height: auto;
+            height: 100%; /* Changed from 'auto' to '100%' */
             display: block;
+            object-fit: cover; /* Added object-fit to maintain aspect ratio */
+            object-position: center; /* Center the image */
         }
 
         .careers-cta {
@@ -608,6 +611,61 @@
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 500;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animation-fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        /* This enables animation only when element enters viewport with IntersectionObserver */
+        .animation-fade-in:not(.animate) {
+            animation: none;
+            opacity: 0;
+        }
+        
+        .animation-fade-in.animate {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .animation-slide-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .animation-slide-up:not(.animate) {
+            animation: none;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .animation-slide-up.animate {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .delay-1 {
+            animation-delay: 0.3s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.6s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.9s;
         }
         
         /* Footer */
@@ -1136,17 +1194,17 @@
             <div class="particles-container" id="heroParticles"></div>
             <div class="container careers-hero-container">
                 <div class="careers-hero-content">
-                    <h1 class="careers-hero-title">Karriere i <span class="text-gradient">Cipher</span></h1>
-                    <p class="careers-hero-subtitle">Er du nyutdannet og sulten på erfaring eller ønsker nye utfordringer? Vi søker unge og eldre digitale talenter. Nøkkelord for egenskaper og interesser kan være <span class="text-primary">#mennesker, #prosess, #strategi, #cloud, #kubernetes, #Azure, #endring, #arkitektur</span> mm.</p>
+                    <h1 class="careers-hero-title animation-fade-in">Karriere i <span class="text-gradient">Cipher</span></h1>
+                    <p class="careers-hero-subtitle animation-fade-in delay-1">Er du nyutdannet og sulten på erfaring eller ønsker nye utfordringer? Vi søker unge og eldre digitale talenter. Nøkkelord for egenskaper og interesser kan være <span class="text-primary">#mennesker, #prosess, #strategi, #cloud, #kubernetes, #Azure, #endring, #arkitektur</span> mm.</p>
                     
-                    <p>Vi vil at mennesker som jobber hos Cipher ønsker å tilhøre noe større enn seg selv. At man ønsker å gjøre arbeid som gjør en forskjell. Cipher-ansatte er ydmyke, kreative, innovative, samarbeidsvillige, smidige, kundesentriske, blendende smarte og morsomme å være sammen med.</p>
+                    <p class="animation-fade-in delay-2">Vi vil at mennesker som jobber hos Cipher ønsker å tilhøre noe større enn seg selv. At man ønsker å gjøre arbeid som gjør en forskjell. Cipher-ansatte er ydmyke, kreative, innovative, samarbeidsvillige, smidige, kundesentriske, blendende smarte og morsomme å være sammen med.</p>
                     
-                    <div class="careers-cta">
+                    <div class="careers-cta animation-fade-in delay-3">
                         <a href="mailto:hi@cipher.no" class="btn btn-primary">Send oss din CV</a>
                     </div>
                     
                     <!-- Skills Tags -->
-                    <div class="service-badges">
+                    <div class="service-badges animation-fade-in delay-3">
                         <span class="service-badge">#mennesker</span>
                         <span class="service-badge">#prosess</span>
                         <span class="service-badge">#strategi</span>
@@ -1158,8 +1216,8 @@
                     </div>
                 </div>
                 
-                <div class="careers-hero-image">
-                    <img src="bilder/Bordtennis+Kristi+og+Kjell+2.png" alt="Cipher team samarbeider">
+                <div class="careers-hero-image animation-fade-in delay-2">
+                    <img src="bilder/DSCF6689+(1).jpg" alt="Cipher team samarbeider">
                 </div>
             </div>
         </section>
@@ -1168,12 +1226,12 @@
         <section class="positions-section" id="stillinger">
             <div class="container positions-container">
                 <div class="section-heading">
-                    <span class="section-subtitle">Ledige stillinger</span>
-                    <h2>Bli med på laget</h2>
-                    <p class="section-description">Vi er alltid på utkikk etter dyktige fagfolk som kan bidra til vår vekstreise.</p>
+                    <span class="section-subtitle animation-fade-in">Ledige stillinger</span>
+                    <h2 class="animation-fade-in delay-1">Bli med på laget</h2>
+                    <p class="section-description animation-fade-in delay-2">Vi er alltid på utkikk etter dyktige fagfolk som kan bidra til vår vekstreise.</p>
                 </div>
                 
-                <div class="position-card">
+                <div class="position-card animation-fade-in delay-2">
                     <h3 class="position-title">IT-Lærling</h3>
                     <div class="position-meta">
                         <span class="position-meta-item"><i class="fas fa-map-marker-alt"></i> Bergen</span>
@@ -1191,7 +1249,7 @@
                     <a href="mailto:hi@cipher.no?subject=Søknad IT-Lærling" class="btn btn-primary">Send søknad</a>
                 </div>
                 
-                <div class="position-card">
+                <div class="position-card animation-fade-in delay-3">
                     <h3 class="position-title">Åpen søknad</h3>
                     <div class="position-meta">
                         <span class="position-meta-item"><i class="fas fa-map-marker-alt"></i> Bergen</span>
@@ -1268,6 +1326,29 @@
     <!-- JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize animations with IntersectionObserver for better performance
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // When element becomes visible, add a class to trigger animation
+                            entry.target.classList.add('animate');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.2 });
+                
+                // Observe all animated elements
+                document.querySelectorAll('.animation-fade-in, .animation-slide-up').forEach(el => {
+                    observer.observe(el);
+                });
+            } else {
+                // Fallback for browsers that don't support IntersectionObserver
+                document.querySelectorAll('.animation-fade-in, .animation-slide-up').forEach(el => {
+                    el.classList.add('animate');
+                });
+            }
+            
             // Check device size
             const isMobile = () => window.innerWidth <= 768;
             const menuToggle = document.getElementById('menuToggle');
