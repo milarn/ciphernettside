@@ -979,7 +979,7 @@
             <div class="dashboard-controls">
                 <div class="date-selector">
                     <i class="fas fa-calendar"></i>
-                    <span class="text-md">Apr 1 - Apr 30, 2025</span>
+                    <span class="text-md" id="dateRange">Laster...</span>
                     <i class="fas fa-chevron-down text-xs text-secondary"></i>
                 </div>
                 
@@ -1032,10 +1032,10 @@
                             <i class="fas fa-chart-line"></i>
                         </div>
                         <div class="kpi-label">Total omsetning</div>
-                        <div class="kpi-value">11.79M kr</div>
+                        <div class="kpi-value" id="totalRevenueValue">0 kr</div>
                         <div class="kpi-trend trend-positive">
                             <i class="fas fa-arrow-up"></i>
-                            <span>16.8% fra forrige periode</span>
+                            <span id="revenueGrowth">0% fra forrige periode</span>
                         </div>
                     </div>
                 </div>
@@ -1047,10 +1047,10 @@
                             <i class="fas fa-shopping-cart"></i>
                         </div>
                         <div class="kpi-label">Gjennomsnittlig ordre</div>
-                        <div class="kpi-value">14,850 kr</div>
+                        <div class="kpi-value" id="averageOrderValue">0 kr</div>
                         <div class="kpi-trend trend-positive">
                             <i class="fas fa-arrow-up"></i>
-                            <span>5.2% fra forrige periode</span>
+                            <span id="averageOrderGrowth">0% fra forrige periode</span>
                         </div>
                     </div>
                 </div>
@@ -1062,10 +1062,10 @@
                             <i class="fas fa-percentage"></i>
                         </div>
                         <div class="kpi-label">Konverteringsrate</div>
-                        <div class="kpi-value">3.7%</div>
+                        <div class="kpi-value" id="conversionRate">0%</div>
                         <div class="kpi-trend trend-positive">
                             <i class="fas fa-arrow-up"></i>
-                            <span>0.8% fra forrige periode</span>
+                            <span id="conversionGrowth">0% fra forrige periode</span>
                         </div>
                     </div>
                 </div>
@@ -1077,10 +1077,10 @@
                             <i class="fas fa-users"></i>
                         </div>
                         <div class="kpi-label">Aktive kunder</div>
-                        <div class="kpi-value">1,248</div>
+                        <div class="kpi-value" id="activeCustomers">0</div>
                         <div class="kpi-trend trend-positive">
                             <i class="fas fa-arrow-up"></i>
-                            <span>82 nye kunder</span>
+                            <span id="newCustomers">0 nye kunder</span>
                         </div>
                     </div>
                 </div>
@@ -1201,41 +1201,41 @@
                                 <tbody>
                                     <tr>
                                         <td>#ORD-7452</td>
-                                        <td>Statoil ASA</td>
+                                        <td>Bedrift A</td>
                                         <td>IT-drift Enterprise</td>
-                                        <td>4. april 2025</td>
+                                        <td class="dynamic-date-0"></td>
                                         <td>126,500 kr</td>
                                         <td><span class="table-status status-completed">Fullført</span></td>
                                     </tr>
                                     <tr>
                                         <td>#ORD-7451</td>
-                                        <td>DNB Bank</td>
+                                        <td>Bedrift B</td>
                                         <td>Sikkerhetstjenester</td>
-                                        <td>3. april 2025</td>
+                                        <td class="dynamic-date-1"></td>
                                         <td>89,200 kr</td>
                                         <td><span class="table-status status-completed">Fullført</span></td>
                                     </tr>
                                     <tr>
                                         <td>#ORD-7450</td>
-                                        <td>Telenor Norge</td>
+                                        <td>Bedrift C</td>
                                         <td>Skytjenester</td>
-                                        <td>2. april 2025</td>
+                                        <td class="dynamic-date-2"></td>
                                         <td>75,800 kr</td>
                                         <td><span class="table-status status-pending">Venter</span></td>
                                     </tr>
                                     <tr>
                                         <td>#ORD-7449</td>
-                                        <td>Sparebanken Vest</td>
+                                        <td>Bedrift D</td>
                                         <td>Analyse</td>
-                                        <td>1. april 2025</td>
+                                        <td class="dynamic-date-3"></td>
                                         <td>62,400 kr</td>
                                         <td><span class="table-status status-completed">Fullført</span></td>
                                     </tr>
                                     <tr>
                                         <td>#ORD-7448</td>
-                                        <td>Norsk Hydro</td>
+                                        <td>Bedrift E</td>
                                         <td>IT-drift Standard</td>
-                                        <td>31. mars 2025</td>
+                                        <td class="dynamic-date-4"></td>
                                         <td>48,900 kr</td>
                                         <td><span class="table-status status-failed">Mislykket</span></td>
                                     </tr>
@@ -1352,6 +1352,14 @@
     </div>
 
     <script>
+        // Function to generate dynamic dates
+        function getDynamicDate(daysAgo) {
+            const date = new Date();
+            date.setDate(date.getDate() - daysAgo);
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            return date.toLocaleDateString('no-NO', options);
+        }
+        
         // Function to handle closing the dashboard
         function closeDashboard() {
             // You can add specific closing logic here
@@ -1378,13 +1386,90 @@
             });
             
             // Revenue Chart
+            // Generate more realistic data
+            const generateRevenueData = () => {
+                let baseValue = 800000;
+                const currentYear = [];
+                const lastYear = [];
+                
+                for (let i = 0; i < 12; i++) {
+                    // Trend upwards with some variation
+                    const growth = Math.floor(Math.random() * 100000) + 50000;
+                    baseValue += growth;
+                    currentYear.push(baseValue);
+                    lastYear.push(baseValue * 0.85); // Last year was about 15% less
+                }
+                
+                return { currentYear, lastYear };
+            };
+            
+            const { currentYear, lastYear } = generateRevenueData();
+            
+            // Update KPI values based on data
+            const updateKPIValues = () => {
+                // Calculate total revenue and growth
+                const currentYearTotal = currentYear.reduce((sum, val) => sum + val, 0);
+                const lastYearTotal = lastYear.reduce((sum, val) => sum + val, 0);
+                const revenueGrowth = ((currentYearTotal - lastYearTotal) / lastYearTotal * 100).toFixed(1);
+                
+                // Update Total Revenue
+                document.getElementById('totalRevenueValue').textContent = (currentYearTotal / 1000000).toFixed(2) + 'M kr';
+                document.getElementById('revenueGrowth').textContent = revenueGrowth + '% fra forrige periode';
+                
+                // Update Average Order Value
+                const averageOrder = Math.floor(Math.random() * 5000) + 12000;
+                const orderGrowth = (Math.random() * 10).toFixed(1);
+                document.getElementById('averageOrderValue').textContent = averageOrder.toLocaleString('no-NO') + ' kr';
+                document.getElementById('averageOrderGrowth').textContent = orderGrowth + '% fra forrige periode';
+                
+                // Update Conversion Rate
+                const conversionRate = (Math.random() * 2 + 2.5).toFixed(1);
+                const conversionGrowth = (Math.random() * 1).toFixed(1);
+                document.getElementById('conversionRate').textContent = conversionRate + '%';
+                document.getElementById('conversionGrowth').textContent = conversionGrowth + '% fra forrige periode';
+                
+                // Update Active Customers
+                const activeCustomers = Math.floor(Math.random() * 500) + 1000;
+                const newCustomers = Math.floor(Math.random() * 100) + 50;
+                document.getElementById('activeCustomers').textContent = activeCustomers.toLocaleString('no-NO');
+                document.getElementById('newCustomers').textContent = newCustomers + ' nye kunder';
+            };
+            
+            // Call the function to update KPI values
+            updateKPIValues();
+            
+            // Update dynamic dates in the table
+            const updateDynamicDates = () => {
+                for (let i = 0; i <= 4; i++) {
+                    const dateElement = document.querySelector(`.dynamic-date-${i}`);
+                    if (dateElement) {
+                        dateElement.textContent = getDynamicDate(i);
+                    }
+                }
+            };
+            
+            updateDynamicDates();
+            
+            // Update date range selector
+            const updateDateRange = () => {
+                const today = new Date();
+                const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+                const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+                
+                const options = { month: 'short', day: 'numeric', year: 'numeric' };
+                const rangeText = `${firstDay.toLocaleDateString('no-NO', options)} - ${lastDay.toLocaleDateString('no-NO', options)}`;
+                document.getElementById('dateRange').textContent = rangeText;
+            };
+            
+            updateDateRange();
+            
             const revenueChartOptions = {
                 series: [{
                     name: 'Omsetning 2025',
-                    data: [980000, 1100000, 1250000, 1320000, 1450000, 1380000, 1290000, 1400000, 1540000, 1620000, 1780000, 1890000]
+                    data: currentYear
                 }, {
                     name: 'Omsetning 2024',
-                    data: [820000, 950000, 1050000, 1180000, 1250000, 1190000, 1100000, 1230000, 1340000, 1420000, 1510000, 1620000]
+                    data: lastYear
                 }],
                 chart: {
                     height: 300,
@@ -1476,7 +1561,7 @@
             
             // Customer Satisfaction Chart
             const satisfactionChartOptions = {
-                series: [4.7],
+                series: [94], // 4.7/5.0 = 94%
                 chart: {
                     height: 200,
                     type: 'radialBar',
@@ -1507,7 +1592,7 @@
                                 fontSize: '24px',
                                 fontWeight: 600,
                                 formatter: function (val) {
-                                    return val + '/5';
+                                    return '4.7/5';
                                 }
                             }
                         }

@@ -1585,6 +1585,33 @@
             }
         }
 
+        /* Clickable Card Styles */
+        .clickable-card {
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .clickable-card .service-link {
+            pointer-events: none;  /* Disable the link since the whole card is clickable */
+        }
+        
+        .clickable-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(245, 162, 140, 0.05);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 16px;
+        }
+        
+        .clickable-card:hover::after {
+            opacity: 1;
+        }
+        
         /* Dropdown Menu */
         .dropdown {
             position: relative;
@@ -1814,7 +1841,7 @@
                 </div>
                 
                 <div class="services-grid">
-                    <div class="service-card" id="it-drift">
+                    <div class="service-card clickable-card" id="it-drift" data-link="it-drift.html">
                         <span class="card-tag">IT-DRIFT</span>
                         <div class="service-icon-wrapper">
                             <div class="service-icon">
@@ -1828,7 +1855,7 @@
                         <a href="it-drift.html" class="service-link">Les mer <i class="fas fa-arrow-right"></i></a>
                     </div>
                     
-                    <div class="service-card" id="skytjenester">
+                    <div class="service-card clickable-card" id="skytjenester" data-link="skytjenester.html">
                         <span class="card-tag">SKYTJENESTER</span>
                         <div class="service-icon-wrapper">
                             <div class="service-icon">
@@ -1842,7 +1869,7 @@
                         <a href="skytjenester.html" class="service-link">Les mer <i class="fas fa-arrow-right"></i></a>
                     </div>
                     
-                    <div class="service-card" id="sikkerhet">
+                    <div class="service-card clickable-card" id="sikkerhet" data-link="sikkerhetstjenester.html">
                         <span class="card-tag">SIKKERHET</span>
                         <div class="service-icon-wrapper">
                             <div class="service-icon">
@@ -1856,7 +1883,7 @@
                         <a href="sikkerhetstjenester.html" class="service-link">Les mer <i class="fas fa-arrow-right"></i></a>
                     </div>
                     
-                    <div class="service-card" id="radgivning">
+                    <div class="service-card clickable-card" id="radgivning" data-link="strategisk-it-radgivning.html">
                         <span class="card-tag">RÅDGIVNING</span>
                         <div class="service-icon-wrapper">
                             <div class="service-icon">
@@ -1870,7 +1897,7 @@
                         <a href="strategisk-it-radgivning.html" class="service-link">Les mer <i class="fas fa-arrow-right"></i></a>
                     </div>
                     
-                    <div class="service-card" id="innsikt">
+                    <div class="service-card clickable-card" id="innsikt" data-link="innsiktoganalyse.html">
                         <span class="card-tag">ANALYSE</span>
                         <div class="service-icon-wrapper">
                             <div class="service-icon">
@@ -1884,7 +1911,7 @@
                         <a href="innsiktoganalyse.html" class="service-link">Les mer <i class="fas fa-arrow-right"></i></a>
                     </div>
                     
-                    <div class="service-card" id="devops">
+                    <div class="service-card clickable-card" id="devops" data-link="devops-monitorering.html">
                         <span class="card-tag">DEVOPS</span>
                         <div class="service-icon-wrapper">
                             <div class="service-icon">
@@ -2277,6 +2304,17 @@
                     link.classList.remove('active');
                     if (link.getAttribute('href') === `#${current}`) {
                         link.classList.add('active');
+                    }
+                });
+            });
+            
+            // Make service cards clickable
+            const clickableCards = document.querySelectorAll('.clickable-card');
+            clickableCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    const link = this.getAttribute('data-link');
+                    if (link) {
+                        window.location.href = link;
                     }
                 });
             });
