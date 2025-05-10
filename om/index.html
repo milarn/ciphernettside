@@ -1712,7 +1712,7 @@
           <!-- Team Member 4 -->
           <div class="team-member">
             <div class="team-member-image">
-              <img src="bilder\Dante (1).png" alt="Dante Strømsnes Romero">
+              <img src="..\bilder\Dante (1).png" alt="Dante Strømsnes Romero">
             </div>
             <div class="team-member-info">
               <h3 class="team-member-name">Dante Strømsnes Romero</h3>
@@ -2062,7 +2062,7 @@ Først i et lite kompetansehus, senere i verdens største kompetansehus og nå i
               </button>
               <h3 class="bio-title">Anders Bjånesøy</h3>
               <p class="bio-text">
-                En blidere kar skal du lete lenge etter! Humørsprederen Anders er senior IT-konsulent i Cipher og har over 11 års erfaring innen IT bransjen, og har vært borti det aller meste i både lokale og skybaserte miljøer. Han har lang erfaring med Microsoft 365-plattformen, har en lidenskap for automatisering, og har jobbet som både key account manager og prosjektleder mesteparten av karrieren. Denne hyggelige karen danser seg gjennom uken, og er du heldig får du kanskje et lynkurs eller to i å swinge deg på parketten (Boogie Woogie).
+                En blidere kar skal du lete lenge etter! Humørsprederen Anders er senior IT-konsulent i Cipher og har over 14 års erfaring innen IT bransjen, og har vært borti det aller meste i både lokale og skybaserte miljøer. Han har lang erfaring med Microsoft 365-plattformen, har en lidenskap for automatisering, og har jobbet som både key account manager og prosjektleder mesteparten av karrieren. Denne hyggelige karen danser seg gjennom uken, og er du heldig får du kanskje et lynkurs eller to i å swinge deg på parketten.
               </p>
             </div>
           </div>
@@ -2287,14 +2287,31 @@ Først i et lite kompetansehus, senere i verdens største kompetansehus og nå i
         toggle.addEventListener('click', function(e) {
           e.stopPropagation();
           const teamMember = this.closest('.team-member');
+          const icon = toggle.querySelector('i');
           
           if (teamMember) {
             document.querySelectorAll('.team-member.show-bio').forEach(function(member) {
               if (member !== teamMember) {
                 member.classList.remove('show-bio');
+                // Reset icon to plus for other members
+                const otherToggle = member.querySelector('.bio-toggle i');
+                if (otherToggle) {
+                  otherToggle.classList.remove('fa-minus');
+                  otherToggle.classList.add('fa-plus');
+                }
               }
             });
+            
             teamMember.classList.toggle('show-bio');
+            
+            // Toggle icon between plus and minus
+            if (teamMember.classList.contains('show-bio')) {
+              icon.classList.remove('fa-plus');
+              icon.classList.add('fa-minus');
+            } else {
+              icon.classList.remove('fa-minus');
+              icon.classList.add('fa-plus');
+            }
           }
         });
       });
@@ -2305,6 +2322,12 @@ Først i et lite kompetansehus, senere i verdens største kompetansehus og nå i
           const teamMember = this.closest('.team-member');
           if (teamMember) {
             teamMember.classList.remove('show-bio');
+            // Reset icon to plus when closing
+            const toggle = teamMember.querySelector('.bio-toggle i');
+            if (toggle) {
+              toggle.classList.remove('fa-minus');
+              toggle.classList.add('fa-plus');
+            }
           }
         });
       });
@@ -2326,6 +2349,12 @@ Først i et lite kompetansehus, senere i verdens største kompetansehus og nå i
         if (!e.target.closest('.team-member-bio') && !e.target.closest('.bio-toggle')) {
           document.querySelectorAll('.team-member.show-bio').forEach(function(member) {
             member.classList.remove('show-bio');
+            // Reset icon to plus when closing
+            const toggle = member.querySelector('.bio-toggle i');
+            if (toggle) {
+              toggle.classList.remove('fa-minus');
+              toggle.classList.add('fa-plus');
+            }
           });
         }
       });
